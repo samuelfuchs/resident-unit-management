@@ -1,4 +1,3 @@
-// import { User } from "../types";
 import { User } from "@/types/auth";
 
 export const mockUsers: User[] = [
@@ -8,6 +7,11 @@ export const mockUsers: User[] = [
     name: "João",
     lastName: "Silva",
     role: "admin",
+    phone: "+55 61 91234-5678",
+    address: "Rua das Flores, 123, Brasília, DF",
+    createdAt: "2022-01-10",
+    // profilePicture: "",
+    status: "active",
   },
   {
     id: "2",
@@ -15,6 +19,11 @@ export const mockUsers: User[] = [
     name: "Maria",
     lastName: "Oliveira",
     role: "receptionist",
+    phone: "+55 21 99876-5432",
+    address: "Av. Atlântica, 456, Rio de Janeiro, RJ",
+    createdAt: "2023-03-15",
+    // profilePicture: "https://example.com/profiles/maria.jpg",
+    status: "active",
   },
   {
     id: "3",
@@ -22,5 +31,16 @@ export const mockUsers: User[] = [
     name: "Carlos",
     lastName: "Santos",
     role: "resident",
+    phone: "+55 11 97654-3210",
+    address: "Rua das Palmeiras, 789, São Paulo, SP",
+    unitNumber: "A-101",
+    createdAt: "2023-05-20",
+    emergencyContact: {
+      name: "Ana Santos",
+      phone: "+55 11 91234-5678",
+      relationship: "Spouse",
+    },
+    // profilePicture: "https://example.com/profiles/carlos.jpg",
+    status: "active",
   },
 ];
