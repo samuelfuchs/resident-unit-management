@@ -19,35 +19,24 @@ const Sidebar: React.FC = () => {
     router.push("/");
   };
 
+  const navigateToDashboard = () => {
+    router.push("/dashboard");
+  };
+
   return (
-    <div className="w-64 bg-blue-500 text-white flex flex-col">
-      <div className="p-6">
-        <div className="flex items-center space-x-4">
-          <div className="h-12 w-12 bg-gray-200 rounded-full flex items-center justify-center">
-            {user?.profilePicture ? (
-              <img
-                src={user.profilePicture}
-                alt={`${user.name} ${user.lastName}`}
-                className="h-12 w-12 rounded-full"
-              />
-            ) : (
-              <span className="text-blue-500 font-bold">
-                {user?.name.charAt(0).toUpperCase()}
-                {user?.lastName.charAt(0).toUpperCase()}
-              </span>
-            )}
-          </div>
-          <div>
-            <p className="font-bold">{user?.name}</p>
-            <p className="text-sm text-gray-300">{user?.email}</p>
-          </div>
-        </div>
+    <div className="w-64 bg-blue-500 text-white flex flex-col min-h-screen">
+      <div
+        className="p-6 cursor-pointer text-xl font-bold "
+        onClick={navigateToDashboard}
+        title="Ir para o Dashboard"
+      >
+        Roger Residência
       </div>
       <nav className="flex-1">
         <ul className="space-y-2 p-4">
           <li>
             <button
-              onClick={() => router.push("/dashboard")}
+              onClick={navigateToDashboard}
               className="flex items-center w-full text-left p-2 hover:bg-blue-600 rounded"
             >
               <HomeIcon className="h-5 w-5 mr-3" />
