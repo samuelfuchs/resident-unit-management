@@ -1,24 +1,23 @@
-"use client";
-
-import React, { ReactNode, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-const ProtectedRoute: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ProtectedRoute: React.FC<{
+  children: React.ReactNode;
+  allowedRoles?: ("admin" | "receptionist" | "resident")[]; // Specify allowed roles
+}> = ({ children, allowedRoles }) => {
   const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
-      router.push("/");
+    if (!user || (allowedRoles && !allowedRoles.includes(user.role))) {
+      router.push("/"); // Redirect to login or unauthorized page
     }
-  }, [user, router]);
+  }, [user, allowedRoles, router]);
 
-  if (!user) {
-    return null;
+  if (!user || (allowedRoles && !allowedRoles.includes(user.role))) {
+    return null; // Prevent rendering while redirecting
   }
 
   return <>{children}</>;
 };
-
-export default ProtectedRoute;

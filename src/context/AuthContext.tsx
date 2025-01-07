@@ -1,5 +1,6 @@
 "use client";
 
+import { mockUsers } from "@/mocks/users";
 import { AuthContextType, User } from "@/types/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
@@ -18,10 +19,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const login = (email: string, password: string): boolean => {
-    if (email === "admin@example.com" && password === "password") {
-      const userData: User = { email, role: "admin" };
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
+    const user = mockUsers.find((u) => u.email === email);
+    if (user) {
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
       return true;
     }
     return false;

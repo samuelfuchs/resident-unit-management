@@ -1,7 +1,11 @@
 export interface User {
+  id: string;
   email: string;
-  role: "admin" | "receptionist";
+  name: string;
+  lastName: string;
+  role: "admin" | "receptionist" | "resident";
 }
+
 
 export interface AuthContextType {
   user: User | null;

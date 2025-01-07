@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { mockUsers } from "@/mocks/users";
 
 const LoginPage: React.FC = () => {
   const { login, user } = useAuth();
@@ -39,10 +40,15 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const autofillUser = (userEmail: string) => {
+    setEmail(userEmail);
+    setPassword("password123");
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded shadow">
-        <div className=" mb-6">
+        <div className="mb-6">
           <h1 className="text-2xl font-bold">Roger Residência</h1>
           <p className="text-gray-600 mt-2">
             Insira suas credenciais para acessar o sistema
@@ -125,6 +131,43 @@ const LoginPage: React.FC = () => {
             )}
           </button>
         </form>
+      </div>
+
+      <div className="w-full max-w-md mt-6">
+        <h2 className="text-lg font-semibold mb-2">Usuários Mock</h2>
+        <div className="grid grid-cols-1 gap-2">
+          {mockUsers.map((mockUser) => (
+            <div
+              key={mockUser.id}
+              className="flex justify-between items-center bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+            >
+              {/* User Info */}
+              <span>
+                {mockUser.name} {mockUser.lastName} ({mockUser.role})
+              </span>
+
+              <button
+                onClick={() => {
+                  setEmail(mockUser.email);
+                  setPassword("password123");
+
+                  setLoading(true);
+                  setTimeout(() => {
+                    const form = document.querySelector("form");
+                    if (form) {
+                      form.dispatchEvent(
+                        new Event("submit", { cancelable: true, bubbles: true })
+                      );
+                    }
+                  }, 100);
+                }}
+                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+              >
+                Entrar
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
