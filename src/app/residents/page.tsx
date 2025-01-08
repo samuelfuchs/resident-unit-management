@@ -7,6 +7,7 @@ import AuthLayout from "@/components/AuthLayout";
 import Table, { Column } from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import Modal from "@/components/Modal";
+import SearchBar from "@/components/SearchBar";
 import { TrashIcon, EyeIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { User } from "@/types/user";
@@ -14,19 +15,28 @@ import { User } from "@/types/user";
 const ResidentsPage: React.FC = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const rowsPerPage = 10;
-  const totalPages = Math.ceil(mockResidents.length / rowsPerPage);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [selectedResident, setSelectedResident] = useState<User | null>(null);
+  const filteredResidents = mockResidents.filter((resident) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      resident.name.toLowerCase().includes(query) ||
+      resident.email.toLowerCase().includes(query) ||
+      (resident.unitNumber &&
+        resident.unitNumber.toLowerCase().includes(query)) ||
+      (resident.phone && resident.phone.includes(query))
+    );
+  });
+
+  const totalPages = Math.ceil(filteredResidents.length / rowsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   const startIndex = (currentPage - 1) * rowsPerPage;
-  const paginatedResidents = mockResidents.slice(
+  const paginatedResidents = filteredResidents.slice(
     startIndex,
     startIndex + rowsPerPage
   );
@@ -47,6 +57,10 @@ const ResidentsPage: React.FC = () => {
       render: (value) => (value ? value.length : 0),
     },
   ];
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [selectedResident, setSelectedResident] = useState<User | null>(null);
 
   const handleDeleteClick = (resident: User) => {
     setSelectedResident(resident);
@@ -80,6 +94,11 @@ const ResidentsPage: React.FC = () => {
             </button>
           </div>
 
+          <SearchBar
+            placeholder="Buscar por nome, e-mail, telefone ou unidade..."
+            onSearch={(query) => setSearchQuery(query)}
+          />
+
           <Table
             data={paginatedResidents}
             columns={columns}
@@ -100,6 +119,7 @@ const ResidentsPage: React.FC = () => {
               </div>
             )}
           />
+
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
