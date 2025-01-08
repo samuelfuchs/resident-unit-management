@@ -1,4 +1,9 @@
-import { HomeIcon, UserCircleIcon, CogIcon } from "@heroicons/react/24/outline";
+import {
+  HomeIcon,
+  UserCircleIcon,
+  BuildingOfficeIcon,
+  UsersIcon,
+} from "@heroicons/react/24/outline";
 
 export const routes = [
   {
@@ -8,15 +13,21 @@ export const routes = [
     allowedRoles: ["admin", "receptionist", "resident"],
   },
   {
-    path: "/profile",
-    label: "Perfil",
-    icon: UserCircleIcon,
-    allowedRoles: ["admin", "receptionist", "resident"],
+    path: "/residents",
+    label: "Residentes",
+    icon: UsersIcon,
+    allowedRoles: ["admin", "receptionist"],
   },
   {
-    path: "/settings",
-    label: "Configurações",
-    icon: CogIcon,
-    allowedRoles: ["admin"],
+    path: "/units",
+    label: "Unidades",
+    icon: BuildingOfficeIcon,
+    allowedRoles: ["admin", "receptionist"],
+  },
+  {
+    path: "/profile",
+    label: "Meu Perfil",
+    icon: UserCircleIcon,
+    allowedRoles: ["admin", "receptionist", "resident"],
   },
 ];
