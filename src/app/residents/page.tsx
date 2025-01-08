@@ -6,6 +6,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import Table, { Column } from "@/components/Table";
 import Pagination from "@/components/Pagination";
+import Modal from "@/components/Modal";
 import { TrashIcon, EyeIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { User } from "@/types/user";
@@ -15,6 +16,10 @@ const ResidentsPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
   const totalPages = Math.ceil(mockResidents.length / rowsPerPage);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [selectedResident, setSelectedResident] = useState<User | null>(null);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -29,11 +34,35 @@ const ResidentsPage: React.FC = () => {
   const columns: Column<User>[] = [
     { header: "Nome", accessor: "name" },
     { header: "E-mail", accessor: "email" },
-    { header: "Função", accessor: "role" },
+    { header: "Telefone", accessor: "phone" },
+    { header: "Unidade", accessor: "unitNumber" },
+    {
+      header: "Status",
+      accessor: "status",
+      render: (value) => (value === "active" ? "Ativo" : "Inativo"),
+    },
+    {
+      header: "Família",
+      accessor: "familyMembers",
+      render: (value) => (value ? value.length : 0),
+    },
   ];
 
-  const handleDelete = (id: string) => {
-    console.log("Deleted resident with ID:", id);
+  const handleDeleteClick = (resident: User) => {
+    setSelectedResident(resident);
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    console.log("Deleted resident with ID:", selectedResident?.id);
+
+    setIsModalOpen(false);
+    setIsSuccessModalOpen(true);
+
+    setTimeout(() => {
+      setIsSuccessModalOpen(false);
+      setSelectedResident(null);
+    }, 2000);
   };
 
   return (
@@ -63,7 +92,7 @@ const ResidentsPage: React.FC = () => {
                   <EyeIcon className="h-5 w-5" />
                 </button>
                 <button
-                  onClick={() => handleDelete(row.id)}
+                  onClick={() => handleDeleteClick(row)}
                   className="text-red-500 hover:text-red-600"
                 >
                   <TrashIcon className="h-5 w-5" />
@@ -77,6 +106,23 @@ const ResidentsPage: React.FC = () => {
             onPageChange={handlePageChange}
           />
         </div>
+
+        <Modal
+          type="warning"
+          title="Confirmar Exclusão"
+          description={`Tem certeza de que deseja excluir ${selectedResident?.name} ${selectedResident?.lastName}?`}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={handleDeleteConfirm}
+        />
+
+        <Modal
+          type="success"
+          title="Sucesso!"
+          description="O residente foi excluído com sucesso."
+          isOpen={isSuccessModalOpen}
+          onClose={() => setIsSuccessModalOpen(false)}
+        />
       </AuthLayout>
     </ProtectedRoute>
   );
