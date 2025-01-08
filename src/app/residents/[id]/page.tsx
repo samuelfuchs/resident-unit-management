@@ -106,7 +106,10 @@ const ResidentFormPage: React.FC = () => {
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
+              <form
+                onSubmit={handleSubmit}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+              >
                 <div>
                   <label className="block text-sm font-medium text-gray-600">
                     Nome
