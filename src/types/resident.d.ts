@@ -18,7 +18,7 @@ export interface Resident {
   phone: string;
   profilePicture?: string;
   role: "tenant" | "owner";
-  unitId: string; // Links the resident to their unit
+  unitId: string;
   emergencyContact: EmergencyContact;
   familyMembers: FamilyMember[];
 }

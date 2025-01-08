@@ -40,11 +40,6 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  const autofillUser = (userEmail: string) => {
-    setEmail(userEmail);
-    setPassword("password123");
-  };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded shadow">
@@ -141,7 +136,6 @@ const LoginPage: React.FC = () => {
               key={mockUser.id}
               className="flex justify-between items-center bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
             >
-              {/* User Info */}
               <span>
                 {mockUser.name} {mockUser.lastName} ({mockUser.role})
               </span>
