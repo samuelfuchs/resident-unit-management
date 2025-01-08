@@ -1,8 +1,9 @@
 "use client";
 
-import { mockUsers } from "@/mocks/users";
-import { AuthContextType, User } from "@/types/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { AuthContextType } from "@/types/auth";
+import { mockUsers } from "@/mocks/users";
+import { User } from "@/types/user";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -14,7 +15,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        const parsedUser: User = JSON.parse(storedUser);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Failed to parse stored user:", error);
+        localStorage.removeItem("user");
+      }
     }
   }, []);
 

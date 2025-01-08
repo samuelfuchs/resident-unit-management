@@ -1,4 +1,4 @@
-import { User } from "@/types/auth";
+import { User } from "@/types/user";
 
 export const mockUsers: User[] = [
   {
@@ -35,11 +35,6 @@ export const mockUsers: User[] = [
     address: "Rua das Palmeiras, 789, São Paulo, SP",
     unitNumber: "A-101",
     createdAt: "2023-05-20",
-    emergencyContact: {
-      name: "Ana Santos",
-      phone: "+55 11 91234-5678",
-      relationship: "Spouse",
-    },
     // profilePicture: "https://example.com/profiles/carlos.jpg",
     status: "active",
   },

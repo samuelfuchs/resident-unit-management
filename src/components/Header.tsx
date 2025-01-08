@@ -14,7 +14,7 @@ const Header: React.FC = () => {
           <span className="text-white font-semibold">
             {user.name} {user.lastName}{" "}
             <span className="text-gray-300">
-              ({RoleTranslations[user.role]})
+              ({RoleTranslations[user.role as keyof typeof RoleTranslations]})
             </span>
           </span>
         )}

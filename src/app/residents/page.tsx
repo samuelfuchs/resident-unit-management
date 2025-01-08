@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import { mockResidents } from "@/mocks/residents";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
-import Table from "@/components/Table";
+import Table, { Column } from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import { TrashIcon, EyeIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { User } from "@/types/user";
 
 const ResidentsPage: React.FC = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const ResidentsPage: React.FC = () => {
     startIndex + rowsPerPage
   );
 
-  const columns = [
+  const columns: Column<User>[] = [
     { header: "Nome", accessor: "name" },
     { header: "E-mail", accessor: "email" },
     { header: "Função", accessor: "role" },

@@ -40,7 +40,11 @@ const ProfilePage: React.FC = () => {
                     {user.name} {user.lastName}
                   </h2>
                   <p className="text-gray-500 mt-2">
-                    {RoleTranslations[user.role]}
+                    {
+                      RoleTranslations[
+                        user.role as keyof typeof RoleTranslations
+                      ]
+                    }
                   </p>
                 </div>
               </div>

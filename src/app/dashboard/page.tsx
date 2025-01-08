@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
-import Header from "@/components/Header";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 

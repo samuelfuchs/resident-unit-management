@@ -2,7 +2,7 @@
 
 import React from "react";
 
-interface Column<T> {
+export interface Column<T> {
   header: string;
   accessor: keyof T;
   render?: (value: any, row: T) => React.ReactNode;
@@ -45,7 +45,7 @@ const Table = <T,>({ data, columns, actions }: TableProps<T>) => {
                 >
                   {col.render
                     ? col.render(row[col.accessor], row)
-                    : row[col.accessor]}
+                    : (row[col.accessor] as React.ReactNode)}
                 </td>
               ))}
               {actions && (
