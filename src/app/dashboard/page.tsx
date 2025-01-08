@@ -19,7 +19,6 @@ const DashboardPage: React.FC = () => {
     <ProtectedRoute allowedRoles={["admin", "receptionist", "resident"]}>
       <AuthLayout>
         <div className="p-6 space-y-6">
-          {/* Welcome Section */}
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h1 className="text-2xl font-bold text-gray-800">
               Bem-vindo(a), {user?.name}!
@@ -39,7 +38,6 @@ const DashboardPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Stats Section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat) => (
               <div
@@ -52,7 +50,6 @@ const DashboardPage: React.FC = () => {
             ))}
           </div>
 
-          {/* Quick Actions Section */}
           <div className="bg-white p-6 rounded-lg shadow-lg space-y-4">
             <h2 className="text-xl font-bold text-gray-800">Ações Rápidas</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

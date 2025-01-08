@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import { Unit } from "@/types/unit";
-import { mockUnits } from "@/mocks/units"; // Replace with your API call in production.
+import { mockUnits } from "@/mocks/units"; 
 
 const UnitFormPage: React.FC = () => {
   const router = useRouter();
