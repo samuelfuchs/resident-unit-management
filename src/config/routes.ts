@@ -35,7 +35,7 @@ export const routes = [
     path: "/notifications",
     label: "Notificações",
     icon: BellIcon,
-    allowedRoles: ["admin", "receptionist", "resident"], // Notifications accessible by all roles
+    allowedRoles: ["admin", "receptionist", "resident"],
   },
   {
     path: "/profile",

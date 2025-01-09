@@ -9,9 +9,12 @@ import { translateNotificationType } from "@/utils/notificationTranslations";
 import { Notification } from "@/types/notification";
 import { useAuth } from "@/context/AuthContext";
 import Modal from "@/components/Modal";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 const NotificationsPage: React.FC = () => {
   const { user } = useAuth();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"received" | "sent">("received");
 
   const [selectedNotification, setSelectedNotification] =
@@ -57,7 +60,19 @@ const NotificationsPage: React.FC = () => {
     <ProtectedRoute>
       <AuthLayout>
         <div className="p-6">
-          <h1 className="text-2xl font-bold mb-6">Notificações</h1>
+          <div className="flex justify-between items-center mb-4">
+            <h1 className="text-2xl font-bold mb-6">Notificações</h1>
+            {user?.role !== "resident" && (
+              <button
+                onClick={() => router.push("/notifications/new")}
+                className="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                <PlusIcon className="h-5 w-5 mr-2" />
+                Nova Notificação
+              </button>
+            )}
+          </div>
+
           <div className="mb-4 flex border-b">
             <button
               className={`px-4 py-2 ${
