@@ -28,14 +28,6 @@ const NotificationsPage: React.FC = () => {
     (notif) => notif.sender.id === user?.id
   );
 
-  const handleNotificationClick = (notification: Notification) => {
-    setSelectedNotification(notification);
-  };
-
-  const closeModal = () => {
-    setSelectedNotification(null);
-  };
-
   const paginate = (notifications: Notification[], page: number) => {
     const startIndex = (page - 1) * rowsPerPage;
     return notifications.slice(startIndex, startIndex + rowsPerPage);
@@ -47,13 +39,12 @@ const NotificationsPage: React.FC = () => {
   const totalPagesReceived = Math.ceil(userNotifications.length / rowsPerPage);
   const totalPagesSent = Math.ceil(sentNotifications.length / rowsPerPage);
 
-  const handleMarkAsRead = (notificationId: string) => {
-    const updatedNotifications = mockNotifications.map((notif) =>
-      notif.id === notificationId
-        ? { ...notif, readAt: new Date().toISOString() }
-        : notif
-    );
-    console.log("Updated Notifications:", updatedNotifications);
+  const handleNotificationClick = (notification: Notification) => {
+    setSelectedNotification(notification);
+  };
+
+  const closeModal = () => {
+    setSelectedNotification(null);
   };
 
   const typeStyles = {
@@ -67,8 +58,6 @@ const NotificationsPage: React.FC = () => {
       <AuthLayout>
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-6">Notificações</h1>
-
-          {/* Tabs */}
           <div className="mb-4 flex border-b">
             <button
               className={`px-4 py-2 ${
@@ -80,16 +69,18 @@ const NotificationsPage: React.FC = () => {
             >
               Recebidas
             </button>
-            <button
-              className={`px-4 py-2 ${
-                activeTab === "sent"
-                  ? "border-b-2 border-blue-500 text-blue-500"
-                  : "text-gray-500"
-              }`}
-              onClick={() => setActiveTab("sent")}
-            >
-              Enviadas
-            </button>
+            {user?.role !== "resident" && (
+              <button
+                className={`px-4 py-2 ${
+                  activeTab === "sent"
+                    ? "border-b-2 border-blue-500 text-blue-500"
+                    : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab("sent")}
+              >
+                Enviadas
+              </button>
+            )}
           </div>
 
           <ul className="space-y-4">
@@ -124,6 +115,7 @@ const NotificationsPage: React.FC = () => {
               )
             )}
           </ul>
+
           {selectedNotification && (
             <Modal
               type="success"
@@ -139,11 +131,13 @@ const NotificationsPage: React.FC = () => {
               Nenhuma notificação recebida.
             </p>
           )}
-          {activeTab === "sent" && sentNotifications.length === 0 && (
-            <p className="text-gray-500 text-center mt-4">
-              Nenhuma notificação enviada.
-            </p>
-          )}
+          {activeTab === "sent" &&
+            user?.role !== "resident" &&
+            sentNotifications.length === 0 && (
+              <p className="text-gray-500 text-center mt-4">
+                Nenhuma notificação enviada.
+              </p>
+            )}
 
           {activeTab === "received" &&
             userNotifications.length > rowsPerPage && (
@@ -153,13 +147,15 @@ const NotificationsPage: React.FC = () => {
                 onPageChange={setCurrentPageReceived}
               />
             )}
-          {activeTab === "sent" && sentNotifications.length > rowsPerPage && (
-            <Pagination
-              currentPage={currentPageSent}
-              totalPages={totalPagesSent}
-              onPageChange={setCurrentPageSent}
-            />
-          )}
+          {activeTab === "sent" &&
+            user?.role !== "resident" &&
+            sentNotifications.length > rowsPerPage && (
+              <Pagination
+                currentPage={currentPageSent}
+                totalPages={totalPagesSent}
+                onPageChange={setCurrentPageSent}
+              />
+            )}
         </div>
       </AuthLayout>
     </ProtectedRoute>

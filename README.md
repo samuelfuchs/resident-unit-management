@@ -36,6 +36,19 @@ This project is a **Resident Management System** designed to manage users, resid
 
 ---
 
+### Notifications
+- **Notification Types**: Includes `general`, `mail`, and `critical` notifications.
+- **Role-Specific Notifications**:
+  - Admins and receptionists can send and receive notifications.
+  - Residents can only receive notifications.
+- **Tabs for Sent/Received**: Notifications are grouped into "Sent" and "Received" tabs.
+- **Pagination**: Both "Sent" and "Received" notifications have pagination if there are more than 10 items.
+- **Message Preview**: Notifications are displayed as a list with a truncated message preview.
+- **Detailed View**: Clicking on a notification opens a modal with full details.
+- **Read Status**: Notifications are marked as read when viewed.
+
+---
+
 ### Modals
 - **Reusable Modal Component**: 
   - **Warning**: Used to confirm destructive actions.
