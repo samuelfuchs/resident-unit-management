@@ -3,6 +3,7 @@ import {
   UserCircleIcon,
   BuildingOfficeIcon,
   UsersIcon,
+  BellIcon,
 } from "@heroicons/react/24/outline";
 
 export const routes = [
@@ -29,6 +30,12 @@ export const routes = [
     label: "Unidades",
     icon: BuildingOfficeIcon,
     allowedRoles: ["admin", "receptionist"],
+  },
+  {
+    path: "/notifications",
+    label: "Notificações",
+    icon: BellIcon,
+    allowedRoles: ["admin", "receptionist", "resident"], // Notifications accessible by all roles
   },
   {
     path: "/profile",
