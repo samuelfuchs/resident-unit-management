@@ -11,11 +11,14 @@ interface AuthLayoutProps {
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col bg-gray-100">
+      <div className="fixed inset-y-0 left-0 z-50 md:static md:flex-shrink-0">
+        <Sidebar />
+      </div>
+
+      <div className="flex-1 flex flex-col bg-gray-100 md:ml-64">
         <Header />
 
-        <main>{children}</main>
+        <main className="p-4 sm:p-6">{children}</main>
       </div>
     </div>
   );
