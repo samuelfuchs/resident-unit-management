@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Resident Management System
 
-## Getting Started
+## Description
+This project is a **Resident Management System** designed to manage users, residents, and units efficiently. It includes a robust role-based system with support for administrators, receptionists, and residents.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### User Management
+- **User Listing**: A list of all users with search, pagination, and filtering.
+- **Create/Edit Users**: Admins can create or edit user details through a dynamic route.
+- **Role-Based Views**: Each user role (`admin`, `receptionist`, `resident`) has specific permissions and accessible views.
+- **Search Bar**: A reusable search bar to filter users.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Resident Management
+- **Resident Listing**: View all residents with their details (e.g., name, email, phone, unit number, and family members).
+- **Create/Edit Residents**: Add or update resident details using a dynamic route.
+- **Family Members**: Residents can include details about family members.
+- **Emergency Contacts**: Add emergency contact details for each resident.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### Unit Management
+- **Unit Listing**: A list of all units with details such as unit number, floor, square footage, type, owner, lease agreement, and parking spots.
+- **Create/Edit Units**: Add or update unit details using a dynamic route.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dashboard
+- **Admin Dashboard**: Displays user statistics, system logs, and quick links for management.
+- **Receptionist Dashboard**: Focused on managing residents and units.
+- **Resident Dashboard**: Personal information and updates related to the resident.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Modals
+- **Reusable Modal Component**: 
+  - **Warning**: Used to confirm destructive actions.
+  - **Success**: Provides feedback for successful actions.
+  - **Error**: Displays error messages.
+- **Example Use**: Confirmation modals for deleting users, residents, or units.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### Protected Routes
+- **Role-Based Route Guard**: Ensures pages are accessible only to specific roles.
+- **Centralized Routes**: Defines all routes and their allowed roles in a single configuration.
+
+---
+
+### Reusable Components
+- **Search Bar**: Dynamic search bar to filter data across different pages.
+- **Pagination**: Custom pagination component for data-heavy pages.
+- **Table Component**: Reusable table with configurable columns and row actions.
+
+---
+
+## Setup Instructions
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/samuelfuchs/resident-unit-management
+   
+2. Clone the repository:
+   ```bash
+   npm install
+
+3. Install dependencies:
+    ```bash
+   npm run dev
+   
+4. Install dependencies:
+    ```bash
+   http://localhost:3000
+
+---
+
+## Technologies Used
+- Frontend: React, Next.js, Tailwind CSS
+- Icons: Heroicons
+- State Management: Context API
+- TypeScript: For static typing and robust type definitions
+
+---
+
+## Future Features
+- Detailed analytics and reporting.
+- Notifications for admins and residents.
+- Advanced unit and resident filtering options.
