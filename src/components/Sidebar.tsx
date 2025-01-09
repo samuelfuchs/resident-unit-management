@@ -1,15 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { routes } from "@/config/routes";
 import { ArrowLongUpIcon } from "@heroicons/react/24/outline";
+import { mockNotifications } from "@/mocks/notifications";
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuth();
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      const unread = mockNotifications.filter(
+        (notif) => notif.recipient.id === user.id && !notif.readAt
+      ).length;
+      setUnreadNotifications(unread);
+    }
+  }, [user]);
 
   const handleLogout = () => {
     logout();
@@ -30,7 +41,7 @@ const Sidebar: React.FC = () => {
           {routes
             .filter((route) => route.allowedRoles.includes(user?.role || ""))
             .map((route) => (
-              <li key={route.path}>
+              <li key={route.path} className="relative">
                 <button
                   onClick={() => router.push(route.path)}
                   className={`flex items-center w-full text-left p-2 rounded ${
@@ -45,6 +56,12 @@ const Sidebar: React.FC = () => {
                     }`}
                   />
                   {route.label}
+                  {route.path === "/notifications" &&
+                    unreadNotifications > 0 && (
+                      <span className="absolute right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                        {unreadNotifications}
+                      </span>
+                    )}
                 </button>
               </li>
             ))}
