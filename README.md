@@ -1,11 +1,15 @@
 # Resident Management System
 
 ## Description
-This project is a **Resident Management System** designed to manage users, residents, and units efficiently. It includes a robust role-based system with support for administrators, receptionists, and residents.
+This project is a **Resident Management System** designed to manage users, residents, and units efficiently. It includes a robust role-based system with support for administrators, receptionists, and residents. The entire application is fully responsive, including all admin pages, ensuring a seamless experience across devices.
 
 ---
 
 ## Features
+
+### Responsive Design
+- **Fully Responsive**: The entire application is fully responsive, including all admin pages, ensuring usability across devices such as desktops, tablets, and phones.
+
 
 ### User Management
 - **User Listing**: A list of all users with search, pagination, and filtering.
@@ -32,7 +36,7 @@ This project is a **Resident Management System** designed to manage users, resid
 ### Dashboard
 - **Admin Dashboard**: Displays user statistics, system logs, and quick links for management.
 - **Receptionist Dashboard**: Focused on managing residents and units.
-- **Resident Dashboard**: Personal information and updates related to the resident.
+- **Resident Dashboard**: Personal information, useful contacts, and updates related to the resident.
 
 ---
 
@@ -40,12 +44,14 @@ This project is a **Resident Management System** designed to manage users, resid
 - **Notification Types**: Includes `general`, `mail`, and `critical` notifications.
 - **Role-Specific Notifications**:
   - Admins and receptionists can send and receive notifications.
+  - Receptionists cannot edit notifications.
   - Residents can only receive notifications.
 - **Tabs for Sent/Received**: Notifications are grouped into "Sent" and "Received" tabs.
 - **Pagination**: Both "Sent" and "Received" notifications have pagination if there are more than 10 items.
 - **Message Preview**: Notifications are displayed as a list with a truncated message preview.
 - **Detailed View**: Clicking on a notification opens a modal with full details.
 - **Read Status**: Notifications are marked as read when viewed.
+- **Unread Badge**: Displays a badge with the count of unread notifications in the sidebar.
 
 ---
 
@@ -66,8 +72,8 @@ This project is a **Resident Management System** designed to manage users, resid
 
 ### Reusable Components
 - **Search Bar**: Dynamic search bar to filter data across different pages.
-- **Pagination**: Custom pagination component for data-heavy pages.
-- **Table Component**: Reusable table with configurable columns and row actions.
+- **Pagination**: Custom pagination component for data-heavy pages, responsive for smaller screens.
+- **Table Component**: Reusable table with configurable columns, row actions, and stacked view for small screens.
 
 ---
 
@@ -92,6 +98,7 @@ This project is a **Resident Management System** designed to manage users, resid
 ---
 
 ## Technologies Used
+
 - Frontend: React, Next.js, Tailwind CSS
 - Icons: Heroicons
 - State Management: Context API
@@ -100,6 +107,7 @@ This project is a **Resident Management System** designed to manage users, resid
 ---
 
 ## Future Features
+
 - Detailed analytics and reporting.
 - Notifications for admins and residents.
 - Advanced unit and resident filtering options.
