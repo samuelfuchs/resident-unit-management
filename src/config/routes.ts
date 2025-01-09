@@ -37,3 +37,7 @@ export const routes = [
     allowedRoles: ["admin", "receptionist", "resident"],
   },
 ];
+
+export const routesMap = Object.fromEntries(
+  routes.map((route) => [route.path, route.allowedRoles])
+);
