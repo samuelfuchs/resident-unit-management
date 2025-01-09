@@ -5,6 +5,11 @@ import { useAuth } from "../../context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import { RoleTranslations } from "@/utils/roleTranslations";
+import Table, { Column } from "@/components/Table";
+import {
+  PhoneIcon,
+  ChatBubbleLeftRightIcon,
+} from "@heroicons/react/24/outline";
 
 const DashboardPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -15,6 +20,52 @@ const DashboardPage: React.FC = () => {
     { label: "Active Users", value: 112 },
     { label: "Pending Requests", value: 8 },
   ];
+
+  const renderRoleSpecificContent = () => {
+    const data = [
+      { info: "Reception Interphone", detail: "Dial 101" },
+      {
+        info: "WhatsApp",
+        detail: "Contact Reception",
+        link: "https://wa.me/555199999999",
+      },
+      { info: "Emergency", detail: "Dial 911" },
+      { info: "Parking Assistance", detail: "Dial 104" },
+    ];
+
+    const columns: Column<(typeof data)[0]>[] = [
+      { header: "Info", accessor: "info" },
+      { header: "Details", accessor: "detail" },
+    ];
+
+    return (
+      <Table
+        data={data}
+        columns={columns}
+        actions={(row) => (
+          <>
+            {row.link ? (
+              <a
+                href={row.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-700"
+              >
+                <ChatBubbleLeftRightIcon className="h-5 w-5" />
+              </a>
+            ) : (
+              <button
+                onClick={() => alert(`Calling: ${row.detail}`)}
+                className="text-green-500 hover:text-green-700"
+              >
+                <PhoneIcon className="h-5 w-5" />
+              </button>
+            )}
+          </>
+        )}
+      />
+    );
+  };
 
   return (
     <ProtectedRoute>
@@ -54,28 +105,11 @@ const DashboardPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg space-y-4">
-            <h2 className="text-xl font-bold text-gray-800">Ações Rápidas</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <button
-                onClick={() => alert("Navigate to Residents")}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                Gerenciar Residentes
-              </button>
-              <button
-                onClick={() => alert("Navigate to Units")}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                Gerenciar Unidades
-              </button>
-              <button
-                onClick={logout}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              >
-                Sair
-              </button>
-            </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold text-gray-800">
+              Informações Úteis
+            </h2>
+            <div className="mt-4">{renderRoleSpecificContent()}</div>
           </div>
         </div>
       </AuthLayout>
