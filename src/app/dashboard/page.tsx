@@ -17,7 +17,7 @@ const DashboardPage: React.FC = () => {
   ];
 
   return (
-    <ProtectedRoute allowedRoles={["admin", "receptionist", "resident"]}>
+    <ProtectedRoute>
       <AuthLayout>
         <div className="p-6 space-y-6">
           <div className="bg-white p-6 rounded-lg shadow-lg">

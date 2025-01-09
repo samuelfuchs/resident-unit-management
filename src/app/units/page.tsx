@@ -73,7 +73,7 @@ const UnitsPage: React.FC = () => {
   };
 
   return (
-    <ProtectedRoute allowedRoles={["admin", "receptionist"]}>
+    <ProtectedRoute>
       <AuthLayout>
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">

@@ -75,7 +75,7 @@ const ResidentFormPage: React.FC = () => {
   };
 
   return (
-    <ProtectedRoute allowedRoles={["admin"]}>
+    <ProtectedRoute>
       <AuthLayout>
         <div className="bg-gray-100">
           <main className="mx-auto p-6">
