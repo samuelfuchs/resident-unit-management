@@ -4,8 +4,8 @@ export interface User {
   name: string;
   lastName: string;
   role: "admin" | "receptionist" | "resident";
+  phone: string;
 
-  phone?: string;
   address?: string;
   unitNumber?: string;
   createdAt?: string;
@@ -13,5 +13,4 @@ export interface User {
   status?: "active" | "inactive";
 
   emergencyContacts?: User[];
-  familyMembers?: User[];
 }
