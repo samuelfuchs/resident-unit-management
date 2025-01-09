@@ -13,10 +13,16 @@ export const routes = [
     allowedRoles: ["admin", "receptionist", "resident"],
   },
   {
+    path: "/users",
+    label: "Usuários",
+    icon: UsersIcon,
+    allowedRoles: ["admin"],
+  },
+  {
     path: "/residents",
     label: "Residentes",
     icon: UsersIcon,
-    allowedRoles: ["admin", "receptionist"],
+    allowedRoles: ["receptionist"],
   },
   {
     path: "/units",

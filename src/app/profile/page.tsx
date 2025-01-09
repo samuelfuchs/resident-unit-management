@@ -16,7 +16,7 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <ProtectedRoute allowedRoles={["admin"]}>
+    <ProtectedRoute allowedRoles={["admin", "receptionist", "resident"]}>
       <AuthLayout>
         <div className="bg-gray-100">
           <main className="mx-auto p-6">

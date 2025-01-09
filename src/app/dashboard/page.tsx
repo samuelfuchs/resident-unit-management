@@ -4,6 +4,7 @@ import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
+import { RoleTranslations } from "@/utils/roleTranslations";
 
 const DashboardPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -24,7 +25,10 @@ const DashboardPage: React.FC = () => {
               Bem-vindo(a), {user?.name}!
             </h1>
             <p className="text-gray-600 mt-2">
-              Role: <span className="capitalize">{user?.role}</span>
+              Função:{" "}
+              <span className="capitalize">
+                {RoleTranslations[user?.role as keyof typeof RoleTranslations]}
+              </span>
             </p>
             <p className="mt-4 text-gray-600">
               Hoje é{" "}
