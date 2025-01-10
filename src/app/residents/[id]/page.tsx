@@ -124,24 +124,6 @@ const ResidentFormPage: React.FC = () => {
                   onChange={handleChange}
                 />
 
-                {/* <div className="sm:col-span-3">
-                  <label
-                    htmlFor="lastName"
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Sobrenome
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      autoComplete="family-name"
-                      placeholder="Digite o sobrenome"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
-                </div> */}
                 <InputField
                   id="lastName"
                   name="lastName"
@@ -151,24 +133,6 @@ const ResidentFormPage: React.FC = () => {
                   onChange={handleChange}
                 />
               </div>
-              {/* <div className="sm:col-span-4 mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-sm/6 font-medium text-gray-900"
-                >
-                  E-mail
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="Digite o e-mail"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div> */}
               <InputField
                 id="email"
                 name="email"
@@ -180,23 +144,6 @@ const ResidentFormPage: React.FC = () => {
                 autoComplete="email"
               />
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
-                {/* <div className="sm:col-span-3">
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Telefone
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      placeholder="Digite o telefone"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
-                </div> */}
                 <InputField
                   id="phone"
                   name="phone"
@@ -229,29 +176,6 @@ const ResidentFormPage: React.FC = () => {
                     />
                   </div>
                 </div>
-                {/* <div className="sm:col-span-2">
-                  <label
-                    htmlFor="unit"
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Unidade
-                  </label>
-                  <div className="mt-2 grid grid-cols-1">
-                    <select
-                      id="unit"
-                      name="unit"
-                      className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    >
-                      <option>Casa 01</option>
-                      <option>Apartamento 102</option>
-                      <option>Apartamento 103</option>
-                    </select>
-                    <ChevronDownIcon
-                      aria-hidden="true"
-                      className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                    />
-                  </div>
-                </div> */}
                 <InputField
                   id="unitNumber"
                   name="unitNumber"
@@ -263,23 +187,6 @@ const ResidentFormPage: React.FC = () => {
               </div>
               <div className="border-b border-gray-900/10 pb-6 mb-4"></div>
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10">
-                {/* <div className="sm:col-span-2 mb-4">
-                  <label
-                    htmlFor="zipCode"
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    CEP
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="zipCode"
-                      name="zipCode"
-                      type="text"
-                      placeholder="Digite o CEP"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
-                </div> */}
                 <InputField
                   id="zipCode"
                   name="zipCode"
@@ -294,23 +201,6 @@ const ResidentFormPage: React.FC = () => {
                 />
               </div>
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10">
-                {/* <div className="sm:col-span-3">
-                  <label
-                    htmlFor="address"
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Endereço
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="address"
-                      name="address"
-                      type="text"
-                      placeholder="Digite o endereço"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
-                </div> */}
                 <InputField
                   id="address"
                   name="address"
@@ -319,23 +209,6 @@ const ResidentFormPage: React.FC = () => {
                   value={formData.address}
                   onChange={handleChange}
                 />
-                {/* <div className="sm:col-span-3">
-                  <label
-                    htmlFor="city"
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Cidade
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="city"
-                      name="city"
-                      type="text"
-                      placeholder="Digite a cidade"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
-                </div> */}
                 <InputField
                   id="city"
                   name="city"
@@ -344,23 +217,6 @@ const ResidentFormPage: React.FC = () => {
                   value={formData.city || ""}
                   onChange={handleChange}
                 />
-                {/* <div className="sm:col-span-3">
-                  <label
-                    htmlFor="state"
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Estado
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="state"
-                      name="state"
-                      type="text"
-                      placeholder="Digite o estado"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
-                </div> */}
                 <InputField
                   id="state"
                   name="state"
