@@ -77,6 +77,20 @@ This project is a **Resident Management System** designed to manage users, resid
 
 ---
 
+### Form Components
+- **Reusable InputField Component**: Simplifies input management with built-in support for labels, validation, and optional disabled states.
+- **Reusable SelectField Component**: Standardized dropdown menus with placeholder, validation, and optional disabled states.
+- **Dynamic Form Features**: Both components integrate seamlessly into forms for consistent styling and functionality.
+
+---
+
+### Profile Page
+- **Enhanced Profile Page**: Uses the new `InputField` and `SelectField` components for improved maintainability and consistent user experience.
+- **User-Friendly UI**: Dynamic display of profile information with editable fields.
+- **Customizable Profile Picture**: Display initials or a user-uploaded picture for personalization.
+
+---
+
 ## Setup Instructions
 
 1. Clone the repository:
