@@ -9,6 +9,7 @@ export interface User {
   address?: string;
   zipCode?: number;
   city?: string;
+  state?: string;
   unitNumber?: string;
   createdAt?: string;
   profilePicture?: string;

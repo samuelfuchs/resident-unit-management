@@ -239,17 +239,17 @@ const ResidentFormPage: React.FC = () => {
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10">
                 <div className="sm:col-span-2 mb-4">
                   <label
-                    htmlFor="postal-code"
+                    htmlFor="zipCode"
                     className="block text-sm/6 font-medium text-gray-900"
                   >
                     CEP
                   </label>
                   <div className="mt-2">
                     <input
-                      id="postal-code"
-                      name="postal-code"
+                      id="zipCode"
+                      name="zipCode"
                       type="text"
-                      autoComplete="postal-code"
+                      placeholder="Digite o CEP"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
@@ -258,18 +258,17 @@ const ResidentFormPage: React.FC = () => {
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10">
                 <div className="sm:col-span-3">
                   <label
-                    htmlFor="first-name"
+                    htmlFor="address"
                     className="block text-sm/6 font-medium text-gray-900"
                   >
                     Endereço
                   </label>
                   <div className="mt-2">
                     <input
-                      id="first-name"
-                      name="first-name"
+                      id="address"
+                      name="address"
                       type="text"
-                      autoComplete="given-name"
-                      placeholder="Digite apenas o primeiro nome"
+                      placeholder="Digite o endereço"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
@@ -287,32 +286,60 @@ const ResidentFormPage: React.FC = () => {
                       id="city"
                       name="city"
                       type="text"
-                      autoComplete="family-name"
+                      placeholder="Digite a cidade"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
                 </div>
                 <div className="sm:col-span-3">
                   <label
-                    htmlFor="last-name"
+                    htmlFor="state"
                     className="block text-sm/6 font-medium text-gray-900"
                   >
                     Estado
                   </label>
                   <div className="mt-2">
                     <input
-                      id="last-name"
-                      name="last-name"
+                      id="state"
+                      name="state"
                       type="text"
-                      autoComplete="family-name"
+                      placeholder="Digite o estado"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
                 </div>
               </div>
               <div className="border-b border-gray-900/10 pb-6 mb-4"></div>
-              Adicionar contato de emergencia existente Adicionar novo contato
-              de emergencia
+              <div className="border-b border-gray-900/10 pb-6 mb-4">
+                <label
+                  htmlFor="emergency-contact"
+                  className="block text-sm/6 font-medium text-gray-900"
+                >
+                  Contato de Emergência
+                </label>
+                <div className="mt-2 flex items-center gap-x-3">
+                  <select
+                    id="emergency-contact"
+                    name="emergencyContact"
+                    className="block w-full rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  >
+                    <option defaultValue="" disabled selected>
+                      Selecionar contato de emergência existente
+                    </option>
+                    <option value="1">Contato 1</option>
+                    <option value="2">Contato 2</option>
+                    <option value="3">Contato 3</option>
+                  </select>
+
+                  <button
+                    type="button"
+                    onClick={() => console.log("Add new emergency contact")}
+                    className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    Adicionar Novo
+                  </button>
+                </div>
+              </div>
             </div>
           </main>
         </div>
