@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import { User } from "@/types/user";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
+import InputField from "@/components/InputField";
+import SelectField from "@/components/SelectField";
 
 const ResidentFormPage: React.FC = () => {
   const router = useRouter();
@@ -18,11 +21,11 @@ const ResidentFormPage: React.FC = () => {
     address: "",
     unitNumber: "",
     createdAt: "",
+    zipCode: 0,
     profilePicture: "",
     status: "active",
     role: "resident",
     emergencyContacts: [],
-    familyMembers: [],
   });
 
   useEffect(() => {
@@ -48,7 +51,6 @@ const ResidentFormPage: React.FC = () => {
       status: "active",
       role: "resident",
       emergencyContacts: [],
-      familyMembers: [],
     };
     setFormData(mockResident);
   };
@@ -79,133 +81,183 @@ const ResidentFormPage: React.FC = () => {
       <AuthLayout>
         <div className="bg-gray-100">
           <main className="mx-auto p-6">
+            <h1 className="text-2xl font-bold mb-4">
+              {isNew ? "Criar novo Residente" : "Editar Residente"}
+            </h1>
             <div className="bg-white p-8 rounded-lg shadow-lg">
-              <div className="flex items-center mb-6">
-                {formData.profilePicture ? (
-                  <img
-                    src={formData.profilePicture}
-                    alt={`${formData.name} ${formData.lastName}`}
-                    className="h-20 w-20 rounded-full shadow-lg"
-                  />
-                ) : (
-                  <div className="h-20 w-20 bg-gray-300 rounded-full shadow-lg flex items-center justify-center">
-                    <span className="text-gray-500 text-2xl font-bold">
-                      {getInitials(formData.name, formData.lastName)}
-                    </span>
-                  </div>
-                )}
-                <div className="ml-6">
-                  <h2 className="text-2xl font-bold">
-                    {isNew
-                      ? "Novo Residente"
-                      : `${formData.name} ${formData.lastName}`}
-                  </h2>
-                  <p className="text-gray-500 mt-2">
-                    {isNew ? "Criação" : "Edição"}
-                  </p>
-                </div>
-              </div>
-
-              <form
-                onSubmit={handleSubmit}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-              >
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Nome
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Sobrenome
-                  </label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    E-mail
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Telefone
-                  </label>
-                  <input
-                    type="text"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Endereço
-                  </label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Unidade
-                  </label>
-                  <input
-                    type="text"
-                    name="unitNumber"
-                    value={formData.unitNumber}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Status
-                  </label>
-                  <select
-                    name="status"
-                    value={formData.status}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+              <div className="flex justify-between">
+                <div className="col-span-full mb-4">
+                  <label
+                    htmlFor="photo"
+                    className="block text-sm/6 font-medium text-gray-900"
                   >
-                    <option value="active">Ativo</option>
-                    <option value="inactive">Inativo</option>
-                  </select>
+                    Foto
+                  </label>
+                  <div className="mt-2 flex items-center gap-x-3">
+                    <UserCircleIcon
+                      aria-hidden="true"
+                      className="size-12 text-gray-300"
+                    />
+                    <button
+                      type="button"
+                      className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    >
+                      Mudar foto
+                    </button>
+                  </div>
                 </div>
-                <div className="flex justify-end">
+                <div>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    className="justify-center rounded-md bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     {isNew ? "Criar" : "Salvar"}
                   </button>
                 </div>
-              </form>
+              </div>
+              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
+                <InputField
+                  id="name"
+                  name="name"
+                  label="Nome"
+                  placeholder="Digite apenas o primeiro nome"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+
+                <InputField
+                  id="lastName"
+                  name="lastName"
+                  label="Sobrenome"
+                  placeholder="Digite o sobrenome"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
+                <InputField
+                  id="email"
+                  name="email"
+                  type="email"
+                  label="E-mail"
+                  placeholder="Digite o e-mail"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                />
+                <InputField
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  label="Telefone"
+                  placeholder="Digite o telefone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
+                <SelectField
+                  id="role"
+                  name="role"
+                  label="Função"
+                  value={formData.role}
+                  onChange={handleChange}
+                  options={[
+                    { value: "admin", label: "Admin" },
+                    { value: "receptionist", label: "Recepção" },
+                    { value: "resident", label: "Residente" },
+                  ]}
+                />
+                <SelectField
+                  id="unitNumber"
+                  name="unitNumber"
+                  label="Unidade"
+                  value={formData.unitNumber}
+                  onChange={handleChange}
+                  options={[
+                    { value: "101", label: "Casa 01" },
+                    { value: "102", label: "Apartamento 102" },
+                    { value: "103", label: "Apartamento 103" },
+                  ]}
+                  placeholder="Selecione uma unidade"
+                />
+              </div>
+
+              <div className="border-b border-gray-900/10 pb-6 mb-4"></div>
+
+              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10 mb-4">
+                <InputField
+                  id="zipCode"
+                  name="zipCode"
+                  type="text"
+                  label="CEP"
+                  placeholder="Digite o CEP"
+                  value={String(formData.zipCode)}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "");
+                    setFormData({ ...formData, zipCode: parseInt(value) || 0 });
+                  }}
+                />
+              </div>
+              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10">
+                <InputField
+                  id="address"
+                  name="address"
+                  label="Endereço"
+                  placeholder="Digite o endereço"
+                  value={formData.address}
+                  onChange={handleChange}
+                />
+                <InputField
+                  id="city"
+                  name="city"
+                  label="Cidade"
+                  placeholder="Digite a cidade"
+                  value={formData.city || ""}
+                  onChange={handleChange}
+                />
+                <InputField
+                  id="state"
+                  name="state"
+                  label="Estado"
+                  placeholder="Digite o estado"
+                  value={formData.state || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="border-b border-gray-900/10 pb-6 mb-4"></div>
+              <div className="border-b border-gray-900/10 pb-6 mb-4">
+                <label
+                  htmlFor="emergency-contact"
+                  className="block text-sm/6 font-medium text-gray-900"
+                >
+                  Contato de Emergência
+                </label>
+                <div className="flex items-center gap-x-3">
+                  <select
+                    id="emergency-contact"
+                    name="emergencyContact"
+                    className="block w-full rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  >
+                    <option defaultValue="" disabled selected>
+                      Selecionar contato de emergência existente
+                    </option>
+                    <option value="1">Contato 1</option>
+                    <option value="2">Contato 2</option>
+                    <option value="3">Contato 3</option>
+                  </select>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => console.log("Add new emergency contact")}
+                      className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Adicionar Novo
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </main>
         </div>

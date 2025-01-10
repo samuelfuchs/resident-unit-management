@@ -51,11 +51,6 @@ const ResidentsPage: React.FC = () => {
       accessor: "status",
       render: (value) => (value === "active" ? "Ativo" : "Inativo"),
     },
-    {
-      header: "Família",
-      accessor: "familyMembers",
-      render: (value) => (value ? value.length : 0),
-    },
   ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);

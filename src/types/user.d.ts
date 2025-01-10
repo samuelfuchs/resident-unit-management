@@ -4,14 +4,16 @@ export interface User {
   name: string;
   lastName: string;
   role: "admin" | "receptionist" | "resident";
+  phone: string;
 
-  phone?: string;
   address?: string;
+  zipCode?: number;
+  city?: string;
+  state?: string;
   unitNumber?: string;
   createdAt?: string;
   profilePicture?: string;
   status?: "active" | "inactive";
 
   emergencyContacts?: User[];
-  familyMembers?: User[];
 }
