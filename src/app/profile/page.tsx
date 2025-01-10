@@ -126,7 +126,7 @@ const ProfilePage: React.FC = () => {
                   id="unitNumber"
                   name="unitNumber"
                   label="Unidade"
-                  value={formData.unitNumber}
+                  value={formData?.unitNumber}
                   onChange={() => {}}
                   options={[
                     { value: "101", label: "Casa 01" },
@@ -145,7 +145,7 @@ const ProfilePage: React.FC = () => {
                   type="text"
                   label="CEP"
                   placeholder="Digite o CEP"
-                  value={String(formData.zipCode)}
+                  value={String(formData?.zipCode)}
                   onChange={() => {}}
                   disabled
                 />
@@ -156,7 +156,7 @@ const ProfilePage: React.FC = () => {
                   name="address"
                   label="Endereço"
                   placeholder="Digite o endereço"
-                  value={formData.address}
+                  value={formData?.address}
                   onChange={() => {}}
                   disabled
                 />
@@ -165,7 +165,7 @@ const ProfilePage: React.FC = () => {
                   name="city"
                   label="Cidade"
                   placeholder="Digite a cidade"
-                  value={formData.city || ""}
+                  value={formData?.city || ""}
                   onChange={() => {}}
                   disabled
                 />
@@ -174,7 +174,7 @@ const ProfilePage: React.FC = () => {
                   name="state"
                   label="Estado"
                   placeholder="Digite o estado"
-                  value={formData.state || ""}
+                  value={formData?.state || ""}
                   onChange={() => {}}
                   disabled
                 />
