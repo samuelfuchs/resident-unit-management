@@ -10,6 +10,7 @@ interface InputFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   autoComplete?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -22,6 +23,7 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
   autoComplete,
   className = "",
+  disabled = false,
 }) => {
   return (
     <div className="sm:col-span-3">
@@ -37,7 +39,10 @@ const InputField: React.FC<InputFieldProps> = ({
           value={value}
           onChange={onChange}
           autoComplete={autoComplete}
-          className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm ${className}`}
+          disabled={disabled}
+          className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm ${
+            disabled ? "bg-gray-400 text-gray-500 cursor-not-allowed" : ""
+          } ${className}`}
         />
       </div>
     </div>
