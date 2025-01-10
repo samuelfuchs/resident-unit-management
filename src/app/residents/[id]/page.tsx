@@ -7,6 +7,7 @@ import AuthLayout from "@/components/AuthLayout";
 import { User } from "@/types/user";
 import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import InputField from "@/components/InputField";
+import SelectField from "@/components/SelectField";
 
 const ResidentFormPage: React.FC = () => {
   const router = useRouter();
@@ -153,7 +154,7 @@ const ResidentFormPage: React.FC = () => {
                   value={formData.phone}
                   onChange={handleChange}
                 />
-                <div className="sm:col-span-1">
+                {/* <div className="sm:col-span-1">
                   <label
                     htmlFor="role"
                     className="block text-sm/6 font-medium text-gray-900"
@@ -175,7 +176,19 @@ const ResidentFormPage: React.FC = () => {
                       className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
                     />
                   </div>
-                </div>
+                </div> */}
+                <SelectField
+                  id="role"
+                  name="role"
+                  label="Função"
+                  value={formData.role}
+                  onChange={handleChange}
+                  options={[
+                    { value: "admin", label: "Admin" },
+                    { value: "receptionist", label: "Recepção" },
+                    { value: "resident", label: "Residente" },
+                  ]}
+                />
                 <InputField
                   id="unitNumber"
                   name="unitNumber"
