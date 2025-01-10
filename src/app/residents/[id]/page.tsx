@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import { User } from "@/types/user";
-import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import InputField from "@/components/InputField";
 import SelectField from "@/components/SelectField";
 
@@ -134,17 +134,17 @@ const ResidentFormPage: React.FC = () => {
                   onChange={handleChange}
                 />
               </div>
-              <InputField
-                id="email"
-                name="email"
-                type="email"
-                label="E-mail"
-                placeholder="Digite o e-mail"
-                value={formData.email}
-                onChange={handleChange}
-                autoComplete="email"
-              />
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
+                <InputField
+                  id="email"
+                  name="email"
+                  type="email"
+                  label="E-mail"
+                  placeholder="Digite o e-mail"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                />
                 <InputField
                   id="phone"
                   name="phone"
@@ -154,6 +154,9 @@ const ResidentFormPage: React.FC = () => {
                   value={formData.phone}
                   onChange={handleChange}
                 />
+              </div>
+
+              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
                 <SelectField
                   id="role"
                   name="role"
@@ -180,8 +183,10 @@ const ResidentFormPage: React.FC = () => {
                   placeholder="Selecione uma unidade"
                 />
               </div>
+
               <div className="border-b border-gray-900/10 pb-6 mb-4"></div>
-              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10">
+
+              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10 mb-4">
                 <InputField
                   id="zipCode"
                   name="zipCode"
@@ -229,7 +234,7 @@ const ResidentFormPage: React.FC = () => {
                 >
                   Contato de Emergência
                 </label>
-                <div className="mt-2 flex items-center gap-x-3">
+                <div className="flex items-center gap-x-3">
                   <select
                     id="emergency-contact"
                     name="emergencyContact"
@@ -242,14 +247,15 @@ const ResidentFormPage: React.FC = () => {
                     <option value="2">Contato 2</option>
                     <option value="3">Contato 3</option>
                   </select>
-
-                  <button
-                    type="button"
-                    onClick={() => console.log("Add new emergency contact")}
-                    className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Adicionar Novo
-                  </button>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => console.log("Add new emergency contact")}
+                      className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Adicionar Novo
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
