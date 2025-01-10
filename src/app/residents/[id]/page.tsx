@@ -189,13 +189,18 @@ const ResidentFormPage: React.FC = () => {
                     { value: "resident", label: "Residente" },
                   ]}
                 />
-                <InputField
+                <SelectField
                   id="unitNumber"
                   name="unitNumber"
                   label="Unidade"
-                  placeholder="Digite o número da unidade"
                   value={formData.unitNumber}
                   onChange={handleChange}
+                  options={[
+                    { value: "101", label: "Casa 01" },
+                    { value: "102", label: "Apartamento 102" },
+                    { value: "103", label: "Apartamento 103" },
+                  ]}
+                  placeholder="Selecione uma unidade"
                 />
               </div>
               <div className="border-b border-gray-900/10 pb-6 mb-4"></div>
