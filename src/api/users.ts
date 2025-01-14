@@ -2,18 +2,30 @@ import apiClient from "./index";
 
 export const fetchUsers = async ({
   search = "",
+  role,
+  status,
   page = 1,
   limit = 10,
+  sortField = "createdAt",
+  sortOrder = "desc",
 }: {
   search?: string;
+  role?: string;
+  status?: string;
   page?: number;
   limit?: number;
+  sortField?: string;
+  sortOrder?: "asc" | "desc";
 }) => {
   const response = await apiClient.get(`/users`, {
     params: {
       search,
+      role,
+      status,
       page,
       limit,
+      sortField,
+      sortOrder,
     },
   });
   return response.data;

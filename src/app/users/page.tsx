@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import Table, { Column } from "@/components/Table";
@@ -11,6 +11,8 @@ import { TrashIcon, EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { deleteUser, fetchUsers } from "@/api/users";
 import Modal from "@/components/Modal";
+import { debounce } from "@/utils/debounce";
+import Loader from "@/components/Loader";
 
 const UsersPage: React.FC = () => {
   const router = useRouter();
@@ -19,34 +21,62 @@ const UsersPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  console.log("loading", loading);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<string>("null");
   const [selectedUserName, setSelectedUserName] = useState<string>("");
 
+  const [roleFilter, setRoleFilter] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  const [sortField, setSortField] = useState<string>("createdAt");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
   const rowsPerPage = 10;
 
-  const fetchAndSetUsers = async () => {
-    console.log("feching users");
+  // const fetchAndSetUsers = async () => {
+  //   console.log("feching users");
+  //   setLoading(true);
+  //   try {
+  //     const { users, totalPages } = await fetchUsers({
+  //       search: searchTerm,
+  //       page: currentPage,
+  //       limit: rowsPerPage,
+  //     });
+  //     setUsers(users);
+  //     console.log("users", users);
+  //     setTotalPages(totalPages);
+  //   } catch (error) {
+  //     console.error("Failed to fetch users:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const fetchAndSetUsers = useCallback(async () => {
     setLoading(true);
     try {
       const { users, totalPages } = await fetchUsers({
         search: searchTerm,
+        role: roleFilter,
+        status: statusFilter,
         page: currentPage,
         limit: rowsPerPage,
+        sortField,
+        sortOrder,
       });
       setUsers(users);
-      console.log("users", users);
       setTotalPages(totalPages);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchTerm, roleFilter, statusFilter, currentPage, sortField, sortOrder]);
 
   useEffect(() => {
-    fetchAndSetUsers();
-  }, [searchTerm, currentPage]);
+    const debouncedFetch = debounce(fetchAndSetUsers, 300);
+    debouncedFetch();
+  }, [searchTerm, fetchAndSetUsers]);
 
   const columns: Column<User>[] = [
     { header: "Nome", accessor: "name" },
@@ -97,8 +127,88 @@ const UsersPage: React.FC = () => {
             onSearch={(query) => setSearchTerm(query)}
             placeholder="Buscar por nome, e-mail ou função..."
           />
+          <div className="flex space-x-4 mb-4">
+            <button
+              onClick={() => setRoleFilter("admin")}
+              className={`px-4 py-2 rounded ${
+                roleFilter === "admin"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Admin
+            </button>
+            <button
+              onClick={() => setRoleFilter("receptionist")}
+              className={`px-4 py-2 rounded ${
+                roleFilter === "receptionist"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Receptionist
+            </button>
+            <button
+              onClick={() => setRoleFilter("resident")}
+              className={`px-4 py-2 rounded ${
+                roleFilter === "resident"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Resident
+            </button>
+            <button
+              onClick={() => setStatusFilter("active")}
+              className={`px-4 py-2 rounded ${
+                statusFilter === "active"
+                  ? "bg-green-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Active
+            </button>
+            <button
+              onClick={() => setStatusFilter("inactive")}
+              className={`px-4 py-2 rounded ${
+                statusFilter === "inactive"
+                  ? "bg-red-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              Inactive
+            </button>
+            <button
+              onClick={() => {
+                setRoleFilter(null);
+                setStatusFilter(null);
+              }}
+              className="px-4 py-2 bg-gray-400 text-white rounded"
+            >
+              Clear Filters
+            </button>
+          </div>
+          <div className="flex space-x-4 mb-4">
+            <select
+              value={sortField}
+              onChange={(e) => setSortField(e.target.value)}
+              className="px-4 py-2 border rounded"
+            >
+              <option value="createdAt">Created At</option>
+              <option value="name">Name</option>
+              <option value="email">Email</option>
+            </select>
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+              className="px-4 py-2 border rounded"
+            >
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
+          </div>
           {loading ? (
-            <p className="text-center">Carregando...</p>
+            <Loader message="Carregando..." />
           ) : (
             <>
               <Table
