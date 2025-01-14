@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import { User } from "@/types/user";
-import { createUser, updateUser } from "@/api/users";
+import { createUser, fetchUserById, updateUser } from "@/api/users";
 import InputField from "@/components/InputField";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
@@ -37,9 +37,7 @@ const UserFormPage: React.FC = () => {
   const fetchUser = async (id: string | undefined) => {
     try {
       if (!id) return;
-
-      const response = await fetch(`/api/users/${id}`);
-      const user = await response.json();
+      const user = await fetchUserById(id);
       if (user) {
         setFormData(user);
       }
