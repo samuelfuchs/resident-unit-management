@@ -113,16 +113,6 @@ const UsersPage: React.FC = () => {
             loading={loading}
           />
           <div className="flex space-x-4 mb-4">
-            {/* <button
-              onClick={() => setRoleFilter("admin")}
-              className={`px-4 py-2 rounded ${
-                roleFilter === "admin"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              Admin
-            </button> */}
             <SelectField
               id="roleFilter"
               name="roleFilter"
@@ -136,26 +126,6 @@ const UsersPage: React.FC = () => {
                 { value: "resident", label: "Resident" },
               ]}
             />
-            {/* <button
-              onClick={() => setRoleFilter("receptionist")}
-              className={`px-4 py-2 rounded ${
-                roleFilter === "receptionist"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              Receptionist
-            </button>
-            <button
-              onClick={() => setRoleFilter("resident")}
-              className={`px-4 py-2 rounded ${
-                roleFilter === "resident"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              Resident
-            </button> */}
             <SelectField
               id="statusFilter"
               name="statusFilter"
@@ -168,26 +138,6 @@ const UsersPage: React.FC = () => {
                 { value: "inactive", label: "Inativo" },
               ]}
             />
-            {/* <button
-              onClick={() => setStatusFilter("active")}
-              className={`px-4 py-2 rounded ${
-                statusFilter === "active"
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              Active
-            </button>
-            <button
-              onClick={() => setStatusFilter("inactive")}
-              className={`px-4 py-2 rounded ${
-                statusFilter === "inactive"
-                  ? "bg-red-500 text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              Inactive
-            </button> */}
             <button
               onClick={() => {
                 setRoleFilter(null);
@@ -199,15 +149,6 @@ const UsersPage: React.FC = () => {
             </button>
           </div>
           <div className="flex space-x-4 mb-4">
-            {/* <select
-              value={sortField}
-              onChange={(e) => setSortField(e.target.value)}
-              className="px-4 py-2 border rounded"
-            >
-              <option value="createdAt">Created At</option>
-              <option value="name">Name</option>
-              <option value="email">Email</option>
-            </select> */}
             <SelectField
               id="sortField"
               name="sortField"
@@ -221,14 +162,6 @@ const UsersPage: React.FC = () => {
               ]}
             />
 
-            {/* <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
-              className="px-4 py-2 border rounded"
-            >
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select> */}
             <SelectField
               id="sortOrder"
               name="sortOrder"
