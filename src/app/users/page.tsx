@@ -15,6 +15,7 @@ import { debounce } from "@/utils/debounce";
 import Loader from "@/components/Loader";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
+import UserFormModal from "@/components/UserFormModal";
 
 const UsersPage: React.FC = () => {
   const router = useRouter();
@@ -31,6 +32,12 @@ const UsersPage: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [sortField, setSortField] = useState<string>("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<Partial<User> | undefined>();
+  const [modalMode, setModalMode] = useState<"view" | "edit" | "create">(
+    "create"
+  );
 
   const rowsPerPage = 10;
 
@@ -92,13 +99,45 @@ const UsersPage: React.FC = () => {
     setSelectedUserId("");
   };
 
+  const openCreateModal = () => {
+    // setEditingUser(undefined);
+    // setUserIsModalOpen(true);
+
+    setEditingUser(undefined);
+    setModalMode("create");
+    setIsUserModalOpen(true);
+  };
+
+  const openEditModal = (user: User) => {
+    // setEditingUser(user);
+    // setIsUserModalOpen(true);
+
+    setEditingUser(user);
+    setModalMode("edit");
+    setIsUserModalOpen(true);
+  };
+
+  const openViewModal = (user: User) => {
+    setEditingUser(user);
+    setModalMode("view");
+    setIsUserModalOpen(true);
+  };
+
+  const closeUserModal = () => {
+    setIsUserModalOpen(false);
+    setEditingUser(undefined);
+  };
+
   return (
     <ProtectedRoute>
       <AuthLayout>
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold">Usuários</h1>
-            <Button onClick={() => router.push("/users/new")}>
+            {/* <Button onClick={() => router.push("/users/new")}>
+              Novo Usuário
+            </Button> */}
+            <Button onClick={openCreateModal} variant="primary">
               Novo Usuário
             </Button>
           </div>
@@ -183,13 +222,13 @@ const UsersPage: React.FC = () => {
                 actions={(row) => (
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => router.push(`/users/${row._id}`)}
+                      onClick={() => openViewModal(row)}
                       className="text-blue-500 hover:text-blue-600"
                     >
                       <EyeIcon className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => router.push(`/users/${row._id}/edit`)}
+                      onClick={() => openEditModal(row)}
                       className="text-green-500 hover:text-green-600"
                     >
                       <PencilIcon className="h-5 w-5" />
@@ -221,6 +260,13 @@ const UsersPage: React.FC = () => {
           isOpen={isModalOpen}
           onClose={closeModal}
           onConfirm={() => handleDelete(selectedUserId)}
+        />
+        <UserFormModal
+          isOpen={isUserModalOpen}
+          onClose={closeUserModal}
+          onSubmitSuccess={fetchAndSetUsers}
+          user={editingUser}
+          mode={modalMode}
         />
       </AuthLayout>
     </ProtectedRoute>
