@@ -11,6 +11,7 @@ interface InputFieldProps {
   autoComplete?: string;
   className?: string;
   disabled?: boolean;
+  required?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -24,11 +25,13 @@ const InputField: React.FC<InputFieldProps> = ({
   autoComplete,
   className = "",
   disabled = false,
+  required = false,
 }) => {
   return (
     <div className="sm:col-span-3">
       <label htmlFor={id} className="block text-sm font-medium text-gray-900">
         {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
       </label>
       <div className="mt-2">
         <input
@@ -40,6 +43,7 @@ const InputField: React.FC<InputFieldProps> = ({
           onChange={onChange}
           autoComplete={autoComplete}
           disabled={disabled}
+          required={required}
           className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm ${
             disabled ? "bg-gray-400 text-gray-500 cursor-not-allowed" : ""
           } ${className}`}

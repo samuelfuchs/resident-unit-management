@@ -51,3 +51,8 @@ export const getMe = async () => {
   const response = await apiClient.get("/users/me");
   return response.data;
 };
+
+export const fetchUserById = async (id: string) => {
+  const response = await apiClient.get(`/users/${id}`);
+  return response.data;
+};

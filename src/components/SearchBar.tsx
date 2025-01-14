@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Loader from "./Loader";
+import Button from "./Button";
 
 interface SearchBarProps {
   placeholder?: string;
@@ -42,12 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         )}
       </div>
       {buttonText && onButtonClick && (
-        <button
-          onClick={onButtonClick}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-        >
-          {buttonText}
-        </button>
+        <Button onClick={onButtonClick}>{buttonText}</Button>
       )}
     </div>
   );
