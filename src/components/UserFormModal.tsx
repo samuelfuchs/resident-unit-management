@@ -41,14 +41,6 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-    // const handleClickOutside = (event: MouseEvent) => {
-    //   if (
-    //     modalRef.current &&
-    //     !modalRef.current.contains(event.target as Node)
-    //   ) {
-    //     onClose();
-    //   }
-    // };
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -95,7 +87,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      if (user) {
+      if (user?._id) {
         await updateUser(user._id, formData);
       } else {
         await createUser(formData);
@@ -191,13 +183,9 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
           )}
           <div className="flex justify-end space-x-2">
             <Button variant="secondary" onClick={onClose}>
-              Cancelar
+              {isViewMode ? "Fechar" : "Cancelar"}
             </Button>
-            {isViewMode ? (
-              <Button onClick={() => setMode("edit")} variant="secondary">
-                Editar
-              </Button>
-            ) : (
+            {!isViewMode && (
               <>
                 <Button type="submit">
                   {isCreateMode ? "Criar" : "Salvar"}
