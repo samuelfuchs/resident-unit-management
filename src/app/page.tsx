@@ -15,28 +15,18 @@ const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   if (user?.role === "admin") {
-  //     router.push("/admin/dashboard");
-  //   } else if (user?.role === "receptionist") {
-  //     router.push("/reception/dashboard");
-  //   } else if (user?.role === "resident") {
-  //     router.push("/resident/profile");
-  //   }
-  // }, [user, router]);
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user, router]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const success = login(email, password);
-      console.log("success", success);
-      // if (success) {
-      //   router.push("/dashboard");
-      // } else {
-      //   setError("E-mail ou senha inválidos");
-      // }
+      login(email, password);
     } catch (err) {
       setError("Algo deu errado. Tente novamente.");
     } finally {
