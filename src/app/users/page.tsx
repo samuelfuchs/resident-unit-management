@@ -28,8 +28,10 @@ const UsersPage: React.FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<string>("null");
   const [selectedUserName, setSelectedUserName] = useState<string>("");
 
-  const [roleFilter, setRoleFilter] = useState<string | null>(null);
-  const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  const [roleFilter, setRoleFilter] = useState<string | undefined>(undefined);
+  const [statusFilter, setStatusFilter] = useState<string | undefined>(
+    undefined
+  );
   const [sortField, setSortField] = useState<string>("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
@@ -154,7 +156,7 @@ const UsersPage: React.FC = () => {
               name="roleFilter"
               label="Filtrar por Função"
               value={roleFilter || ""}
-              onChange={(e) => setRoleFilter(e.target.value || null)}
+              onChange={(e) => setRoleFilter(e.target.value || undefined)}
               options={[
                 { value: "", label: "Todas as Funções" },
                 { value: "admin", label: "Admin" },
@@ -167,7 +169,7 @@ const UsersPage: React.FC = () => {
               name="statusFilter"
               label="Filtrar por Status"
               value={statusFilter || ""}
-              onChange={(e) => setStatusFilter(e.target.value || null)}
+              onChange={(e) => setStatusFilter(e.target.value || undefined)}
               options={[
                 { value: "", label: "Todos os Status" },
                 { value: "active", label: "Ativo" },
@@ -178,8 +180,8 @@ const UsersPage: React.FC = () => {
               <Button
                 loading={loading}
                 onClick={() => {
-                  setRoleFilter(null);
-                  setStatusFilter(null);
+                  setRoleFilter(undefined);
+                  setStatusFilter(undefined);
                 }}
               >
                 Clear Filters

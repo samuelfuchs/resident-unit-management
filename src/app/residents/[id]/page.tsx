@@ -12,21 +12,21 @@ import SelectField from "@/components/SelectField";
 const ResidentFormPage: React.FC = () => {
   const router = useRouter();
   const [isNew, setIsNew] = useState(false);
-  const [formData, setFormData] = useState<User>({
-    id: "",
-    name: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    unitNumber: "",
-    createdAt: "",
-    zipCode: 0,
-    profilePicture: "",
-    status: "active",
-    role: "resident",
-    emergencyContacts: [],
-  });
+  // const [formData, setFormData] = useState<User>({
+  //   id: "",
+  //   name: "",
+  //   lastName: "",
+  //   email: "",
+  //   phone: "",
+  //   address: "",
+  //   unitNumber: "",
+  //   createdAt: "",
+  //   zipCode: 0,
+  //   profilePicture: "",
+  //   status: "active",
+  //   role: "resident",
+  //   emergencyContacts: [],
+  // });
 
   useEffect(() => {
     const id = window.location.pathname.split("/").pop();
@@ -38,39 +38,39 @@ const ResidentFormPage: React.FC = () => {
   }, []);
 
   const fetchResident = async (id: string | undefined) => {
-    const mockResident: User = {
-      id: id || "1",
-      name: "João",
-      lastName: "Silva",
-      email: "joao.silva@email.com",
-      phone: "555-1234",
-      address: "Rua das Flores, 123",
-      unitNumber: "101",
-      createdAt: "2023-10-01",
-      profilePicture: "",
-      status: "active",
-      role: "resident",
-      emergencyContacts: [],
-    };
-    setFormData(mockResident);
+    // const mockResident: User = {
+    //   id: id || "1",
+    //   name: "João",
+    //   lastName: "Silva",
+    //   email: "joao.silva@email.com",
+    //   phone: "555-1234",
+    //   address: "Rua das Flores, 123",
+    //   unitNumber: "101",
+    //   createdAt: "2023-10-01",
+    //   profilePicture: "",
+    //   status: "active",
+    //   role: "resident",
+    //   emergencyContacts: [],
+    // };
+    // setFormData(mockResident);
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isNew) {
-      console.log("Creating new resident:", formData);
-    } else {
-      console.log("Updating resident:", formData);
-    }
-    router.push("/residents");
-  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (isNew) {
+  //     console.log("Creating new resident:", formData);
+  //   } else {
+  //     console.log("Updating resident:", formData);
+  //   }
+  //   router.push("/residents");
+  // };
 
   const getInitials = (name: string, lastName: string): string => {
     return `${name.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
@@ -116,26 +116,26 @@ const ResidentFormPage: React.FC = () => {
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
-                <InputField
+                {/* <InputField
                   id="name"
                   name="name"
                   label="Nome"
                   placeholder="Digite apenas o primeiro nome"
                   value={formData.name}
                   onChange={handleChange}
-                />
+                /> */}
 
-                <InputField
+                {/* <InputField
                   id="lastName"
                   name="lastName"
                   label="Sobrenome"
                   placeholder="Digite o sobrenome"
                   value={formData.lastName}
                   onChange={handleChange}
-                />
+                /> */}
               </div>
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
-                <InputField
+                {/* <InputField
                   id="email"
                   name="email"
                   type="email"
@@ -144,8 +144,8 @@ const ResidentFormPage: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   autoComplete="email"
-                />
-                <InputField
+                /> */}
+                {/* <InputField
                   id="phone"
                   name="phone"
                   type="tel"
@@ -153,11 +153,11 @@ const ResidentFormPage: React.FC = () => {
                   placeholder="Digite o telefone"
                   value={formData.phone}
                   onChange={handleChange}
-                />
+                /> */}
               </div>
 
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
-                <SelectField
+                {/* <SelectField
                   id="role"
                   name="role"
                   label="Função"
@@ -168,8 +168,8 @@ const ResidentFormPage: React.FC = () => {
                     { value: "receptionist", label: "Recepção" },
                     { value: "resident", label: "Residente" },
                   ]}
-                />
-                <SelectField
+                /> */}
+                {/* <SelectField
                   id="unitNumber"
                   name="unitNumber"
                   label="Unidade"
@@ -181,13 +181,13 @@ const ResidentFormPage: React.FC = () => {
                     { value: "103", label: "Apartamento 103" },
                   ]}
                   placeholder="Selecione uma unidade"
-                />
+                /> */}
               </div>
 
               <div className="border-b border-gray-900/10 pb-6 mb-4"></div>
 
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10 mb-4">
-                <InputField
+                {/* <InputField
                   id="zipCode"
                   name="zipCode"
                   type="text"
@@ -198,10 +198,10 @@ const ResidentFormPage: React.FC = () => {
                     const value = e.target.value.replace(/\D/g, "");
                     setFormData({ ...formData, zipCode: parseInt(value) || 0 });
                   }}
-                />
+                /> */}
               </div>
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-10">
-                <InputField
+                {/* <InputField
                   id="address"
                   name="address"
                   label="Endereço"
@@ -224,7 +224,7 @@ const ResidentFormPage: React.FC = () => {
                   placeholder="Digite o estado"
                   value={formData.state || ""}
                   onChange={handleChange}
-                />
+                /> */}
               </div>
               <div className="border-b border-gray-900/10 pb-6 mb-4"></div>
               <div className="border-b border-gray-900/10 pb-6 mb-4">

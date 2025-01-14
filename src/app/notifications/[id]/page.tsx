@@ -15,8 +15,8 @@ const NotificationFormPage: React.FC = () => {
     title: "",
     message: "",
     type: "general",
-    recipient: { id: "", name: "", email: "", lastName: "", role: "admin" },
   });
+
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {

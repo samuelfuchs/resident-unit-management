@@ -63,7 +63,7 @@ const ResidentsPage: React.FC = () => {
   };
 
   const handleDeleteConfirm = () => {
-    console.log("Deleted resident with ID:", selectedResident?.id);
+    // console.log("Deleted resident with ID:", selectedResident?.id);
 
     setIsModalOpen(false);
     setIsSuccessModalOpen(true);
@@ -100,7 +100,7 @@ const ResidentsPage: React.FC = () => {
             actions={(row) => (
               <div className="flex space-x-2">
                 <button
-                  onClick={() => router.push(`/residents/${row.id}`)}
+                  // onClick={() => router.push(`/residents/${row.id}`)}
                   className="text-blue-500 hover:text-blue-600"
                 >
                   <EyeIcon className="h-5 w-5" />

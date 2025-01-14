@@ -16,13 +16,6 @@ const UnitFormPage: React.FC = () => {
     floor: 0,
     squareFootage: 0,
     type: "",
-    owner: {
-      id: "",
-      name: "",
-      lastName: "",
-      email: "",
-      role: "resident",
-    },
     parkingSpots: [],
   });
 

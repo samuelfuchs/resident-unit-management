@@ -185,12 +185,12 @@ const ProfilePage: React.FC = () => {
                   <p className="text-gray-600 font-semibold">
                     Contatos de Emergência:
                   </p>
-                  {formData?.emergencyContacts.map((contact, index) => (
+                  {/* {formData?.emergencyContacts.map((contact, index) => (
                     <p key={index} className="text-gray-800">
                       {contact.name} - {contact.phone} (
                       {contact.relationship || "Não especificado"})
                     </p>
-                  ))}
+                  ))} */}
                 </div>
               )}
             </div>

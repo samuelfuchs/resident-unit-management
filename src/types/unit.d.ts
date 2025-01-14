@@ -6,7 +6,7 @@ export interface Unit {
   floor: number;
   squareFootage: number;
   type: string;
-  owner: User;
+  owner?: User;
   leaseAgreement?: string;
   parkingSpots: string[];
 }

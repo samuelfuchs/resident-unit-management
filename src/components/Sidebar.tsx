@@ -20,10 +20,10 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      const unread = mockNotifications.filter(
-        (notif) => notif.recipient.id === user.id && !notif.readAt
-      ).length;
-      setUnreadNotifications(unread);
+      // const unread = mockNotifications.filter(
+      //   (notif) => notif.recipient.id === user.id && !notif.readAt
+      // ).length;
+      // setUnreadNotifications(unread);
     }
   }, [user]);
 
