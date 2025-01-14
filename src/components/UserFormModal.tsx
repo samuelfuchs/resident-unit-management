@@ -22,31 +22,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
   user,
   mode = "create",
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  const isViewMode = mode === "view";
-  const isEditMode = mode === "edit";
-  const isCreateMode = mode === "create";
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      onClose();
-    }
-  };
-
-  useEffect(() => {
-    if (!isViewMode) return;
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isViewMode, onClose]);
-
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [formData, setFormData] = useState<Partial<User>>({
     name: "",
     lastName: "",
@@ -58,6 +34,35 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
     status: "active",
     password: "",
   });
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const isViewMode = mode === "view";
+  const isEditMode = mode === "edit";
+  const isCreateMode = mode === "create";
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      modalRef.current &&
+      !modalRef.current.contains(event.target as Node) &&
+      !hasUnsavedChanges
+    ) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    if ((isViewMode || isCreateMode) && !hasUnsavedChanges) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, isViewMode, isCreateMode, hasUnsavedChanges]);
 
   useEffect(() => {
     if (user) {
@@ -82,6 +87,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setHasUnsavedChanges(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -92,6 +98,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
       } else {
         await createUser(formData);
       }
+      setHasUnsavedChanges(false);
       onSubmitSuccess();
       onClose();
     } catch (error) {
