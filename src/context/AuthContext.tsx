@@ -2,8 +2,9 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { AuthContextType } from "@/types/auth";
-import { mockUsers } from "@/mocks/users";
 import { User } from "@/types/user";
+import { getMe } from "@/api/users";
+import { doLogin } from "@/api/auth";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -11,33 +12,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        const parsedUser: User = JSON.parse(storedUser);
-        setUser(parsedUser);
-      } catch (error) {
-        console.error("Failed to parse stored user:", error);
-        localStorage.removeItem("user");
-      }
+    const accessToken = window.localStorage.getItem("token");
+    setIsUserLoading(true);
+    if (!accessToken) {
+      setIsUserLoading(false);
+      return;
     }
+    getMe()
+      .then((result) => {
+        console.log("result", result);
+        setUser(result);
+      })
+      .catch(() => {
+        logout();
+      })
+      .finally(() => {
+        setIsUserLoading(false);
+      });
   }, []);
 
-  const login = (email: string, password: string): boolean => {
-    const user = mockUsers.find((u) => u.email === email);
-    if (user) {
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      return true;
+  const login = async (email: string, password: string) => {
+    const response = await doLogin(email, password);
+    console.log("response login", response?.token);
+    const token = response?.token;
+    const user = response?.user;
+    if (!token || !user) {
+      return;
     }
-    return false;
+    localStorage.setItem("token", token);
+    setUser(user);
   };
 
   const logout = (): void => {
     setUser(null);
-    localStorage.removeItem("user");
+    setUser(null);
+    localStorage.removeItem("token");
   };
 
   return (

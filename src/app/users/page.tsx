@@ -1,34 +1,64 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import Table, { Column } from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import SearchBar from "@/components/SearchBar";
 import { User } from "@/types/user";
-import { mockUsers } from "@/mocks/users";
 import { TrashIcon, EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { deleteUser, fetchUsers } from "@/api/users";
+import Modal from "@/components/Modal";
+import { debounce } from "@/utils/debounce";
+import Loader from "@/components/Loader";
+import SelectField from "@/components/SelectField";
+import Button from "@/components/Button";
 
 const UsersPage: React.FC = () => {
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [users, setUsers] = useState<any[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedUserId, setSelectedUserId] = useState<string>("null");
+  const [selectedUserName, setSelectedUserName] = useState<string>("");
+
+  const [roleFilter, setRoleFilter] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  const [sortField, setSortField] = useState<string>("createdAt");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
   const rowsPerPage = 10;
 
-  const filteredUsers = mockUsers.filter((user) =>
-    `${user.name} ${user.lastName} ${user.email} ${user.role}`
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase())
-  );
+  const fetchAndSetUsers = useCallback(async () => {
+    setLoading(true);
+    try {
+      const { users, totalPages } = await fetchUsers({
+        search: searchTerm,
+        role: roleFilter,
+        status: statusFilter,
+        page: currentPage,
+        limit: rowsPerPage,
+        sortField,
+        sortOrder,
+      });
+      setUsers(users);
+      setTotalPages(totalPages);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [searchTerm, roleFilter, statusFilter, currentPage, sortField, sortOrder]);
 
-  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const paginatedUsers = filteredUsers.slice(
-    startIndex,
-    startIndex + rowsPerPage
-  );
+  useEffect(() => {
+    const debouncedFetch = debounce(fetchAndSetUsers, 300);
+    debouncedFetch();
+  }, [searchTerm, fetchAndSetUsers]);
 
   const columns: Column<User>[] = [
     { header: "Nome", accessor: "name" },
@@ -41,8 +71,25 @@ const UsersPage: React.FC = () => {
     },
   ];
 
-  const handleDelete = (id: string) => {
-    console.log("Deleted user with ID:", id);
+  const handleDelete = async (id: string) => {
+    try {
+      console.log("deleting user...", id);
+      await deleteUser(id);
+      fetchAndSetUsers();
+    } catch (error) {
+      console.error("Failed to delete user:", error);
+    }
+  };
+
+  const openModal = (userId: string, userName: string) => {
+    setSelectedUserId(userId);
+    setSelectedUserName(userName);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedUserId("");
   };
 
   return (
@@ -61,39 +108,123 @@ const UsersPage: React.FC = () => {
           <SearchBar
             onSearch={(query) => setSearchTerm(query)}
             placeholder="Buscar por nome, e-mail ou função..."
+            buttonText="Buscar"
+            onButtonClick={() => fetchAndSetUsers()}
+            loading={loading}
           />
-          <Table
-            data={paginatedUsers}
-            columns={columns}
-            actions={(row) => (
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => router.push(`/users/${row.id}`)}
-                  className="text-blue-500 hover:text-blue-600"
-                >
-                  <EyeIcon className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={() => router.push(`/users/${row.id}/edit`)}
-                  className="text-green-500 hover:text-green-600"
-                >
-                  <PencilIcon className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={() => handleDelete(row.id)}
-                  className="text-red-500 hover:text-red-600"
-                >
-                  <TrashIcon className="h-5 w-5" />
-                </button>
-              </div>
-            )}
-          />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
+          <div className="flex space-x-4 mb-4">
+            <SelectField
+              id="roleFilter"
+              name="roleFilter"
+              label="Filtrar por Função"
+              value={roleFilter || ""}
+              onChange={(e) => setRoleFilter(e.target.value || null)}
+              options={[
+                { value: "", label: "Todas as Funções" },
+                { value: "admin", label: "Admin" },
+                { value: "receptionist", label: "Receptionist" },
+                { value: "resident", label: "Resident" },
+              ]}
+            />
+            <SelectField
+              id="statusFilter"
+              name="statusFilter"
+              label="Filtrar por Status"
+              value={statusFilter || ""}
+              onChange={(e) => setStatusFilter(e.target.value || null)}
+              options={[
+                { value: "", label: "Todos os Status" },
+                { value: "active", label: "Ativo" },
+                { value: "inactive", label: "Inativo" },
+              ]}
+            />
+            <div>
+              <Button
+                loading={loading}
+                onClick={() => {
+                  setRoleFilter(null);
+                  setStatusFilter(null);
+                }}
+              >
+                Clear Filters
+              </Button>
+            </div>
+          </div>
+          <div className="flex space-x-4 mb-4">
+            <SelectField
+              id="sortField"
+              name="sortField"
+              label="Ordenar por"
+              value={sortField}
+              onChange={(e) => setSortField(e.target.value)}
+              options={[
+                { value: "createdAt", label: "Criado em" },
+                { value: "name", label: "Nome" },
+                { value: "email", label: "E-mail" },
+              ]}
+            />
+
+            <SelectField
+              id="sortOrder"
+              name="sortOrder"
+              label="Ordem"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+              options={[
+                { value: "asc", label: "Crescente" },
+                { value: "desc", label: "Decrescente" },
+              ]}
+            />
+          </div>
+          {loading ? (
+            <Loader message="Carregando..." />
+          ) : (
+            <>
+              <Table
+                data={users}
+                columns={columns}
+                actions={(row) => (
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => router.push(`/users/${row._id}`)}
+                      className="text-blue-500 hover:text-blue-600"
+                    >
+                      <EyeIcon className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() => router.push(`/users/${row._id}/edit`)}
+                      className="text-green-500 hover:text-green-600"
+                    >
+                      <PencilIcon className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() =>
+                        openModal(row._id, `${row.name} ${row.lastName}`)
+                      }
+                      className="text-red-500 hover:text-red-600"
+                    >
+                      <TrashIcon className="h-5 w-5" />
+                    </button>
+                  </div>
+                )}
+              />
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </>
+          )}
         </div>
+
+        <Modal
+          type="warning"
+          title="Confirmação de Exclusão"
+          description={`Tem certeza que deseja excluir o usuário "${selectedUserName}"? Esta ação não pode ser desfeita.`}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onConfirm={() => handleDelete(selectedUserId)}
+        />
       </AuthLayout>
     </ProtectedRoute>
   );
