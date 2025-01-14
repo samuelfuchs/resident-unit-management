@@ -35,10 +35,6 @@ const UserFormPage: React.FC = () => {
   }, []);
 
   const fetchUser = async (id: string | undefined) => {
-    // const user = mockUsers.find((user) => user.id === id);
-    // if (user) {
-    //   setFormData(user);
-    // }
     try {
       if (!id) return;
 
@@ -61,13 +57,6 @@ const UserFormPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // if (isNew) {
-    //   console.log("Creating new user:", formData);
-    // } else {
-    //   console.log("Updating user:", formData);
-    // }
-    // router.push("/users");
     try {
       if (isNew) {
         await createUser(formData as User);
@@ -104,30 +93,8 @@ const UserFormPage: React.FC = () => {
                   placeholder="Digite o nome"
                   required
                 />
-                {/* <label className="block text-sm font-medium text-gray-700">
-                  Nome
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name || ""}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                  required
-                /> */}
               </div>
               <div>
-                {/* <label className="block text-sm font-medium text-gray-700">
-                  Sobrenome
-                </label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName || ""}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                  required
-                /> */}
                 <InputField
                   id="lastName"
                   name="lastName"
@@ -140,17 +107,6 @@ const UserFormPage: React.FC = () => {
               </div>
             </div>
             <div>
-              {/* <label className="block text-sm font-medium text-gray-700">
-                E-mail
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email || ""}
-                onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                required
-              /> */}
               <div>
                 <InputField
                   id="email"
@@ -177,16 +133,6 @@ const UserFormPage: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                {/* <label className="block text-sm font-medium text-gray-700">
-                  Telefone
-                </label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone || ""}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                /> */}
                 <InputField
                   id="phone"
                   name="phone"
@@ -197,16 +143,6 @@ const UserFormPage: React.FC = () => {
                 />
               </div>
               <div>
-                {/* <label className="block text-sm font-medium text-gray-700">
-                  Unidade
-                </label>
-                <input
-                  type="text"
-                  name="unitNumber"
-                  value={formData.unitNumber || ""}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                /> */}
                 <InputField
                   id="unitNumber"
                   name="unitNumber"
@@ -218,16 +154,6 @@ const UserFormPage: React.FC = () => {
               </div>
             </div>
             <div>
-              {/* <label className="block text-sm font-medium text-gray-700">
-                Endereço
-              </label>
-              <input
-                type="text"
-                name="address"
-                value={formData.address || ""}
-                onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              /> */}
               <InputField
                 id="address"
                 name="address"
@@ -239,19 +165,6 @@ const UserFormPage: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                {/* <label className="block text-sm font-medium text-gray-700">
-                  Função
-                </label>
-                <select
-                  name="role"
-                  value={formData.role || "resident"}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                >
-                  <option value="admin">Admin</option>
-                  <option value="receptionist">Recepcionista</option>
-                  <option value="resident">Residente</option>
-                </select> */}
                 <SelectField
                   id="role"
                   name="role"
@@ -266,18 +179,6 @@ const UserFormPage: React.FC = () => {
                 />
               </div>
               <div>
-                {/* <label className="block text-sm font-medium text-gray-700">
-                  Status
-                </label>
-                <select
-                  name="status"
-                  value={formData.status || "active"}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                >
-                  <option value="active">Ativo</option>
-                  <option value="inactive">Inativo</option>
-                </select> */}
                 <SelectField
                   id="status"
                   name="status"
