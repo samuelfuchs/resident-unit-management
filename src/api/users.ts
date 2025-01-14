@@ -1,7 +1,25 @@
 import apiClient from "./index";
 
-export const fetchUsers = async () => {
-  const response = await apiClient.get("/users");
+// export const fetchUsers = async () => {
+//   const response = await apiClient.get("/users");
+//   return response.data;
+// };
+export const fetchUsers = async ({
+  search = "",
+  page = 1,
+  limit = 10,
+}: {
+  search?: string;
+  page?: number;
+  limit?: number;
+}) => {
+  const response = await apiClient.get(`/users`, {
+    params: {
+      search,
+      page,
+      limit,
+    },
+  });
   return response.data;
 };
 
