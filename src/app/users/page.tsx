@@ -43,18 +43,6 @@ const UsersPage: React.FC = () => {
     fetchAndSetUsers();
   }, [searchTerm, currentPage]);
 
-  // const filteredUsers = mockUsers.filter((user) =>
-  //   `${user.name} ${user.lastName} ${user.email} ${user.role}`
-  //     .toLowerCase()
-  //     .includes(searchTerm.toLowerCase())
-  // );
-
-  // const startIndex = (currentPage - 1) * rowsPerPage;
-  // const paginatedUsers = filteredUsers.slice(
-  //   startIndex,
-  //   startIndex + rowsPerPage
-  // );
-
   const columns: Column<User>[] = [
     { header: "Nome", accessor: "name" },
     { header: "Sobrenome", accessor: "lastName" },
@@ -68,8 +56,6 @@ const UsersPage: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      // await deleteUser(id);
-      // fetchAndSetUsers(); // Refresh data after deletion
       console.log("deleting user...", id);
     } catch (error) {
       console.error("Failed to delete user:", error);
@@ -130,37 +116,6 @@ const UsersPage: React.FC = () => {
               />
             </>
           )}
-          {/* <Table
-            data={paginatedUsers}
-            columns={columns}
-            actions={(row) => (
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => router.push(`/users/${row.id}`)}
-                  className="text-blue-500 hover:text-blue-600"
-                >
-                  <EyeIcon className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={() => router.push(`/users/${row.id}/edit`)}
-                  className="text-green-500 hover:text-green-600"
-                >
-                  <PencilIcon className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={() => handleDelete(row.id)}
-                  className="text-red-500 hover:text-red-600"
-                >
-                  <TrashIcon className="h-5 w-5" />
-                </button>
-              </div>
-            )}
-          />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          /> */}
         </div>
       </AuthLayout>
     </ProtectedRoute>
