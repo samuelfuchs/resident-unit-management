@@ -2,6 +2,7 @@ export interface User {
   _id: string;
   email: string;
   name: string;
+  password?: string;
   lastName: string;
   role: "admin" | "receptionist" | "resident";
   phone: string;

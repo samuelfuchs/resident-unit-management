@@ -4,14 +4,18 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
-import { mockUsers } from "@/mocks/users";
 import { User } from "@/types/user";
+import { createUser, updateUser } from "@/api/users";
+import InputField from "@/components/InputField";
+import SelectField from "@/components/SelectField";
+import Button from "@/components/Button";
 
 const UserFormPage: React.FC = () => {
   const router = useRouter();
   const [isNew, setIsNew] = useState(false);
   const [formData, setFormData] = useState<Partial<User>>({
     name: "",
+    password: "",
     lastName: "",
     email: "",
     phone: "",
@@ -30,10 +34,21 @@ const UserFormPage: React.FC = () => {
     }
   }, []);
 
-  const fetchUser = (id: string | undefined) => {
-    const user = mockUsers.find((user) => user.id === id);
-    if (user) {
-      setFormData(user);
+  const fetchUser = async (id: string | undefined) => {
+    // const user = mockUsers.find((user) => user.id === id);
+    // if (user) {
+    //   setFormData(user);
+    // }
+    try {
+      if (!id) return;
+
+      const response = await fetch(`/api/users/${id}`);
+      const user = await response.json();
+      if (user) {
+        setFormData(user);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
     }
   };
 
@@ -44,15 +59,27 @@ const UserFormPage: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (isNew) {
-      console.log("Creating new user:", formData);
-    } else {
-      console.log("Updating user:", formData);
+    // if (isNew) {
+    //   console.log("Creating new user:", formData);
+    // } else {
+    //   console.log("Updating user:", formData);
+    // }
+    // router.push("/users");
+    try {
+      if (isNew) {
+        await createUser(formData as User);
+        console.log("User created successfully!");
+      } else {
+        await updateUser(formData._id as string, formData as User);
+        console.log("User updated successfully!");
+      }
+      router.push("/users");
+    } catch (error) {
+      console.error("Error saving user:", error);
     }
-    router.push("/users");
   };
 
   return (
@@ -68,7 +95,16 @@ const UserFormPage: React.FC = () => {
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <InputField
+                  id="name"
+                  name="name"
+                  label="Nome"
+                  value={formData.name || ""}
+                  onChange={handleChange}
+                  placeholder="Digite o nome"
+                  required
+                />
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Nome
                 </label>
                 <input
@@ -78,10 +114,10 @@ const UserFormPage: React.FC = () => {
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                   required
-                />
+                /> */}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Sobrenome
                 </label>
                 <input
@@ -91,11 +127,20 @@ const UserFormPage: React.FC = () => {
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                   required
+                /> */}
+                <InputField
+                  id="lastName"
+                  name="lastName"
+                  label="Sobrenome"
+                  value={formData.lastName || ""}
+                  onChange={handleChange}
+                  placeholder="Digite o sobrenome"
+                  required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              {/* <label className="block text-sm font-medium text-gray-700">
                 E-mail
               </label>
               <input
@@ -105,11 +150,34 @@ const UserFormPage: React.FC = () => {
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                 required
-              />
+              /> */}
+              <div>
+                <InputField
+                  id="email"
+                  name="email"
+                  label="E-mail"
+                  type="email"
+                  value={formData.email || ""}
+                  onChange={handleChange}
+                  placeholder="Digite o e-mail"
+                  required
+                />
+              </div>
+              {isNew && (
+                <InputField
+                  id="password"
+                  name="password"
+                  label="Senha"
+                  type="password"
+                  placeholder="Digite a senha"
+                  value={formData.password || ""}
+                  onChange={handleChange}
+                />
+              )}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Telefone
                 </label>
                 <input
@@ -118,10 +186,18 @@ const UserFormPage: React.FC = () => {
                   value={formData.phone || ""}
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                /> */}
+                <InputField
+                  id="phone"
+                  name="phone"
+                  label="Telefone"
+                  value={formData.phone || ""}
+                  onChange={handleChange}
+                  placeholder="Digite o telefone"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Unidade
                 </label>
                 <input
@@ -130,11 +206,19 @@ const UserFormPage: React.FC = () => {
                   value={formData.unitNumber || ""}
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                /> */}
+                <InputField
+                  id="unitNumber"
+                  name="unitNumber"
+                  label="Unidade"
+                  value={formData.unitNumber || ""}
+                  onChange={handleChange}
+                  placeholder="Digite a unidade"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              {/* <label className="block text-sm font-medium text-gray-700">
                 Endereço
               </label>
               <input
@@ -143,11 +227,19 @@ const UserFormPage: React.FC = () => {
                 value={formData.address || ""}
                 onChange={handleChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+              /> */}
+              <InputField
+                id="address"
+                name="address"
+                label="Endereço"
+                value={formData.address || ""}
+                onChange={handleChange}
+                placeholder="Digite o endereço"
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Função
                 </label>
                 <select
@@ -159,10 +251,22 @@ const UserFormPage: React.FC = () => {
                   <option value="admin">Admin</option>
                   <option value="receptionist">Recepcionista</option>
                   <option value="resident">Residente</option>
-                </select>
+                </select> */}
+                <SelectField
+                  id="role"
+                  name="role"
+                  label="Função"
+                  value={formData.role || "resident"}
+                  onChange={handleChange}
+                  options={[
+                    { value: "admin", label: "Admin" },
+                    { value: "receptionist", label: "Recepcionista" },
+                    { value: "resident", label: "Residente" },
+                  ]}
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                {/* <label className="block text-sm font-medium text-gray-700">
                   Status
                 </label>
                 <select
@@ -173,16 +277,22 @@ const UserFormPage: React.FC = () => {
                 >
                   <option value="active">Ativo</option>
                   <option value="inactive">Inativo</option>
-                </select>
+                </select> */}
+                <SelectField
+                  id="status"
+                  name="status"
+                  label="Status"
+                  value={formData.status || "active"}
+                  onChange={handleChange}
+                  options={[
+                    { value: "active", label: "Ativo" },
+                    { value: "inactive", label: "Inativo" },
+                  ]}
+                />
               </div>
             </div>
             <div className="flex justify-end">
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
-                {isNew ? "Criar" : "Salvar"}
-              </button>
+              <Button type="submit">{isNew ? "Criar" : "Salvar"}</Button>
             </div>
           </form>
         </div>

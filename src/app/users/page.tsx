@@ -98,12 +98,9 @@ const UsersPage: React.FC = () => {
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold">Usuários</h1>
-            <button
-              onClick={() => router.push("/users/new")}
-              className="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
+            <Button onClick={() => router.push("/users/new")}>
               Novo Usuário
-            </button>
+            </Button>
           </div>
           <SearchBar
             onSearch={(query) => setSearchTerm(query)}
