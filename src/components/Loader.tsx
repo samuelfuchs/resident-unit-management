@@ -3,6 +3,7 @@ import React from "react";
 interface LoaderProps {
   size?: "small" | "medium" | "large";
   message?: string;
+  color?: "blue" | "white";
 }
 
 const sizeClasses = {
@@ -11,11 +12,20 @@ const sizeClasses = {
   large: "h-20 w-20",
 };
 
-const Loader: React.FC<LoaderProps> = ({ size = "medium", message = "" }) => {
+const colorClasses = {
+  blue: "text-blue-500",
+  white: "text-white",
+};
+
+const Loader: React.FC<LoaderProps> = ({
+  size = "medium",
+  message = "",
+  color = "blue",
+}) => {
   return (
     <div className={`flex flex-col items-center justify-center`}>
       <svg
-        className={`animate-spin text-blue-500 ${sizeClasses[size]} mb-2`}
+        className={`animate-spin ${colorClasses[color]} ${sizeClasses[size]} mb-2`}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -35,7 +45,13 @@ const Loader: React.FC<LoaderProps> = ({ size = "medium", message = "" }) => {
         ></path>
       </svg>
       {message !== "" && size !== "small" && (
-        <p className="text-gray-700 text-sm">{message}</p>
+        <p
+          className={`${
+            color === "white" ? "text-white" : "text-gray-700"
+          } text-sm`}
+        >
+          {message}
+        </p>
       )}
     </div>
   );

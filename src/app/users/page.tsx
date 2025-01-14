@@ -14,6 +14,7 @@ import Modal from "@/components/Modal";
 import { debounce } from "@/utils/debounce";
 import Loader from "@/components/Loader";
 import SelectField from "@/components/SelectField";
+import Button from "@/components/Button";
 
 const UsersPage: React.FC = () => {
   const router = useRouter();
@@ -22,7 +23,6 @@ const UsersPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-  console.log("loading", loading);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<string>("null");
   const [selectedUserName, setSelectedUserName] = useState<string>("");
@@ -138,15 +138,17 @@ const UsersPage: React.FC = () => {
                 { value: "inactive", label: "Inativo" },
               ]}
             />
-            <button
-              onClick={() => {
-                setRoleFilter(null);
-                setStatusFilter(null);
-              }}
-              className="px-4 py-2 bg-gray-400 text-white rounded"
-            >
-              Clear Filters
-            </button>
+            <div>
+              <Button
+                loading={loading}
+                onClick={() => {
+                  setRoleFilter(null);
+                  setStatusFilter(null);
+                }}
+              >
+                Clear Filters
+              </Button>
+            </div>
           </div>
           <div className="flex space-x-4 mb-4">
             <SelectField
