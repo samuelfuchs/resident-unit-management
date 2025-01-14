@@ -1,9 +1,5 @@
 import apiClient from "./index";
 
-// export const fetchUsers = async () => {
-//   const response = await apiClient.get("/users");
-//   return response.data;
-// };
 export const fetchUsers = async ({
   search = "",
   page = 1,
@@ -35,6 +31,7 @@ export const updateUser = async (id: string, userData: Record<string, any>) => {
 
 export const deleteUser = async (id: string) => {
   const response = await apiClient.delete(`/users/${id}`);
+  console.log("@deleteUser response", response);
   return response.data;
 };
 

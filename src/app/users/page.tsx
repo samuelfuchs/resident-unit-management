@@ -9,7 +9,8 @@ import SearchBar from "@/components/SearchBar";
 import { User } from "@/types/user";
 import { TrashIcon, EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
-import { fetchUsers } from "@/api/users";
+import { deleteUser, fetchUsers } from "@/api/users";
+import Modal from "@/components/Modal";
 
 const UsersPage: React.FC = () => {
   const router = useRouter();
@@ -18,6 +19,10 @@ const UsersPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedUserId, setSelectedUserId] = useState<string>("null");
+  const [selectedUserName, setSelectedUserName] = useState<string>("");
+
   const rowsPerPage = 10;
 
   const fetchAndSetUsers = async () => {
@@ -57,9 +62,22 @@ const UsersPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       console.log("deleting user...", id);
+      await deleteUser(id);
+      fetchAndSetUsers();
     } catch (error) {
       console.error("Failed to delete user:", error);
     }
+  };
+
+  const openModal = (userId: string, userName: string) => {
+    setSelectedUserId(userId);
+    setSelectedUserName(userName);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedUserId("");
   };
 
   return (
@@ -89,19 +107,21 @@ const UsersPage: React.FC = () => {
                 actions={(row) => (
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => router.push(`/users/${row.id}`)}
+                      onClick={() => router.push(`/users/${row._id}`)}
                       className="text-blue-500 hover:text-blue-600"
                     >
                       <EyeIcon className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => router.push(`/users/${row.id}/edit`)}
+                      onClick={() => router.push(`/users/${row._id}/edit`)}
                       className="text-green-500 hover:text-green-600"
                     >
                       <PencilIcon className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => handleDelete(row.id)}
+                      onClick={() =>
+                        openModal(row._id, `${row.name} ${row.lastName}`)
+                      }
                       className="text-red-500 hover:text-red-600"
                     >
                       <TrashIcon className="h-5 w-5" />
@@ -117,6 +137,15 @@ const UsersPage: React.FC = () => {
             </>
           )}
         </div>
+
+        <Modal
+          type="warning"
+          title="Confirmação de Exclusão"
+          description={`Tem certeza que deseja excluir o usuário "${selectedUserName}"? Esta ação não pode ser desfeita.`}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onConfirm={() => handleDelete(selectedUserId)}
+        />
       </AuthLayout>
     </ProtectedRoute>
   );
