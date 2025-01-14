@@ -69,7 +69,12 @@ const Modal: React.FC<ModalProps> = ({
                 Cancelar
               </button>
               <button
-                onClick={onConfirm}
+                onClick={() => {
+                  if (onConfirm) {
+                    onConfirm();
+                  }
+                  onClose();
+                }}
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               >
                 Confirmar
@@ -86,7 +91,12 @@ const Modal: React.FC<ModalProps> = ({
           )}
           {type === "failure" && (
             <button
-              onClick={onClose}
+              onClick={() => {
+                if (onConfirm) {
+                  onConfirm();
+                }
+                onClose();
+              }}
               className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
             >
               Fechar
