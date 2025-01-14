@@ -13,6 +13,7 @@ import { deleteUser, fetchUsers } from "@/api/users";
 import Modal from "@/components/Modal";
 import { debounce } from "@/utils/debounce";
 import Loader from "@/components/Loader";
+import SelectField from "@/components/SelectField";
 
 const UsersPage: React.FC = () => {
   const router = useRouter();
@@ -32,25 +33,6 @@ const UsersPage: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   const rowsPerPage = 10;
-
-  // const fetchAndSetUsers = async () => {
-  //   console.log("feching users");
-  //   setLoading(true);
-  //   try {
-  //     const { users, totalPages } = await fetchUsers({
-  //       search: searchTerm,
-  //       page: currentPage,
-  //       limit: rowsPerPage,
-  //     });
-  //     setUsers(users);
-  //     console.log("users", users);
-  //     setTotalPages(totalPages);
-  //   } catch (error) {
-  //     console.error("Failed to fetch users:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   const fetchAndSetUsers = useCallback(async () => {
     setLoading(true);
@@ -126,9 +108,12 @@ const UsersPage: React.FC = () => {
           <SearchBar
             onSearch={(query) => setSearchTerm(query)}
             placeholder="Buscar por nome, e-mail ou função..."
+            buttonText="Buscar"
+            onButtonClick={() => fetchAndSetUsers()}
+            loading={loading}
           />
           <div className="flex space-x-4 mb-4">
-            <button
+            {/* <button
               onClick={() => setRoleFilter("admin")}
               className={`px-4 py-2 rounded ${
                 roleFilter === "admin"
@@ -137,8 +122,21 @@ const UsersPage: React.FC = () => {
               }`}
             >
               Admin
-            </button>
-            <button
+            </button> */}
+            <SelectField
+              id="roleFilter"
+              name="roleFilter"
+              label="Filtrar por Função"
+              value={roleFilter || ""}
+              onChange={(e) => setRoleFilter(e.target.value || null)}
+              options={[
+                { value: "", label: "Todas as Funções" },
+                { value: "admin", label: "Admin" },
+                { value: "receptionist", label: "Receptionist" },
+                { value: "resident", label: "Resident" },
+              ]}
+            />
+            {/* <button
               onClick={() => setRoleFilter("receptionist")}
               className={`px-4 py-2 rounded ${
                 roleFilter === "receptionist"
@@ -157,8 +155,20 @@ const UsersPage: React.FC = () => {
               }`}
             >
               Resident
-            </button>
-            <button
+            </button> */}
+            <SelectField
+              id="statusFilter"
+              name="statusFilter"
+              label="Filtrar por Status"
+              value={statusFilter || ""}
+              onChange={(e) => setStatusFilter(e.target.value || null)}
+              options={[
+                { value: "", label: "Todos os Status" },
+                { value: "active", label: "Ativo" },
+                { value: "inactive", label: "Inativo" },
+              ]}
+            />
+            {/* <button
               onClick={() => setStatusFilter("active")}
               className={`px-4 py-2 rounded ${
                 statusFilter === "active"
@@ -177,7 +187,7 @@ const UsersPage: React.FC = () => {
               }`}
             >
               Inactive
-            </button>
+            </button> */}
             <button
               onClick={() => {
                 setRoleFilter(null);
@@ -189,7 +199,7 @@ const UsersPage: React.FC = () => {
             </button>
           </div>
           <div className="flex space-x-4 mb-4">
-            <select
+            {/* <select
               value={sortField}
               onChange={(e) => setSortField(e.target.value)}
               className="px-4 py-2 border rounded"
@@ -197,15 +207,39 @@ const UsersPage: React.FC = () => {
               <option value="createdAt">Created At</option>
               <option value="name">Name</option>
               <option value="email">Email</option>
-            </select>
-            <select
+            </select> */}
+            <SelectField
+              id="sortField"
+              name="sortField"
+              label="Ordenar por"
+              value={sortField}
+              onChange={(e) => setSortField(e.target.value)}
+              options={[
+                { value: "createdAt", label: "Criado em" },
+                { value: "name", label: "Nome" },
+                { value: "email", label: "E-mail" },
+              ]}
+            />
+
+            {/* <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
               className="px-4 py-2 border rounded"
             >
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
-            </select>
+            </select> */}
+            <SelectField
+              id="sortOrder"
+              name="sortOrder"
+              label="Ordem"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+              options={[
+                { value: "asc", label: "Crescente" },
+                { value: "desc", label: "Decrescente" },
+              ]}
+            />
           </div>
           {loading ? (
             <Loader message="Carregando..." />
