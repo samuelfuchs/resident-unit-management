@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import Button from "@/components/Button";
 
 const LoginPage: React.FC = () => {
   const { login, user } = useAuth();
@@ -14,6 +15,7 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  console.log("loading", loading);
 
   useEffect(() => {
     if (user) {
@@ -26,7 +28,7 @@ const LoginPage: React.FC = () => {
     setLoading(true);
 
     try {
-      login(email, password);
+      await login(email, password);
     } catch (err) {
       setError("Algo deu errado. Tente novamente.");
     } finally {
@@ -87,7 +89,7 @@ const LoginPage: React.FC = () => {
               </button>
             </div>
           </div>
-          <button
+          {/* <button
             type="submit"
             disabled={loading}
             className={`w-full flex items-center justify-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 ${
@@ -118,7 +120,10 @@ const LoginPage: React.FC = () => {
             ) : (
               "Acessar"
             )}
-          </button>
+          </button> */}
+          <Button type="submit" loading={loading} className="w-full">
+            Acessar
+          </Button>
         </form>
       </div>
     </div>
