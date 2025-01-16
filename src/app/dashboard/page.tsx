@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
@@ -10,16 +10,36 @@ import {
   PhoneIcon,
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
+import { fetchAdminDashboardStats } from "@/api/users";
+import Loader from "@/components/Loader";
 
 const DashboardPage: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
+  const [stats, setStats] = useState<{ label: string; value: number }[] | null>(
+    null
+  );
+  const [loading, setLoading] = useState(true);
 
-  const stats = [
-    { label: "Residents", value: 120 },
-    { label: "Units", value: 45 },
-    { label: "Active Users", value: 112 },
-    { label: "Pending Requests", value: 8 },
-  ];
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchAdminDashboardStats();
+        setStats([
+          { label: "Total Users", value: data.totalUsers },
+          { label: "Total Residents", value: data.totalResidents },
+        ]);
+      } catch (error) {
+        console.error("Failed to fetch stats:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user?.role === "admin") {
+      fetchStats();
+    }
+  }, [user?.role]);
 
   const renderRoleSpecificContent = () => {
     const data = [
@@ -93,17 +113,23 @@ const DashboardPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-blue-500 text-white p-4 rounded-lg shadow-md"
-              >
-                <h2 className="text-xl font-semibold">{stat.value}</h2>
-                <p className="mt-1 text-sm">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+          {user?.role === "admin" && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {loading ? (
+                <Loader message="Carregando dados..." />
+              ) : (
+                stats?.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="bg-blue-500 text-white p-4 rounded-lg shadow-md"
+                  >
+                    <h2 className="text-xl font-semibold">{stat.value}</h2>
+                    <p className="mt-1 text-sm">{stat.label}</p>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
 
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-bold text-gray-800">

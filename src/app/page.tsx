@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import Button from "@/components/Button";
 
 const LoginPage: React.FC = () => {
   const { login, user } = useAuth();
@@ -26,7 +27,7 @@ const LoginPage: React.FC = () => {
     setLoading(true);
 
     try {
-      login(email, password);
+      await login(email, password);
     } catch (err) {
       setError("Algo deu errado. Tente novamente.");
     } finally {
@@ -87,38 +88,9 @@ const LoginPage: React.FC = () => {
               </button>
             </div>
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className={`w-full flex items-center justify-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 ${
-              loading ? "opacity-75 cursor-not-allowed" : ""
-            }`}
-          >
-            {loading ? (
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                ></path>
-              </svg>
-            ) : (
-              "Acessar"
-            )}
-          </button>
+          <Button type="submit" loading={loading} className="w-full">
+            Acessar
+          </Button>
         </form>
       </div>
     </div>
