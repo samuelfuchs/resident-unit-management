@@ -45,3 +45,21 @@ export const deleteUnit = async (id: string): Promise<void> => {
     throw error;
   }
 };
+
+export const createUnit = async (unitData: {
+  number: string;
+  floor: number;
+  squareFootage: number;
+  type: string;
+  owner: string[];
+  parkingSpots?: string[];
+  tenant?: string[];
+}) => {
+  try {
+    const response = await apiClient.post("/units", unitData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating unit:", error);
+    throw error || { error: "Unknown error occurred." };
+  }
+};
