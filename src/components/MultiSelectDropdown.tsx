@@ -1,8 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { fetchUsers } from "@/api/users"; // Replace with your actual API fetch function
+import { fetchUsers } from "@/api/users";
 
-const MultiSelectDropdown = ({ selectedUsers, setSelectedUsers }) => {
+interface Props {
+  selectedUsers: {
+    value: string;
+    label: string;
+  }[];
+  setSelectedUsers: React.Dispatch<
+    React.SetStateAction<
+      {
+        value: string;
+        label: string;
+      }[]
+    >
+  >;
+}
+
+const MultiSelectDropdown = ({ selectedUsers, setSelectedUsers }: Props) => {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,7 +34,7 @@ const MultiSelectDropdown = ({ selectedUsers, setSelectedUsers }) => {
         sortField: "name",
         sortOrder: "asc",
       });
-      const newOptions = response.users.map((user) => ({
+      const newOptions = response.users.map((user: any) => ({
         value: user._id,
         label: `${user.name} ${user.lastName}`,
       }));
@@ -38,7 +53,7 @@ const MultiSelectDropdown = ({ selectedUsers, setSelectedUsers }) => {
     fetchUserOptions(searchQuery, page);
   }, [searchQuery, page]);
 
-  const handleInputChange = (query) => {
+  const handleInputChange = (query: any) => {
     setSearchQuery(query);
     setPage(1);
   };
@@ -54,7 +69,7 @@ const MultiSelectDropdown = ({ selectedUsers, setSelectedUsers }) => {
       isMulti
       options={options}
       value={selectedUsers}
-      onChange={setSelectedUsers}
+      onChange={(newValue) => setSelectedUsers([...newValue])}
       onInputChange={handleInputChange}
       placeholder="Select users..."
       isLoading={loading}
