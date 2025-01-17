@@ -5,9 +5,7 @@ import InputField from "@/components/InputField";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
 import { createUnit, updateUnit } from "@/api/units";
-// import { Unit, UnitType } from "@/types/unit";
 import { User } from "@/types/user";
-import InfiniteSelectDropdown from "./InfiniteSelectDropdown";
 import MultiSelectDropdown from "./MultiSelectDropdown";
 
 export interface Unit {
@@ -36,7 +34,6 @@ interface UnitFormModalProps {
   onSubmitSuccess: () => void;
   unit?: Partial<Unit>;
   mode?: "view" | "edit" | "create";
-  // availableUsers: User[];
 }
 
 const UnitFormModal: React.FC<UnitFormModalProps> = ({
@@ -45,7 +42,6 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
   onSubmitSuccess,
   unit,
   mode = "create",
-  // availableUsers,
 }) => {
   const [selectedOwners, setSelectedOwners] = useState<
     { value: string; label: string }[]
@@ -213,74 +209,10 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             }))}
             disabled={isViewMode}
           />
-          {/* <SelectField
-            id="owner"
-            name="owner"
-            label="Proprietário"
-            value={(formData.owner || []).map((user: User) => user._id)}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                owner: Array.from(
-                  e.target.selectedOptions,
-                  (option) => option.value
-                ) as unknown as User[],
-              }))
-            }
-            options={availableUsers.map((user) => ({
-              value: user._id,
-              label: `${user.name} ${user.lastName}`,
-            }))}
-            disabled={isViewMode}
-            isMulti
-          />
-          <SelectField
-            id="tenant"
-            name="tenant"
-            label="Inquilino"
-            value={(formData.tenant || []).map((user: User) => user._id)}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                tenant: Array.from(
-                  e.target.selectedOptions,
-                  (option) => option.value
-                ) as unknown as User[],
-              }))
-            }
-            options={availableUsers.map((user) => ({
-              value: user._id,
-              label: `${user.name} ${user.lastName}`,
-            }))}
-            disabled={isViewMode}
-            isMulti
-          /> */}
-          {/* <InfiniteSelectDropdown
-            label="Proprietário"
-            value={(formData.owner || []).map((user: User) => user._id)}
-            onChange={(selected) =>
-              setFormData((prev) => ({
-                ...prev,
-                owner: selected.map((id) => ({ _id: id } as User)),
-              }))
-            }
-            disabled={isViewMode}
-          /> */}
           <MultiSelectDropdown
             selectedUsers={selectedOwners}
             setSelectedUsers={setSelectedOwners}
           />
-          {/* <InfiniteSelectDropdown
-            label="Inquilino"
-            value={(formData.tenant || []).map((user: User) => user._id)}
-            onChange={(selected) =>
-              setFormData((prev) => ({
-                ...prev,
-                tenant: selected.map((id) => ({ _id: id } as User)),
-              }))
-            }
-            disabled={isViewMode}
-          /> */}
           <MultiSelectDropdown
             selectedUsers={selectedTenants}
             setSelectedUsers={setSelectedTenants}

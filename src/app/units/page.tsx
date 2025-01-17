@@ -17,7 +17,6 @@ import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
 import UnitFormModal from "@/components/UnitFormModal";
 import { fetchUsers } from "@/api/users";
-import { User } from "@/types/user";
 
 const UnitsPage: React.FC = () => {
   const router = useRouter();
@@ -36,8 +35,6 @@ const UnitsPage: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [isUnitFormModalOpen, setIsUnitFormModalOpen] = useState(false);
   const [editingUnit, setEditingUnit] = useState<Partial<Unit> | undefined>();
-  // const [availableUsers, setAvailableUsers] = useState<User[]>([]);
-  console.log("editingUnit", editingUnit);
   const rowsPerPage = 10;
 
   const fetchAndSetUnits = useCallback(async () => {
@@ -61,19 +58,9 @@ const UnitsPage: React.FC = () => {
     }
   }, [searchTerm, typeFilter, floorFilter, currentPage, sortField, sortOrder]);
 
-  // const fetchUsers = useCallback(async () => {
-  //   try {
-  //     const response = await fetchUsers();
-  //     setAvailableUsers(response.users);
-  //   } catch (error) {
-  //     console.error("Failed to fetch users:", error);
-  //   }
-  // }, []);
-
   useEffect(() => {
     const debouncedFetch = debounce(fetchAndSetUnits, 300);
     debouncedFetch();
-    // fetchUsers();
   }, [searchTerm, typeFilter, floorFilter, fetchAndSetUnits, fetchUsers]);
 
   const handleDelete = async () => {
@@ -232,7 +219,6 @@ const UnitsPage: React.FC = () => {
           onSubmitSuccess={fetchAndSetUnits}
           unit={editingUnit}
           mode={editingUnit ? "edit" : "create"}
-          // availableUsers={availableUsers}
         />
       </AuthLayout>
     </ProtectedRoute>
