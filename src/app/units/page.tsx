@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { mockUnits } from "@/mocks/units";
+import React, { useEffect, useState } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import Table, { Column } from "@/components/Table";
@@ -11,37 +10,36 @@ import SearchBar from "@/components/SearchBar";
 import { TrashIcon, EyeIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { Unit } from "@/types/unit";
+import { deleteUnit, fetchAllUnits } from "@/api/units";
 
 const UnitsPage: React.FC = () => {
   const router = useRouter();
+  const [units, setUnits] = useState<Unit[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
+  const [totalPages, setTotalPages] = useState(1);
 
   const rowsPerPage = 10;
 
-  const filteredUnits = mockUnits.filter((unit) => {
-    const query = searchQuery.toLowerCase();
-    return (
-      unit.number.toLowerCase().includes(query) ||
-      unit.type.toLowerCase().includes(query) ||
-      unit.floor.toString().includes(query)
-    );
-  });
-
-  const totalPages = Math.ceil(filteredUnits.length / rowsPerPage);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const loadUnits = async () => {
+    try {
+      const response = await fetchAllUnits({
+        search: searchQuery,
+        page: currentPage,
+        limit: rowsPerPage,
+      });
+      setUnits(response.units);
+      setTotalPages(response.totalPages);
+    } catch (error) {
+      console.error("Failed to fetch units:", error);
+    }
   };
-
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const paginatedUnits = filteredUnits.slice(
-    startIndex,
-    startIndex + rowsPerPage
-  );
+  useEffect(() => {
+    loadUnits();
+  }, [searchQuery, currentPage]);
 
   const columns: Column<Unit>[] = [
     { header: "Unidade", accessor: "number" },
@@ -55,21 +53,36 @@ const UnitsPage: React.FC = () => {
     },
   ];
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+  };
+
   const handleDeleteClick = (unit: Unit) => {
     setSelectedUnit(unit);
     setIsModalOpen(true);
   };
 
-  const handleDeleteConfirm = () => {
-    console.log("Deleted unit with ID:", selectedUnit?.id);
+  const handleDeleteConfirm = async () => {
+    console.log("selectedUnit.id", selectedUnit?.id);
+    if (!selectedUnit) return;
+    try {
+      await deleteUnit(selectedUnit._id);
+      console.log(`Unit ${selectedUnit.id} has been successfully deleted.`);
 
-    setIsModalOpen(false);
-    setIsSuccessModalOpen(true);
-
-    setTimeout(() => {
-      setIsSuccessModalOpen(false);
+      // setIsSuccessModalOpen(false);
+      setIsSuccessModalOpen(true);
+      loadUnits();
+    } catch (error) {
+      console.error("Error deleting unit:", error);
+    } finally {
       setSelectedUnit(null);
-    }, 2000);
+      setIsModalOpen(false);
+    }
   };
 
   return (
@@ -89,11 +102,11 @@ const UnitsPage: React.FC = () => {
 
           <SearchBar
             placeholder="Buscar por unidade, tipo ou andar..."
-            onSearch={(query) => setSearchQuery(query)}
+            onSearch={handleSearch}
           />
 
           <Table
-            data={paginatedUnits}
+            data={units}
             columns={columns}
             actions={(row) => (
               <div className="flex space-x-2">
