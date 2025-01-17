@@ -7,20 +7,26 @@ export const updateUnit = async (id: string, unitData: Record<string, any>) => {
 
 export const fetchAllUnits = async ({
   search = "",
+  type,
+  floor,
   page = 1,
   limit = 10,
-  sortField = "number",
-  sortOrder = "asc",
+  sortField = "createdAt",
+  sortOrder = "desc",
 }: {
   search?: string;
+  type?: string;
+  floor?: string | number;
   page?: number;
   limit?: number;
   sortField?: string;
   sortOrder?: "asc" | "desc";
 }) => {
-  const response = await apiClient.get(`/units`, {
+  const response = await apiClient.get("/units", {
     params: {
       search,
+      type,
+      floor,
       page,
       limit,
       sortField,

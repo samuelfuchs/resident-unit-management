@@ -1,48 +1,80 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import Table, { Column } from "@/components/Table";
 import Pagination from "@/components/Pagination";
-import Modal from "@/components/Modal";
 import SearchBar from "@/components/SearchBar";
-import { TrashIcon, EyeIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
 import { Unit } from "@/types/unit";
+import { TrashIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 import { deleteUnit, fetchAllUnits } from "@/api/units";
+import Modal from "@/components/Modal";
+import { debounce } from "@/utils/debounce";
+import Loader from "@/components/Loader";
+import SelectField from "@/components/SelectField";
+import Button from "@/components/Button";
 
 const UnitsPage: React.FC = () => {
   const router = useRouter();
   const [units, setUnits] = useState<Unit[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [typeFilter, setTypeFilter] = useState<string | undefined>(undefined);
+  const [floorFilter, setFloorFilter] = useState<string | number | undefined>(
+    undefined
+  );
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
-  const [totalPages, setTotalPages] = useState(1);
+  const [sortField, setSortField] = useState<string>("createdAt");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   const rowsPerPage = 10;
 
-  const loadUnits = async () => {
+  const fetchAndSetUnits = useCallback(async () => {
+    setLoading(true);
     try {
-      const response = await fetchAllUnits({
-        search: searchQuery,
+      const { units, totalPages } = await fetchAllUnits({
+        search: searchTerm,
+        type: typeFilter,
+        floor: floorFilter,
         page: currentPage,
         limit: rowsPerPage,
+        sortField,
+        sortOrder,
       });
-      setUnits(response.units);
-      setTotalPages(response.totalPages);
+      setUnits(units);
+      setTotalPages(totalPages);
     } catch (error) {
       console.error("Failed to fetch units:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [searchTerm, typeFilter, floorFilter, currentPage, sortField, sortOrder]);
+
+  useEffect(() => {
+    const debouncedFetch = debounce(fetchAndSetUnits, 300);
+    debouncedFetch();
+  }, [searchTerm, typeFilter, floorFilter, fetchAndSetUnits]);
+
+  const handleDelete = async () => {
+    if (!selectedUnit) return;
+    try {
+      await deleteUnit(selectedUnit.id);
+      fetchAndSetUnits();
+    } catch (error) {
+      console.error("Failed to delete unit:", error);
+    } finally {
+      setIsModalOpen(false);
+      setSelectedUnit(null);
     }
   };
-  useEffect(() => {
-    loadUnits();
-  }, [searchQuery, currentPage]);
 
   const columns: Column<Unit>[] = [
-    { header: "Unidade", accessor: "number" },
+    { header: "Número", accessor: "number" },
     { header: "Andar", accessor: "floor" },
     { header: "Tamanho (m²)", accessor: "squareFootage" },
     { header: "Tipo", accessor: "type" },
@@ -53,101 +85,115 @@ const UnitsPage: React.FC = () => {
     },
   ];
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    setCurrentPage(1);
-  };
-
-  const handleDeleteClick = (unit: Unit) => {
-    setSelectedUnit(unit);
-    setIsModalOpen(true);
-  };
-
-  const handleDeleteConfirm = async () => {
-    console.log("selectedUnit.id", selectedUnit?.id);
-    if (!selectedUnit) return;
-    try {
-      await deleteUnit(selectedUnit._id);
-      console.log(`Unit ${selectedUnit.id} has been successfully deleted.`);
-
-      // setIsSuccessModalOpen(false);
-      setIsSuccessModalOpen(true);
-      loadUnits();
-    } catch (error) {
-      console.error("Error deleting unit:", error);
-    } finally {
-      setSelectedUnit(null);
-      setIsModalOpen(false);
-    }
-  };
-
   return (
     <ProtectedRoute>
       <AuthLayout>
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold">Detalhes das Unidades</h1>
-            <button
-              onClick={() => router.push("/units/new")}
-              className="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              <PlusIcon className="h-5 w-5 mr-2" />
+            <h1 className="text-2xl font-bold">Unidades</h1>
+            <Button onClick={() => router.push("/units/new")} variant="primary">
               Nova Unidade
-            </button>
+            </Button>
           </div>
-
           <SearchBar
-            placeholder="Buscar por unidade, tipo ou andar..."
-            onSearch={handleSearch}
+            onSearch={(query) => setSearchTerm(query)}
+            placeholder="Buscar por número, tipo ou andar..."
+            buttonText="Buscar"
+            onButtonClick={fetchAndSetUnits}
+            loading={loading}
           />
-
-          <Table
-            data={units}
-            columns={columns}
-            actions={(row) => (
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => router.push(`/units/${row.id}`)}
-                  className="text-blue-500 hover:text-blue-600"
-                >
-                  <EyeIcon className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={() => handleDeleteClick(row)}
-                  className="text-red-500 hover:text-red-600"
-                >
-                  <TrashIcon className="h-5 w-5" />
-                </button>
-              </div>
-            )}
-          />
-
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+          <div className="flex space-x-4 mb-4">
+            <SelectField
+              id="typeFilter"
+              name="typeFilter"
+              label="Filtrar por Tipo"
+              value={typeFilter || ""}
+              onChange={(e) => setTypeFilter(e.target.value || undefined)}
+              options={[
+                { value: "", label: "Todos os Tipos" },
+                { value: "Residential", label: "Residencial" },
+                { value: "Commercial", label: "Comercial" },
+                { value: "House", label: "Casa" },
+                { value: "Apartment", label: "Apartamento" },
+                { value: "Office", label: "Escritório" },
+              ]}
+            />
+            <input
+              type="number"
+              placeholder="Filtrar por Andar"
+              value={floorFilter || ""}
+              onChange={(e) =>
+                setFloorFilter(
+                  e.target.value ? parseInt(e.target.value) : undefined
+                )
+              }
+              className="border rounded px-4 py-2"
+            />
+          </div>
+          <div className="flex space-x-4 mb-4">
+            <SelectField
+              id="sortField"
+              name="sortField"
+              label="Ordenar por"
+              value={sortField}
+              onChange={(e) => setSortField(e.target.value)}
+              options={[
+                { value: "createdAt", label: "Criado em" },
+                { value: "number", label: "Número" },
+                { value: "floor", label: "Andar" },
+              ]}
+            />
+            <SelectField
+              id="sortOrder"
+              name="sortOrder"
+              label="Ordem"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+              options={[
+                { value: "asc", label: "Crescente" },
+                { value: "desc", label: "Decrescente" },
+              ]}
+            />
+          </div>
+          {loading ? (
+            <Loader message="Carregando..." />
+          ) : (
+            <>
+              <Table
+                data={units}
+                columns={columns}
+                actions={(row) => (
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => router.push(`/units/${row.id}`)}
+                      className="text-blue-500 hover:text-blue-600"
+                    >
+                      <EyeIcon className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() => setSelectedUnit(row)}
+                      className="text-red-500 hover:text-red-600"
+                    >
+                      <TrashIcon className="h-5 w-5" />
+                    </button>
+                  </div>
+                )}
+              />
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </>
+          )}
         </div>
-
         <Modal
           type="warning"
-          title="Confirmar Exclusão"
-          description={`Tem certeza de que deseja excluir a unidade ${selectedUnit?.number}?`}
+          title="Confirmação de Exclusão"
+          description={`Tem certeza que deseja excluir a unidade "${selectedUnit?.number}"? Esta ação não pode ser desfeita.`}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onConfirm={handleDeleteConfirm}
-        />
-
-        <Modal
-          type="success"
-          title="Sucesso!"
-          description="A unidade foi excluída com sucesso."
-          isOpen={isSuccessModalOpen}
-          onClose={() => setIsSuccessModalOpen(false)}
+          onConfirm={handleDelete}
         />
       </AuthLayout>
     </ProtectedRoute>
