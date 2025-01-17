@@ -15,6 +15,9 @@ import { debounce } from "@/utils/debounce";
 import Loader from "@/components/Loader";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
+import UnitFormModal from "@/components/UnitFormModal";
+import { fetchUsers } from "@/api/users";
+import { User } from "@/types/user";
 
 const UnitsPage: React.FC = () => {
   const router = useRouter();
@@ -31,7 +34,10 @@ const UnitsPage: React.FC = () => {
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
   const [sortField, setSortField] = useState<string>("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
-
+  const [isUnitFormModalOpen, setIsUnitFormModalOpen] = useState(false);
+  const [editingUnit, setEditingUnit] = useState<Partial<Unit> | undefined>();
+  // const [availableUsers, setAvailableUsers] = useState<User[]>([]);
+  console.log("editingUnit", editingUnit);
   const rowsPerPage = 10;
 
   const fetchAndSetUnits = useCallback(async () => {
@@ -55,10 +61,20 @@ const UnitsPage: React.FC = () => {
     }
   }, [searchTerm, typeFilter, floorFilter, currentPage, sortField, sortOrder]);
 
+  // const fetchUsers = useCallback(async () => {
+  //   try {
+  //     const response = await fetchUsers();
+  //     setAvailableUsers(response.users);
+  //   } catch (error) {
+  //     console.error("Failed to fetch users:", error);
+  //   }
+  // }, []);
+
   useEffect(() => {
     const debouncedFetch = debounce(fetchAndSetUnits, 300);
     debouncedFetch();
-  }, [searchTerm, typeFilter, floorFilter, fetchAndSetUnits]);
+    // fetchUsers();
+  }, [searchTerm, typeFilter, floorFilter, fetchAndSetUnits, fetchUsers]);
 
   const handleDelete = async () => {
     if (!selectedUnit) return;
@@ -71,6 +87,21 @@ const UnitsPage: React.FC = () => {
       setIsModalOpen(false);
       setSelectedUnit(null);
     }
+  };
+
+  const openCreateModal = () => {
+    setEditingUnit(undefined);
+    setIsUnitFormModalOpen(true);
+  };
+
+  const openEditModal = (unit: Unit) => {
+    setEditingUnit(unit);
+    setIsUnitFormModalOpen(true);
+  };
+
+  const closeUnitFormModal = () => {
+    setIsUnitFormModalOpen(false);
+    setEditingUnit(undefined);
   };
 
   const columns: Column<Unit>[] = [
@@ -91,7 +122,7 @@ const UnitsPage: React.FC = () => {
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold">Unidades</h1>
-            <Button onClick={() => router.push("/units/new")} variant="primary">
+            <Button onClick={openCreateModal} variant="primary">
               Nova Unidade
             </Button>
           </div>
@@ -165,7 +196,7 @@ const UnitsPage: React.FC = () => {
                 actions={(row) => (
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => router.push(`/units/${row.id}`)}
+                      onClick={() => openEditModal(row)}
                       className="text-blue-500 hover:text-blue-600"
                     >
                       <EyeIcon className="h-5 w-5" />
@@ -194,6 +225,14 @@ const UnitsPage: React.FC = () => {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleDelete}
+        />
+        <UnitFormModal
+          isOpen={isUnitFormModalOpen}
+          onClose={closeUnitFormModal}
+          onSubmitSuccess={fetchAndSetUnits}
+          unit={editingUnit}
+          mode={editingUnit ? "edit" : "create"}
+          // availableUsers={availableUsers}
         />
       </AuthLayout>
     </ProtectedRoute>

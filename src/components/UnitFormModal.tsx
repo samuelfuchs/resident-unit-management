@@ -5,8 +5,30 @@ import InputField from "@/components/InputField";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
 import { createUnit, updateUnit } from "@/api/units";
-import { Unit, UnitType } from "@/types/unit";
+// import { Unit, UnitType } from "@/types/unit";
 import { User } from "@/types/user";
+import InfiniteSelectDropdown from "./InfiniteSelectDropdown";
+import MultiSelectDropdown from "./MultiSelectDropdown";
+
+export interface Unit {
+  _id: string;
+  number: string;
+  floor?: number;
+  squareFootage: number;
+  type: UnitType;
+  owner: User[];
+  leaseAgreement?: string;
+  parkingSpots?: string[];
+  tenant?: User[] | null;
+}
+
+export enum UnitType {
+  Residential = "Residential",
+  Commercial = "Commercial",
+  House = "House",
+  Apartment = "Apartment",
+  Office = "Office",
+}
 
 interface UnitFormModalProps {
   isOpen: boolean;
@@ -14,7 +36,7 @@ interface UnitFormModalProps {
   onSubmitSuccess: () => void;
   unit?: Partial<Unit>;
   mode?: "view" | "edit" | "create";
-  availableUsers: User[];
+  // availableUsers: User[];
 }
 
 const UnitFormModal: React.FC<UnitFormModalProps> = ({
@@ -23,8 +45,16 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
   onSubmitSuccess,
   unit,
   mode = "create",
-  availableUsers,
+  // availableUsers,
 }) => {
+  const [selectedOwners, setSelectedOwners] = useState<
+    { value: string; label: string }[]
+  >([]);
+
+  const [selectedTenants, setSelectedTenants] = useState<
+    { value: string; label: string }[]
+  >([]);
+
   const [formData, setFormData] = useState<Partial<Unit>>({
     number: "",
     floor: 0,
@@ -97,14 +127,13 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
       floor: formData.floor || 0,
       squareFootage: formData.squareFootage || 0,
       type: formData.type || UnitType.Residential,
-      owner: (formData.owner || []).map((user: User) => user._id),
+      owner: selectedOwners.map((owner) => owner.value),
       parkingSpots: formData.parkingSpots || [],
-      tenant: (formData.tenant || []).map((user: User) => user._id),
+      tenant: selectedTenants.map((tenant) => tenant.value),
     };
-
     try {
-      if (unit?.id) {
-        await updateUnit(unit.id, payload);
+      if (unit?._id) {
+        await updateUnit(unit._id, payload);
       } else {
         await createUnit(payload);
       }
@@ -155,7 +184,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             value={formData.floor?.toString() || ""}
             onChange={handleChange}
             disabled={isViewMode}
-            required={!isViewMode}
+            // required={!isViewMode}
           />
           <InputField
             id="squareFootage"
@@ -184,7 +213,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             }))}
             disabled={isViewMode}
           />
-          <SelectField
+          {/* <SelectField
             id="owner"
             name="owner"
             label="Proprietário"
@@ -225,6 +254,36 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             }))}
             disabled={isViewMode}
             isMulti
+          /> */}
+          {/* <InfiniteSelectDropdown
+            label="Proprietário"
+            value={(formData.owner || []).map((user: User) => user._id)}
+            onChange={(selected) =>
+              setFormData((prev) => ({
+                ...prev,
+                owner: selected.map((id) => ({ _id: id } as User)),
+              }))
+            }
+            disabled={isViewMode}
+          /> */}
+          <MultiSelectDropdown
+            selectedUsers={selectedOwners}
+            setSelectedUsers={setSelectedOwners}
+          />
+          {/* <InfiniteSelectDropdown
+            label="Inquilino"
+            value={(formData.tenant || []).map((user: User) => user._id)}
+            onChange={(selected) =>
+              setFormData((prev) => ({
+                ...prev,
+                tenant: selected.map((id) => ({ _id: id } as User)),
+              }))
+            }
+            disabled={isViewMode}
+          /> */}
+          <MultiSelectDropdown
+            selectedUsers={selectedTenants}
+            setSelectedUsers={setSelectedTenants}
           />
           <InputField
             id="parkingSpots"
