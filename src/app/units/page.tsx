@@ -7,7 +7,13 @@ import Table, { Column } from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import SearchBar from "@/components/SearchBar";
 import { Unit } from "@/types/unit";
-import { TrashIcon, EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
+import {
+  TrashIcon,
+  EyeIcon,
+  PencilIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { deleteUnit, fetchAllUnits } from "@/api/units";
 import Modal from "@/components/Modal";
@@ -26,6 +32,7 @@ const UnitsPage: React.FC = () => {
   const [floorFilter, setFloorFilter] = useState<string | number | undefined>(
     undefined
   );
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
@@ -131,59 +138,83 @@ const UnitsPage: React.FC = () => {
             onButtonClick={fetchAndSetUnits}
             loading={loading}
           />
-          <div className="flex space-x-4 mb-4">
-            <SelectField
-              id="typeFilter"
-              name="typeFilter"
-              label="Filtrar por Tipo"
-              value={typeFilter || ""}
-              onChange={(e) => setTypeFilter(e.target.value || undefined)}
-              options={[
-                { value: "", label: "Todos os Tipos" },
-                { value: "Residential", label: "Residencial" },
-                { value: "Commercial", label: "Comercial" },
-                { value: "House", label: "Casa" },
-                { value: "Apartment", label: "Apartamento" },
-                { value: "Office", label: "Escritório" },
-              ]}
-            />
-            <input
-              type="number"
-              placeholder="Filtrar por Andar"
-              value={floorFilter || ""}
-              onChange={(e) =>
-                setFloorFilter(
-                  e.target.value ? parseInt(e.target.value) : undefined
-                )
-              }
-              className="border rounded px-4 py-2"
-            />
+
+          <div className="bg-white shadow-md rounded-lg mb-6">
+            <div className="flex justify-between items-center p-4">
+              <h2 className="text-lg font-semibold">Filtros avançados</h2>
+              <button
+                onClick={() => setIsFilterVisible((prev) => !prev)}
+                className="flex items-center text-sm text-blue-500 hover:text-blue-700"
+              >
+                {isFilterVisible ? "Esconder Filtros" : "Mostrar Filtros"}
+                {isFilterVisible ? (
+                  <ChevronUpIcon className="h-5 w-5 ml-1" />
+                ) : (
+                  <ChevronDownIcon className="h-5 w-5 ml-1" />
+                )}
+              </button>
+            </div>
+            {isFilterVisible && (
+              <div className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <SelectField
+                    id="typeFilter"
+                    name="typeFilter"
+                    label="Filtrar por Tipo"
+                    value={typeFilter || ""}
+                    onChange={(e) => setTypeFilter(e.target.value || undefined)}
+                    options={[
+                      { value: "", label: "Todos os Tipos" },
+                      { value: "Residential", label: "Residencial" },
+                      { value: "Commercial", label: "Comercial" },
+                      { value: "House", label: "Casa" },
+                      { value: "Apartment", label: "Apartamento" },
+                      { value: "Office", label: "Escritório" },
+                    ]}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Filtrar por Andar"
+                    value={floorFilter || ""}
+                    onChange={(e) =>
+                      setFloorFilter(
+                        e.target.value ? parseInt(e.target.value) : undefined
+                      )
+                    }
+                    className="border rounded px-4 py-2"
+                  />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                  <SelectField
+                    id="sortField"
+                    name="sortField"
+                    label="Ordenar por"
+                    value={sortField}
+                    onChange={(e) => setSortField(e.target.value)}
+                    options={[
+                      { value: "createdAt", label: "Criado em" },
+                      { value: "number", label: "Número" },
+                      { value: "floor", label: "Andar" },
+                    ]}
+                  />
+                  <SelectField
+                    id="sortOrder"
+                    name="sortOrder"
+                    label="Ordem"
+                    value={sortOrder}
+                    onChange={(e) =>
+                      setSortOrder(e.target.value as "asc" | "desc")
+                    }
+                    options={[
+                      { value: "asc", label: "Crescente" },
+                      { value: "desc", label: "Decrescente" },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-          <div className="flex space-x-4 mb-4">
-            <SelectField
-              id="sortField"
-              name="sortField"
-              label="Ordenar por"
-              value={sortField}
-              onChange={(e) => setSortField(e.target.value)}
-              options={[
-                { value: "createdAt", label: "Criado em" },
-                { value: "number", label: "Número" },
-                { value: "floor", label: "Andar" },
-              ]}
-            />
-            <SelectField
-              id="sortOrder"
-              name="sortOrder"
-              label="Ordem"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
-              options={[
-                { value: "asc", label: "Crescente" },
-                { value: "desc", label: "Decrescente" },
-              ]}
-            />
-          </div>
+
           {loading ? (
             <Loader message="Carregando..." />
           ) : (

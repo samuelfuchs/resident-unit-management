@@ -7,7 +7,13 @@ import Table, { Column } from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import SearchBar from "@/components/SearchBar";
 import { User } from "@/types/user";
-import { TrashIcon, EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
+import {
+  TrashIcon,
+  EyeIcon,
+  PencilIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { deleteUser, fetchUsers } from "@/api/users";
 import Modal from "@/components/Modal";
@@ -28,6 +34,7 @@ const UsersPage: React.FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<string>("null");
   const [selectedUserName, setSelectedUserName] = useState<string>("");
 
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [roleFilter, setRoleFilter] = useState<string | undefined>(undefined);
   const [statusFilter, setStatusFilter] = useState<string | undefined>(
     undefined
@@ -150,7 +157,7 @@ const UsersPage: React.FC = () => {
             onButtonClick={() => fetchAndSetUsers()}
             loading={loading}
           />
-          <div className="flex space-x-4 mb-4">
+          {/* <div className="flex space-x-4 mb-4">
             <SelectField
               id="roleFilter"
               name="roleFilter"
@@ -213,6 +220,95 @@ const UsersPage: React.FC = () => {
                 { value: "desc", label: "Decrescente" },
               ]}
             />
+          </div> */}
+          <div className="bg-white shadow-md rounded-lg mb-6">
+            <div className="flex justify-between items-center p-4">
+              <h2 className="text-lg font-semibold">Filtros avançados</h2>
+              <button
+                onClick={() => setIsFilterVisible((prev) => !prev)}
+                className="flex items-center text-sm text-blue-500 hover:text-blue-700"
+              >
+                {isFilterVisible ? "Esconder Filtros" : "Mostrar Filtros"}
+                {isFilterVisible ? (
+                  <ChevronUpIcon className="h-5 w-5 ml-1" />
+                ) : (
+                  <ChevronDownIcon className="h-5 w-5 ml-1" />
+                )}
+              </button>
+            </div>
+            {isFilterVisible && (
+              <div className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <SelectField
+                    id="roleFilter"
+                    name="roleFilter"
+                    label="Filtrar por Função"
+                    value={roleFilter || ""}
+                    onChange={(e) => setRoleFilter(e.target.value || undefined)}
+                    options={[
+                      { value: "", label: "Todas as Funções" },
+                      { value: "admin", label: "Admin" },
+                      { value: "receptionist", label: "Receptionist" },
+                      { value: "resident", label: "Resident" },
+                    ]}
+                  />
+                  <SelectField
+                    id="statusFilter"
+                    name="statusFilter"
+                    label="Filtrar por Status"
+                    value={statusFilter || ""}
+                    onChange={(e) =>
+                      setStatusFilter(e.target.value || undefined)
+                    }
+                    options={[
+                      { value: "", label: "Todos os Status" },
+                      { value: "active", label: "Ativo" },
+                      { value: "inactive", label: "Inativo" },
+                    ]}
+                  />
+                  <div className="flex items-end">
+                    <Button
+                      loading={loading}
+                      onClick={() => {
+                        setRoleFilter(undefined);
+                        setStatusFilter(undefined);
+                      }}
+                      variant="secondary"
+                      className="w-full"
+                    >
+                      Limpar Filtros
+                    </Button>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4">
+                  <SelectField
+                    id="sortField"
+                    name="sortField"
+                    label="Ordenar por"
+                    value={sortField}
+                    onChange={(e) => setSortField(e.target.value)}
+                    options={[
+                      { value: "createdAt", label: "Criado em" },
+                      { value: "name", label: "Nome" },
+                      { value: "email", label: "E-mail" },
+                    ]}
+                  />
+                  <SelectField
+                    id="sortOrder"
+                    name="sortOrder"
+                    label="Ordem"
+                    value={sortOrder}
+                    onChange={(e) =>
+                      setSortOrder(e.target.value as "asc" | "desc")
+                    }
+                    options={[
+                      { value: "asc", label: "Crescente" },
+                      { value: "desc", label: "Decrescente" },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
           </div>
           {loading ? (
             <Loader message="Carregando..." />
