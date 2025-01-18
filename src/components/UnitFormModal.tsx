@@ -6,11 +6,8 @@ import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
 import { createUnit, updateUnit } from "@/api/units";
 import { User } from "@/types/user";
-// import MultiSelectDropdown from "./MultiSelectDropdown";
 import AsyncSelect from "react-select/async";
 import { fetchUsers } from "@/api/users";
-// import Select from "react-select/base";
-// import MultiSelectDropdown from "./MultiSelectDropdown";
 
 export interface Unit {
   _id: string;
