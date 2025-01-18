@@ -143,9 +143,6 @@ const UsersPage: React.FC = () => {
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold">Usuários</h1>
-            {/* <Button onClick={() => router.push("/users/new")}>
-              Novo Usuário
-            </Button> */}
             <Button onClick={openCreateModal} variant="primary">
               Novo Usuário
             </Button>
@@ -157,70 +154,6 @@ const UsersPage: React.FC = () => {
             onButtonClick={() => fetchAndSetUsers()}
             loading={loading}
           />
-          {/* <div className="flex space-x-4 mb-4">
-            <SelectField
-              id="roleFilter"
-              name="roleFilter"
-              label="Filtrar por Função"
-              value={roleFilter || ""}
-              onChange={(e) => setRoleFilter(e.target.value || undefined)}
-              options={[
-                { value: "", label: "Todas as Funções" },
-                { value: "admin", label: "Admin" },
-                { value: "receptionist", label: "Receptionist" },
-                { value: "resident", label: "Resident" },
-              ]}
-            />
-            <SelectField
-              id="statusFilter"
-              name="statusFilter"
-              label="Filtrar por Status"
-              value={statusFilter || ""}
-              onChange={(e) => setStatusFilter(e.target.value || undefined)}
-              options={[
-                { value: "", label: "Todos os Status" },
-                { value: "active", label: "Ativo" },
-                { value: "inactive", label: "Inativo" },
-              ]}
-            />
-            <div>
-              <Button
-                loading={loading}
-                onClick={() => {
-                  setRoleFilter(undefined);
-                  setStatusFilter(undefined);
-                }}
-              >
-                Clear Filters
-              </Button>
-            </div>
-          </div>
-          <div className="flex space-x-4 mb-4">
-            <SelectField
-              id="sortField"
-              name="sortField"
-              label="Ordenar por"
-              value={sortField}
-              onChange={(e) => setSortField(e.target.value)}
-              options={[
-                { value: "createdAt", label: "Criado em" },
-                { value: "name", label: "Nome" },
-                { value: "email", label: "E-mail" },
-              ]}
-            />
-
-            <SelectField
-              id="sortOrder"
-              name="sortOrder"
-              label="Ordem"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
-              options={[
-                { value: "asc", label: "Crescente" },
-                { value: "desc", label: "Decrescente" },
-              ]}
-            />
-          </div> */}
           <div className="bg-white shadow-md rounded-lg mb-6">
             <div className="flex justify-between items-center p-4">
               <h2 className="text-lg font-semibold">Filtros avançados</h2>
