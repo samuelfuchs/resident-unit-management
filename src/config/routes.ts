@@ -31,18 +31,18 @@ export const routes = [
     icon: BuildingOfficeIcon,
     allowedRoles: ["admin", "receptionist"],
   },
-  {
-    path: "/notifications",
-    label: "Notificações",
-    icon: BellIcon,
-    allowedRoles: ["admin", "receptionist", "resident"],
-  },
-  {
-    path: "/profile",
-    label: "Meu Perfil",
-    icon: UserCircleIcon,
-    allowedRoles: ["admin", "receptionist", "resident"],
-  },
+  // {
+  //   path: "/notifications",
+  //   label: "Notificações",
+  //   icon: BellIcon,
+  //   allowedRoles: ["admin", "receptionist", "resident"],
+  // },
+  // {
+  //   path: "/profile",
+  //   label: "Meu Perfil",
+  //   icon: UserCircleIcon,
+  //   allowedRoles: ["admin", "receptionist", "resident"],
+  // },
 ];
 
 export const routesMap = Object.fromEntries(
