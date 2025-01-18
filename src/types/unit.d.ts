@@ -1,7 +1,7 @@
 import { User } from "./user";
 
 export interface Unit {
-  id: string;
+  _id: string;
   number: string;
   floor?: number;
   squareFootage: number;

@@ -6,7 +6,10 @@ import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
 import { createUnit, updateUnit } from "@/api/units";
 import { User } from "@/types/user";
-import MultiSelectDropdown from "./MultiSelectDropdown";
+// import MultiSelectDropdown from "./MultiSelectDropdown";
+import AsyncSelect from "react-select/async";
+import { fetchUsers } from "@/api/users";
+// import Select from "react-select/base";
 // import MultiSelectDropdown from "./MultiSelectDropdown";
 
 export interface Unit {
@@ -47,6 +50,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
   const [selectedOwners, setSelectedOwners] = useState<
     { value: string; label: string }[]
   >([]);
+  console.log("unit", unit);
 
   const [selectedTenants, setSelectedTenants] = useState<
     { value: string; label: string }[]
@@ -78,6 +82,81 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
       onClose();
     }
   };
+  const fetchTenantOptions = async (inputValue: string) => {
+    try {
+      const { users } = await fetchUsers({
+        search: inputValue,
+        page: 1,
+        limit: 10,
+        sortField: "name",
+        sortOrder: "asc",
+      });
+      return users.map((user: any) => ({
+        value: user._id,
+        label: `${user.name} ${user.lastName}`,
+      }));
+    } catch (error) {
+      console.error("Failed to fetch tenant options:", error);
+      return [];
+    }
+  };
+
+  const fetchOwnerOptions = async (inputValue: string) => {
+    try {
+      const response = await fetchUsers({
+        search: inputValue,
+        page: 1,
+        limit: 10,
+        sortField: "name",
+        sortOrder: "asc",
+      });
+      return response.users.map((user: any) => ({
+        value: user._id,
+        label: `${user.name} ${user.lastName}`,
+      }));
+    } catch (error) {
+      console.error("Failed to fetch owner options:", error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    if (unit) {
+      setFormData(unit);
+
+      // Populate selectedOwners state
+      if (unit.owner) {
+        setSelectedOwners(
+          unit.owner.map((user) => ({
+            value: user._id,
+            label: `${user.name} ${user.lastName}`,
+          }))
+        );
+      }
+
+      // Populate selectedTenants state
+      if (unit.tenant) {
+        setSelectedTenants(
+          unit.tenant.map((user) => ({
+            value: user._id,
+            label: `${user.name} ${user.lastName}`,
+          }))
+        );
+      }
+    } else {
+      setFormData({
+        number: "",
+        floor: 0,
+        squareFootage: 0,
+        type: UnitType.Residential,
+        owner: [],
+        parkingSpots: [],
+        tenant: [],
+      });
+      setSelectedOwners([]);
+      setSelectedTenants([]);
+    }
+  }, [unit]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -181,7 +260,6 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             value={formData.floor?.toString() || ""}
             onChange={handleChange}
             disabled={isViewMode}
-            // required={!isViewMode}
           />
           <InputField
             id="squareFootage"
@@ -192,7 +270,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             onChange={(e) =>
               setFormData((prev) => ({
                 ...prev,
-                squareFootage: parseInt(e.target.value, 10) || 0, // Parse back to number
+                squareFootage: parseInt(e.target.value, 10) || 0,
               }))
             }
             disabled={isViewMode}
@@ -210,14 +288,43 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             }))}
             disabled={isViewMode}
           />
-          <MultiSelectDropdown
-            selectedUsers={selectedOwners}
-            setSelectedUsers={setSelectedOwners}
-          />
-          <MultiSelectDropdown
-            selectedUsers={selectedTenants}
-            setSelectedUsers={setSelectedTenants}
-          />
+
+          <div>
+            <label
+              htmlFor="owner-select"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Proprietário
+            </label>
+            <AsyncSelect
+              isMulti
+              cacheOptions
+              defaultOptions
+              loadOptions={fetchOwnerOptions}
+              value={selectedOwners}
+              onChange={(newValue) => setSelectedOwners([...newValue])}
+              isDisabled={isViewMode}
+              placeholder="Search and select owners..."
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="tenant-select"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Inquilinos
+            </label>
+            <AsyncSelect
+              isMulti
+              cacheOptions
+              defaultOptions
+              loadOptions={fetchTenantOptions}
+              value={selectedTenants}
+              onChange={(newValue) => setSelectedTenants([...newValue])}
+              isDisabled={isViewMode}
+              placeholder="Search and select tenants..."
+            />
+          </div>
           <InputField
             id="parkingSpots"
             name="parkingSpots"
