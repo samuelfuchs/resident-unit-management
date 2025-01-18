@@ -28,7 +28,7 @@ const InputField: React.FC<InputFieldProps> = ({
   required = false,
 }) => {
   return (
-    <div className="sm:col-span-3">
+    <div>
       <label htmlFor={id} className="block text-sm font-medium text-gray-900">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}

@@ -10,6 +10,7 @@ interface SelectFieldProps {
   placeholder?: string;
   disabled?: boolean;
   isMulti?: boolean;
+  required?: boolean;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -22,11 +23,12 @@ const SelectField: React.FC<SelectFieldProps> = ({
   placeholder,
   disabled = false,
   isMulti = false,
+  required = false,
 }) => {
   return (
-    <div className="sm:col-span-3">
+    <div>
       <label htmlFor={id} className="block text-sm font-medium text-gray-900">
-        {label}
+        {label} {required && <span className="text-red-500">*</span>}
       </label>
       <div className="mt-2">
         <select
@@ -36,6 +38,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
           onChange={onChange}
           disabled={disabled}
           multiple={isMulti}
+          required={required}
           className={`block w-full rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm ${
             disabled ? "bg-gray-100 text-gray-500" : ""
           }`}

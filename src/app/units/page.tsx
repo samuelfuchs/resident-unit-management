@@ -7,7 +7,7 @@ import Table, { Column } from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import SearchBar from "@/components/SearchBar";
 import { Unit } from "@/types/unit";
-import { TrashIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { deleteUnit, fetchAllUnits } from "@/api/units";
 import Modal from "@/components/Modal";
@@ -29,12 +29,15 @@ const UnitsPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
   const [sortField, setSortField] = useState<string>("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [isUnitFormModalOpen, setIsUnitFormModalOpen] = useState(false);
   const [editingUnit, setEditingUnit] = useState<Partial<Unit> | undefined>();
+  const [modalMode, setModalMode] = useState<"view" | "edit" | "create">(
+    "create"
+  );
   const rowsPerPage = 10;
 
   const fetchAndSetUnits = useCallback(async () => {
@@ -66,29 +69,37 @@ const UnitsPage: React.FC = () => {
   const handleDelete = async () => {
     if (!selectedUnit) return;
     try {
-      await deleteUnit(selectedUnit.id);
+      await deleteUnit(selectedUnit._id);
       fetchAndSetUnits();
     } catch (error) {
       console.error("Failed to delete unit:", error);
     } finally {
-      setIsModalOpen(false);
+      setIsDeleteModalOpen(false);
       setSelectedUnit(null);
     }
   };
 
   const openCreateModal = () => {
     setEditingUnit(undefined);
+    setModalMode("create");
     setIsUnitFormModalOpen(true);
   };
 
   const openEditModal = (unit: Unit) => {
     setEditingUnit(unit);
+    setModalMode("edit");
     setIsUnitFormModalOpen(true);
   };
 
   const closeUnitFormModal = () => {
     setIsUnitFormModalOpen(false);
     setEditingUnit(undefined);
+  };
+
+  const openViewModal = (unit: Unit) => {
+    setEditingUnit(unit);
+    setModalMode("view");
+    setIsUnitFormModalOpen(true);
   };
 
   const columns: Column<Unit>[] = [
@@ -183,13 +194,22 @@ const UnitsPage: React.FC = () => {
                 actions={(row) => (
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => openEditModal(row)}
+                      onClick={() => openViewModal(row)}
                       className="text-blue-500 hover:text-blue-600"
                     >
                       <EyeIcon className="h-5 w-5" />
                     </button>
                     <button
-                      onClick={() => setSelectedUnit(row)}
+                      onClick={() => openEditModal(row)}
+                      className="text-green-500 hover:text-green-600"
+                    >
+                      <PencilIcon className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedUnit(row);
+                        setIsDeleteModalOpen(true);
+                      }}
                       className="text-red-500 hover:text-red-600"
                     >
                       <TrashIcon className="h-5 w-5" />
@@ -209,8 +229,8 @@ const UnitsPage: React.FC = () => {
           type="warning"
           title="Confirmação de Exclusão"
           description={`Tem certeza que deseja excluir a unidade "${selectedUnit?.number}"? Esta ação não pode ser desfeita.`}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={handleDelete}
         />
         <UnitFormModal
@@ -218,7 +238,7 @@ const UnitsPage: React.FC = () => {
           onClose={closeUnitFormModal}
           onSubmitSuccess={fetchAndSetUnits}
           unit={editingUnit}
-          mode={editingUnit ? "edit" : "create"}
+          mode={modalMode}
         />
       </AuthLayout>
     </ProtectedRoute>
