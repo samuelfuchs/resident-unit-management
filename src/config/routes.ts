@@ -4,6 +4,7 @@ import {
   BuildingOfficeIcon,
   UsersIcon,
   BellIcon,
+  CreditCardIcon,
 } from "@heroicons/react/24/outline";
 
 export const routes = [
@@ -30,6 +31,18 @@ export const routes = [
     label: "Unidades",
     icon: BuildingOfficeIcon,
     allowedRoles: ["admin", "receptionist"],
+  },
+  {
+    path: "/payments",
+    label: "Pagamentos",
+    icon: CreditCardIcon,
+    allowedRoles: ["admin", "receptionist"],
+  },
+  {
+    path: "/my-payments",
+    label: "My Payments",
+    icon: CreditCardIcon,
+    allowedRoles: ["resident"],
   },
   // {
   //   path: "/notifications",

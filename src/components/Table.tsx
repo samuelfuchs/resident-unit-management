@@ -2,19 +2,25 @@
 
 import React from "react";
 
-export interface Column<T> {
+type NestedKeyOf<ObjectType extends object> = {
+  [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
+    ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+    : `${Key}`;
+}[keyof ObjectType & (string | number)];
+
+export interface Column<T extends object> {
   header: string;
-  accessor: keyof T;
+  accessor: NestedKeyOf<T> | keyof T;
   render?: (value: any, row: T) => React.ReactNode;
 }
 
-interface TableProps<T> {
+interface TableProps<T extends object> {
   data: T[];
   columns: Column<T>[];
   actions?: (row: T) => React.ReactNode;
 }
 
-const Table = <T,>({ data, columns, actions }: TableProps<T>) => {
+const Table = <T extends object>({ data, columns, actions }: TableProps<T>) => {
   return (
     <div className="overflow-x-auto mt-8 sm:-mx-0">
       <table className="min-w-full divide-y divide-gray-300 hidden sm:table">
@@ -44,8 +50,8 @@ const Table = <T,>({ data, columns, actions }: TableProps<T>) => {
                   className="px-3 py-4 text-sm text-gray-500"
                 >
                   {col.render
-                    ? col.render(row[col.accessor], row)
-                    : (row[col.accessor] as React.ReactNode)}
+                    ? col.render(row[col.accessor as keyof T], row)
+                    : (row[col.accessor as keyof T] as React.ReactNode)}
                 </td>
               ))}
               {actions && (
@@ -74,8 +80,8 @@ const Table = <T,>({ data, columns, actions }: TableProps<T>) => {
                 </span>
                 <span className="text-gray-800">
                   {col.render
-                    ? col.render(row[col.accessor], row)
-                    : (row[col.accessor] as React.ReactNode)}
+                    ? col.render(row[col.accessor as keyof T], row)
+                    : (row[col.accessor as keyof T] as React.ReactNode)}
                 </span>
               </div>
             ))}
