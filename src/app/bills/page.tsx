@@ -12,11 +12,12 @@ import { useUsers } from "@/hooks/useUsers";
 import { fetchBillsByResidentId } from "@/api/bills";
 import { useAuth } from "@/context/AuthContext";
 import SelectField from "@/components/SelectField";
+import Loader from "@/components/Loader";
 
 const BillsPage: React.FC = () => {
   const { user } = useAuth();
   const [bills, setBills] = useState<Bill[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
   const [selectedResidentId, setSelectedResidentId] = useState<string>("");
@@ -137,7 +138,11 @@ const BillsPage: React.FC = () => {
             />
           </div>
 
-          <Table data={bills} columns={columns} loading={loading} />
+          {loading ? (
+            <Loader message="Loading..." />
+          ) : (
+            <Table data={bills} columns={columns} />
+          )}
 
           {isAdmin && (
             <BillFormModal
