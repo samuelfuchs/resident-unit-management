@@ -115,9 +115,9 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
         className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6"
       >
         <h2 className="text-lg font-bold mb-4">
-          {isCreateMode && "Criar Novo Usuário"}
-          {isEditMode && "Editar Usuário"}
-          {isViewMode && "Visualizar Usuário"}
+          {isCreateMode && "Create New User"}
+          {isEditMode && "Edit User"}
+          {isViewMode && "View User"}
         </h2>
         <form
           className="space-y-4"
@@ -128,38 +128,41 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
             }
           }}
         >
-          <InputField
-            id="name"
-            name="name"
-            label="Nome"
-            value={formData.name || ""}
-            onChange={handleChange}
-            disabled={isViewMode}
-            required={!isViewMode}
-          />
-          <InputField
-            id="lastName"
-            name="lastName"
-            label="Sobrenome"
-            value={formData.lastName || ""}
-            onChange={handleChange}
-            disabled={isViewMode}
-            required={!isViewMode}
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <InputField
+              id="name"
+              name="name"
+              label="Name"
+              value={formData.name || ""}
+              onChange={handleChange}
+              disabled={isViewMode}
+              required={!isViewMode}
+            />
+            <InputField
+              id="lastName"
+              name="lastName"
+              label="Last Name"
+              value={formData.lastName || ""}
+              onChange={handleChange}
+              disabled={isViewMode}
+              required={!isViewMode}
+            />
+          </div>
           <InputField
             id="email"
             name="email"
-            label="E-mail"
+            label="Email"
             type="email"
             value={formData.email || ""}
             onChange={handleChange}
             disabled={isViewMode}
             required={!isViewMode}
           />
+          <div className="grid grid-cols-2 gap-4">
           <InputField
             id="phone"
             name="phone"
-            label="Telefone"
+            label="Phone"
             value={formData.phone || ""}
             onChange={handleChange}
             disabled={isViewMode}
@@ -167,21 +170,23 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
           <SelectField
             id="role"
             name="role"
-            label="Função"
+            label="Role"
             value={formData.role || "resident"}
             onChange={handleChange}
             options={[
               { value: "admin", label: "Admin" },
-              { value: "receptionist", label: "Recepcionista" },
-              { value: "resident", label: "Residente" },
+              { value: "receptionist", label: "Receptionist" },
+              { value: "resident", label: "Resident" },
             ]}
             disabled={isViewMode}
           />
+          </div>
+          
           {isCreateMode && (
             <InputField
               id="password"
               name="password"
-              label="Senha"
+              label="Password"
               type="password"
               value={formData.password || ""}
               onChange={handleChange}
@@ -190,12 +195,12 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
           )}
           <div className="flex justify-end space-x-2">
             <Button variant="secondary" onClick={onClose}>
-              {isViewMode ? "Fechar" : "Cancelar"}
+              {isViewMode ? "Close" : "Cancel"}
             </Button>
             {!isViewMode && (
               <>
                 <Button type="submit">
-                  {isCreateMode ? "Criar" : "Salvar"}
+                  {isCreateMode ? "Create" : "Save"}
                 </Button>
               </>
             )}

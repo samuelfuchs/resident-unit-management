@@ -170,16 +170,16 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
         <h2 className="text-lg font-bold mb-4">
           {isCreateOrEditMode
             ? mode === "create"
-              ? "Criar Nova Unidade"
-              : "Editar Unidade"
-            : "Visualizar Unidade"}
+              ? "Create New Unit"
+              : "Edit Unit"
+            : "View Unit"}
         </h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField
               id="number"
               name="number"
-              label="Número"
+              label="Number"
               value={formData.number || ""}
               onChange={handleChange}
               disabled={isViewMode}
@@ -188,7 +188,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             <InputField
               id="floor"
               name="floor"
-              label="Andar"
+              label="Floor"
               type="number"
               value={formData.floor?.toString() || ""}
               onChange={handleChange}
@@ -200,7 +200,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             <InputField
               id="squareFootage"
               name="squareFootage"
-              label="Tamanho (m²)"
+              label="Size (m²)"
               type="number"
               value={formData.squareFootage?.toString() || ""}
               onChange={(e) =>
@@ -216,7 +216,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
             <SelectField
               id="type"
               name="type"
-              label="Tipo"
+              label="Type"
               value={formData.type || UnitType.Residential}
               onChange={handleChange}
               options={Object.values(UnitType).map((type) => ({
@@ -233,7 +233,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
               htmlFor="owner-select"
               className="block text-sm font-medium mb-2"
             >
-              Proprietário *
+              Owner *
             </label>
             <AsyncSelect
               isMulti
@@ -243,7 +243,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
               value={selectedOwners}
               onChange={(value) => setSelectedOwners([...value])}
               isDisabled={isViewMode}
-              placeholder="Selecione os proprietários"
+              placeholder="Select the owners"
             />
           </div>
 
@@ -252,7 +252,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
               htmlFor="tenant-select"
               className="block text-sm font-medium mb-2"
             >
-              Inquilinos
+              Tenants
             </label>
             <AsyncSelect
               isMulti
@@ -262,13 +262,13 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
               value={selectedTenants}
               onChange={(value) => setSelectedTenants([...value])}
               isDisabled={isViewMode}
-              placeholder="Selecione os inquilinos"
+              placeholder="Select the tenants"
             />
           </div>
           <InputField
             id="parkingSpots"
             name="parkingSpots"
-            label="Vagas de Estacionamento"
+            label="Parking Spots"
             value={(formData.parkingSpots || []).join(", ")}
             onChange={(e) =>
               setFormData((prev) => ({
@@ -282,11 +282,11 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
           />
           <div className="flex justify-end space-x-2">
             <Button variant="secondary" onClick={onClose}>
-              {isViewMode ? "Fechar" : "Cancelar"}
+              {isViewMode ? "Close" : "Cancel"}
             </Button>
             {isCreateOrEditMode && (
               <Button type="submit" disabled={!isFormValid}>
-                {mode === "create" ? "Criar" : "Salvar"}
+                {mode === "create" ? "Create" : "Save"}
               </Button>
             )}
           </div>
