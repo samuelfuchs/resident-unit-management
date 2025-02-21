@@ -4,12 +4,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import Table, { Column } from "@/components/Table";
-import { Bill } from "@/types/payment";
+import { Bill } from "@/types/bill";
 import { formatCurrency } from "@/utils/formatters";
 import Button from "@/components/Button";
 import { fetchResidentBills } from "@/api/bills";
-import { createResidentPaymentIntent } from "@/api/payments";
-import PaymentFormModal from "@/components/PaymentFormModal";
 
 const MyBillsPage: React.FC = () => {
   const [bills, setBills] = useState<Bill[]>([]);

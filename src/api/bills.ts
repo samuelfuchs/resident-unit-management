@@ -1,16 +1,11 @@
+import { Bill } from "@/types/bill";
 import apiClient from "./index";
-import { Bill } from "@/types/payment";
 
 interface CreateBillData {
   residentId: string;
   amount: number;
   description: string;
   dueDate: string;
-}
-
-interface BillsResponse {
-  bills: Bill[];
-  totalPages: number;
 }
 
 export const fetchAllBills = async (): Promise<Bill[]> => {

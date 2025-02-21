@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Bill } from "@/types/payment";
+import { Bill } from "@/types/bill";
 import FormModal from "@/components/FormModal";
 import InputField from "@/components/InputField";
 import SelectField from "@/components/SelectField";
