@@ -48,7 +48,7 @@ export const routes = [
     path: "/bills",
     label: "Bills",
     icon: CreditCardIcon,
-    allowedRoles: ["admin"],
+    allowedRoles: ["admin", "receptionist"],
   },
   {
     path: "/my-bills",

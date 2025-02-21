@@ -7,43 +7,52 @@ import Table, { Column } from "@/components/Table";
 import { Bill } from "@/types/payment";
 import { formatCurrency } from "@/utils/formatters";
 import Button from "@/components/Button";
-// import BillFormModal from "@/components/BillFormModal";
 import BillFormModal from "@/components/BillFormModal";
 import { useUsers } from "@/hooks/useUsers";
-import { fetchAllBills } from "@/api/bills";
+import { fetchBillsByResidentId } from "@/api/bills";
+import { useAuth } from "@/context/AuthContext";
+import SelectField from "@/components/SelectField";
 
 const BillsPage: React.FC = () => {
+  const { user } = useAuth();
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState(true);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
+  const [selectedResidentId, setSelectedResidentId] = useState<string>("");
   const { users } = useUsers();
 
+  const isAdmin = user?.role === "admin";
+
   const fetchBills = useCallback(async () => {
+    if (!selectedResidentId) {
+      setBills([]);
+      return;
+    }
+
     setLoading(true);
     try {
-      const data = await fetchAllBills();
+      const data = await fetchBillsByResidentId(selectedResidentId);
       setBills(data);
     } catch (error) {
       console.error("Failed to fetch bills:", error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [selectedResidentId]);
 
   useEffect(() => {
     fetchBills();
   }, [fetchBills]);
 
+  const residentOptions = Object.values(users)
+    .filter((user) => user.role === "resident")
+    .map((user) => ({
+      value: user._id,
+      label: `${user.name} ${user.lastName}`,
+    }));
+
   const columns: Column<Bill>[] = [
-    {
-      header: "Resident",
-      accessor: "residentId",
-      render: (value) => {
-        const user = users[value];
-        return user ? `${user.name} ${user.lastName}` : value;
-      },
-    },
     {
       header: "Description",
       accessor: "description",
@@ -75,6 +84,33 @@ const BillsPage: React.FC = () => {
         </span>
       ),
     },
+    {
+      header: "Created At",
+      accessor: "createdAt",
+      render: (value) => new Date(value).toLocaleDateString(),
+    },
+    ...(isAdmin
+      ? [
+          {
+            header: "Actions",
+            accessor: "id",
+            render: (_, bill: Bill) => (
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => {
+                    setSelectedBill(bill);
+                    setIsFormModalOpen(true);
+                  }}
+                  variant="secondary"
+                  size="small"
+                >
+                  Edit
+                </Button>
+              </div>
+            ),
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -83,26 +119,41 @@ const BillsPage: React.FC = () => {
         <div className="p-6 space-y-6">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold">Bills Management</h1>
-            <Button onClick={() => setIsFormModalOpen(true)}>
-              Create Bill
-            </Button>
+            {isAdmin && (
+              <Button onClick={() => setIsFormModalOpen(true)}>
+                Create Bill
+              </Button>
+            )}
+          </div>
+
+          <div className="w-full max-w-xs">
+            <SelectField
+              id="residentId"
+              name="residentId"
+              label="Select Resident"
+              value={selectedResidentId}
+              onChange={(e) => setSelectedResidentId(e.target.value)}
+              options={residentOptions}
+            />
           </div>
 
           <Table data={bills} columns={columns} loading={loading} />
 
-          <BillFormModal
-            isOpen={isFormModalOpen}
-            onClose={() => {
-              setIsFormModalOpen(false);
-              setSelectedBill(null);
-            }}
-            onSubmitSuccess={() => {
-              fetchBills();
-              setIsFormModalOpen(false);
-              setSelectedBill(null);
-            }}
-            bill={selectedBill}
-          />
+          {isAdmin && (
+            <BillFormModal
+              isOpen={isFormModalOpen}
+              onClose={() => {
+                setIsFormModalOpen(false);
+                setSelectedBill(null);
+              }}
+              onSubmitSuccess={() => {
+                fetchBills();
+                setIsFormModalOpen(false);
+                setSelectedBill(null);
+              }}
+              bill={selectedBill}
+            />
+          )}
         </div>
       </AuthLayout>
     </ProtectedRoute>

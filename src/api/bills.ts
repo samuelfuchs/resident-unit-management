@@ -18,6 +18,13 @@ export const fetchAllBills = async (): Promise<Bill[]> => {
   return response.data;
 };
 
+export const fetchBillsByResidentId = async (
+  residentId: string
+): Promise<Bill[]> => {
+  const response = await apiClient.get(`/bills/resident/${residentId}`);
+  return response.data;
+};
+
 export const fetchResidentBills = async (): Promise<Bill[]> => {
   const response = await apiClient.get("/bills/my-bills");
   return response.data;
@@ -37,12 +44,5 @@ export const updateBillStatus = async (
     status,
     paymentIntentId,
   });
-  return response.data;
-};
-
-export const getBillsByResidentId = async (
-  residentId: string
-): Promise<Bill[]> => {
-  const response = await apiClient.get(`/bills/resident/${residentId}`);
   return response.data;
 };
