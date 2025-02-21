@@ -55,9 +55,9 @@ const Sidebar: React.FC = () => {
             router.push("/dashboard");
             setIsSidebarOpen(false);
           }}
-          title="Ir para o Dashboard"
+          title="Go to the Dashboard"
         >
-          Roger Residência
+          Unit Manager
         </div>
         <nav className="flex-1">
           <ul className="space-y-2 p-4">
@@ -99,7 +99,7 @@ const Sidebar: React.FC = () => {
             className="flex items-center w-full text-left p-2 hover:bg-red-600 rounded"
           >
             <ArrowLongUpIcon className="h-5 w-5 mr-3" />
-            Sair
+            Logout
           </button>
         </div>
       </div>
