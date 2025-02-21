@@ -47,3 +47,9 @@ export interface UpdatePaymentIntentRequest {
   amount?: string;
   description?: string;
 }
+
+interface CreatePaymentIntentParams {
+  amount: number;
+  description: string;
+  billId: string;
+}
