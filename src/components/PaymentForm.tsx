@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   PaymentElement,
   useStripe,
@@ -21,6 +21,17 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (stripe && elements) {
+      setReady(true);
+    }
+  }, [stripe, elements]);
+
+  if (!ready) {
+    return <div>Loading payment form...</div>;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

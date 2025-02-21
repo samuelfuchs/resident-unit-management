@@ -35,3 +35,14 @@ export const fetchMyPayments = async (limit: number = 10) => {
   const response = await apiClient.get(`/payments/my-payments?limit=${limit}`);
   return response.data;
 };
+
+export const createResidentPaymentIntent = async (data: {
+  amount: number;
+  description: string;
+}) => {
+  const response = await apiClient.post(
+    "/payments/resident/create-payment-intent",
+    data
+  );
+  return response.data;
+};

@@ -5,11 +5,27 @@ export interface PaymentIntent {
   description: string;
   status: PaymentStatus;
   created: number;
+  dueDate?: string;
+  category?: "rent" | "maintenance" | "utility" | "other";
   metadata: {
     adminId: string;
     userId: string;
+    billId?: string;
   };
   client_secret?: string;
+}
+
+export interface Bill {
+  id: string;
+  residentId: string;
+  amount: number;
+  description: string;
+  dueDate: string;
+  status: "pending" | "paid" | "overdue";
+  paymentIntentId?: string;
+  createdAt: string;
+  paidAt?: string;
+  category?: "rent" | "maintenance" | "utility" | "other";
 }
 
 export type PaymentStatus =

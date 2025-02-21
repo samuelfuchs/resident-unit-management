@@ -4,49 +4,42 @@ import React, { useCallback, useEffect, useState } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
 import Table, { Column } from "@/components/Table";
-import { Bill, PaymentIntent } from "@/types/payment";
-import { fetchMyPayments, createResidentPaymentIntent } from "@/api/payments";
+import { Bill } from "@/types/payment";
 import { formatCurrency } from "@/utils/formatters";
 import Button from "@/components/Button";
-import FormModal from "@/components/FormModal";
-import { StripeProvider } from "@/components/StripeProvider";
-import PaymentForm from "@/components/PaymentForm";
+import { fetchResidentBills } from "@/api/bills";
+import { createResidentPaymentIntent } from "@/api/payments";
+import PaymentFormModal from "@/components/PaymentFormModal";
 
-const MyPaymentsPage: React.FC = () => {
+const MyBillsPage: React.FC = () => {
   const [bills, setBills] = useState<Bill[]>([]);
-  const [paymentHistory, setPaymentHistory] = useState<PaymentIntent[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
-  const fetchData = useCallback(async () => {
+  const fetchBills = useCallback(async () => {
     setLoading(true);
     try {
-      // You'll need to create these API endpoints
-      const [billsData, paymentsData] = await Promise.all([
-        fetchMyBills(),
-        fetchMyPayments(),
-      ]);
-      setBills(billsData);
-      setPaymentHistory(paymentsData.payments);
+      const data = await fetchResidentBills();
+      setBills(data);
     } catch (error) {
-      console.error("Failed to fetch data:", error);
+      console.error("Failed to fetch bills:", error);
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchBills();
+  }, [fetchBills]);
 
   const handlePayBill = async (bill: Bill) => {
     try {
       const response = await createResidentPaymentIntent({
         amount: bill.amount,
         description: bill.description,
-        billId: bill.id, 
+        billId: bill.id,
       });
       setClientSecret(response.clientSecret);
       setSelectedBill(bill);
@@ -60,18 +53,13 @@ const MyPaymentsPage: React.FC = () => {
     setIsPaymentModalOpen(false);
     setSelectedBill(null);
     setClientSecret(null);
-    fetchData();
+    fetchBills();
   };
 
-  const billColumns: Column<Bill>[] = [
+  const columns: Column<Bill>[] = [
     {
       header: "Description",
       accessor: "description",
-    },
-    {
-      header: "Category",
-      accessor: "category",
-      render: (value) => value.charAt(0).toUpperCase() + value.slice(1),
     },
     {
       header: "Amount",
@@ -107,6 +95,7 @@ const MyPaymentsPage: React.FC = () => {
         <Button
           onClick={() => handlePayBill(bill)}
           disabled={bill.status === "paid"}
+          variant={bill.status === "overdue" ? "danger" : "primary"}
         >
           Pay Now
         </Button>
@@ -118,41 +107,30 @@ const MyPaymentsPage: React.FC = () => {
     <ProtectedRoute>
       <AuthLayout>
         <div className="p-6 space-y-6">
-          <div>
-            <h2 className="text-xl font-bold mb-4">Pending Bills</h2>
-            <Table
-              data={bills.filter((b) => b.status !== "paid")}
-              columns={billColumns}
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold">My Bills</h1>
+          </div>
+
+          <Table data={bills} columns={columns} />
+
+          {selectedBill && clientSecret && (
+            <PaymentFormModal
+              isOpen={isPaymentModalOpen}
+              onClose={() => {
+                setIsPaymentModalOpen(false);
+                setSelectedBill(null);
+                setClientSecret(null);
+              }}
+              clientSecret={clientSecret}
+              onPaymentSuccess={handlePaymentSuccess}
+              amount={selectedBill.amount}
+              description={selectedBill.description}
             />
-          </div>
-
-          <div>
-            <h2 className="text-xl font-bold mb-4">Payment History</h2>
-            <Table data={paymentHistory} columns={paymentHistoryColumns} />
-          </div>
-
-          <FormModal
-            isOpen={isPaymentModalOpen}
-            onClose={() => {
-              setIsPaymentModalOpen(false);
-              setSelectedBill(null);
-              setClientSecret(null);
-            }}
-            title={`Pay ${selectedBill?.description}`}
-          >
-            {clientSecret && (
-              <StripeProvider clientSecret={clientSecret}>
-                <PaymentForm
-                  clientSecret={clientSecret}
-                  onSuccess={handlePaymentSuccess}
-                />
-              </StripeProvider>
-            )}
-          </FormModal>
+          )}
         </div>
       </AuthLayout>
     </ProtectedRoute>
   );
 };
 
-export default MyPaymentsPage;
+export default MyBillsPage;
