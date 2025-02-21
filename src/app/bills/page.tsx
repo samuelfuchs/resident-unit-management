@@ -94,8 +94,8 @@ const BillsPage: React.FC = () => {
       ? [
           {
             header: "Actions",
-            accessor: "id",
-            render: (_, bill: Bill) => (
+            accessor: "_id" as keyof Bill,
+            render: (_: unknown, bill: Bill) => (
               <div className="flex gap-2">
                 <Button
                   onClick={() => {
