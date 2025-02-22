@@ -44,12 +44,12 @@ const Pagination: React.FC<PaginationProps> = ({
     <div className="flex flex-col items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:flex-row sm:px-6">
       <div className="text-center sm:text-left">
         <p className="text-sm text-gray-700">
-          Mostrando{" "}
+          Showing{" "}
           <span className="font-medium">{(currentPage - 1) * 10 + 1}</span> a{" "}
           <span className="font-medium">
             {Math.min(currentPage * 10, totalPages * 10)}
           </span>{" "}
-          de <span className="font-medium">{totalPages * 10}</span> resultados
+          of <span className="font-medium">{totalPages * 10}</span> results
         </p>
       </div>
       <nav
@@ -66,7 +66,7 @@ const Pagination: React.FC<PaginationProps> = ({
           }`}
         >
           <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-          <span className="sr-only">Anterior</span>
+          <span className="sr-only">Previous</span>
         </button>
         {generatePageNumbers().map((page) => (
           <button
@@ -91,7 +91,7 @@ const Pagination: React.FC<PaginationProps> = ({
           }`}
         >
           <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-          <span className="sr-only">Próxima</span>
+          <span className="sr-only">Next</span>
         </button>
       </nav>
     </div>

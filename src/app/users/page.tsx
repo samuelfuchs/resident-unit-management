@@ -109,18 +109,12 @@ const UsersPage: React.FC = () => {
   };
 
   const openCreateModal = () => {
-    // setEditingUser(undefined);
-    // setUserIsModalOpen(true);
-
     setEditingUser(undefined);
     setModalMode("create");
     setIsUserModalOpen(true);
   };
 
   const openEditModal = (user: User) => {
-    // setEditingUser(user);
-    // setIsUserModalOpen(true);
-
     setEditingUser(user);
     setModalMode("edit");
     setIsUserModalOpen(true);
@@ -142,26 +136,26 @@ const UsersPage: React.FC = () => {
       <AuthLayout>
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold">Usuários</h1>
+            <h1 className="text-2xl font-bold">Users</h1>
             <Button onClick={openCreateModal} variant="primary">
-              Novo Usuário
+              New User
             </Button>
           </div>
           <SearchBar
             onSearch={(query) => setSearchTerm(query)}
-            placeholder="Buscar por nome, e-mail ou função..."
-            buttonText="Buscar"
+            placeholder="Search by name, email or role..."
+            buttonText="Search"
             onButtonClick={() => fetchAndSetUsers()}
             loading={loading}
           />
           <div className="bg-white shadow-md rounded-lg mb-6">
             <div className="flex justify-between items-center p-4">
-              <h2 className="text-lg font-semibold">Filtros avançados</h2>
+              <h2 className="text-lg font-semibold">Advanced Filters</h2>
               <button
                 onClick={() => setIsFilterVisible((prev) => !prev)}
                 className="flex items-center text-sm text-blue-500 hover:text-blue-700"
               >
-                {isFilterVisible ? "Esconder Filtros" : "Mostrar Filtros"}
+                {isFilterVisible ? "Hide Filters" : "Show Filters"}
                 {isFilterVisible ? (
                   <ChevronUpIcon className="h-5 w-5 ml-1" />
                 ) : (
@@ -209,7 +203,7 @@ const UsersPage: React.FC = () => {
                       variant="secondary"
                       className="w-full"
                     >
-                      Limpar Filtros
+                      Clear Filters
                     </Button>
                   </div>
                 </div>
@@ -217,26 +211,26 @@ const UsersPage: React.FC = () => {
                   <SelectField
                     id="sortField"
                     name="sortField"
-                    label="Ordenar por"
+                    label="Sort by"
                     value={sortField}
                     onChange={(e) => setSortField(e.target.value)}
                     options={[
-                      { value: "createdAt", label: "Criado em" },
-                      { value: "name", label: "Nome" },
-                      { value: "email", label: "E-mail" },
+                      { value: "createdAt", label: "Created At" },
+                      { value: "name", label: "Name" },
+                      { value: "email", label: "Email" },
                     ]}
                   />
                   <SelectField
                     id="sortOrder"
                     name="sortOrder"
-                    label="Ordem"
+                    label="Order"
                     value={sortOrder}
                     onChange={(e) =>
                       setSortOrder(e.target.value as "asc" | "desc")
                     }
                     options={[
-                      { value: "asc", label: "Crescente" },
-                      { value: "desc", label: "Decrescente" },
+                      { value: "asc", label: "Ascending" },
+                      { value: "desc", label: "Descending" },
                     ]}
                   />
                 </div>
@@ -244,7 +238,7 @@ const UsersPage: React.FC = () => {
             )}
           </div>
           {loading ? (
-            <Loader message="Carregando..." />
+            <Loader message="Loading..." />
           ) : (
             <>
               <Table
@@ -286,8 +280,8 @@ const UsersPage: React.FC = () => {
 
         <Modal
           type="warning"
-          title="Confirmação de Exclusão"
-          description={`Tem certeza que deseja excluir o usuário "${selectedUserName}"? Esta ação não pode ser desfeita.`}
+          title="Confirmation of Deletion"
+          description={`Are you sure you want to delete the user "${selectedUserName}"? This action cannot be undone.`}
           isOpen={isModalOpen}
           onClose={closeModal}
           onConfirm={() => handleDelete(selectedUserId)}

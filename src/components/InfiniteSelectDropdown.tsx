@@ -58,18 +58,17 @@ const InfiniteSelectDropdown: React.FC<InfiniteSelectDropdownProps> = ({
     [searchTerm, loading, totalPages]
   );
 
-  // Debounce search to prevent excessive requests
   const debouncedFetch = useCallback(debounce(fetchAndSetUsers, 300), []);
 
   useEffect(() => {
     if (isDropdownOpen) {
-      debouncedFetch(1, true); // Fetch first page and reset on dropdown open
+      debouncedFetch(1, true);
     }
   }, [isDropdownOpen, searchTerm, debouncedFetch]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1); // Reset to the first page for new searches
+    setCurrentPage(1);
   };
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -91,7 +90,6 @@ const InfiniteSelectDropdown: React.FC<InfiniteSelectDropdownProps> = ({
     }
   };
 
-  // Close dropdown when clicking outside
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -142,7 +140,7 @@ const InfiniteSelectDropdown: React.FC<InfiniteSelectDropdownProps> = ({
                 {`${user.name} ${user.lastName}`}
               </div>
             ))}
-            {loading && <Loader message="Carregando..." />}
+            {loading && <Loader message="Loading..." />}
             {!loading && users.length === 0 && (
               <div className="p-4 text-gray-500">No users found</div>
             )}

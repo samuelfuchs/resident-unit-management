@@ -4,6 +4,7 @@ import {
   BuildingOfficeIcon,
   UsersIcon,
   BellIcon,
+  CreditCardIcon,
 } from "@heroicons/react/24/outline";
 
 export const routes = [
@@ -15,31 +16,55 @@ export const routes = [
   },
   {
     path: "/users",
-    label: "Usuários",
+    label: "Users",
     icon: UsersIcon,
     allowedRoles: ["admin"],
   },
   {
     path: "/residents",
-    label: "Residentes",
+    label: "Residents",
     icon: UsersIcon,
     allowedRoles: ["receptionist"],
   },
   {
     path: "/units",
-    label: "Unidades",
+    label: "Units",
     icon: BuildingOfficeIcon,
     allowedRoles: ["admin", "receptionist"],
   },
   // {
+  //   path: "/payments",
+  //   label: "Payments",
+  //   icon: CreditCardIcon,
+  //   allowedRoles: ["admin", "receptionist"],
+  // },
+  // {
+  //   path: "/my-payments",
+  //   label: "My Payments",
+  //   icon: CreditCardIcon,
+  //   allowedRoles: ["resident"],
+  // },
+  {
+    path: "/bills",
+    label: "Bills",
+    icon: CreditCardIcon,
+    allowedRoles: ["admin", "receptionist"],
+  },
+  {
+    path: "/my-bills",
+    label: "My Bills",
+    icon: CreditCardIcon,
+    allowedRoles: ["resident"],
+  },
+  // {
   //   path: "/notifications",
-  //   label: "Notificações",
+  //   label: "Notifications",
   //   icon: BellIcon,
   //   allowedRoles: ["admin", "receptionist", "resident"],
   // },
   // {
   //   path: "/profile",
-  //   label: "Meu Perfil",
+  //   label: "My Profile",
   //   icon: UserCircleIcon,
   //   allowedRoles: ["admin", "receptionist", "resident"],
   // },

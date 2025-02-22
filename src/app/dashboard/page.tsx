@@ -93,20 +93,20 @@ const DashboardPage: React.FC = () => {
         <div className="p-6 space-y-6">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h1 className="text-2xl font-bold text-gray-800">
-              Bem-vindo(a), {user?.name}!
+              Welcome, {user?.name}!
             </h1>
             <p className="text-gray-600 mt-2">
-              Função:{" "}
+              Role:{" "}
               <span className="capitalize">
                 {RoleTranslations[user?.role as keyof typeof RoleTranslations]}
               </span>
             </p>
             <p className="mt-4 text-gray-600">
-              Hoje é{" "}
-              {new Date().toLocaleDateString("pt-BR", {
+              Today is{" "}
+              {new Date().toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
-                month: "long",
+                month: "long", 
                 day: "numeric",
               })}
               .
@@ -116,7 +116,7 @@ const DashboardPage: React.FC = () => {
           {user?.role === "admin" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {loading ? (
-                <Loader message="Carregando dados..." />
+                <Loader message="Loading data..." />
               ) : (
                 stats?.map((stat) => (
                   <div
@@ -133,7 +133,7 @@ const DashboardPage: React.FC = () => {
 
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-bold text-gray-800">
-              Informações Úteis
+              Useful Information
             </h2>
             <div className="mt-4">{renderRoleSpecificContent()}</div>
           </div>

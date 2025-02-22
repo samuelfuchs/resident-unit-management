@@ -110,12 +110,12 @@ const UnitsPage: React.FC = () => {
   };
 
   const columns: Column<Unit>[] = [
-    { header: "Número", accessor: "number" },
-    { header: "Andar", accessor: "floor" },
-    { header: "Tamanho (m²)", accessor: "squareFootage" },
-    { header: "Tipo", accessor: "type" },
+    { header: "Number", accessor: "number" },
+    { header: "Floor", accessor: "floor" },
+    { header: "Square Footage", accessor: "squareFootage" },
+    { header: "Type", accessor: "type" },
     {
-      header: "Estacionamento",
+      header: "Parking Spots",
       accessor: "parkingSpots",
       render: (value) => (value ? value.length : 0),
     },
@@ -126,27 +126,27 @@ const UnitsPage: React.FC = () => {
       <AuthLayout>
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold">Unidades</h1>
+            <h1 className="text-2xl font-bold">Units</h1>
             <Button onClick={openCreateModal} variant="primary">
-              Nova Unidade
+              New Unit
             </Button>
           </div>
           <SearchBar
             onSearch={(query) => setSearchTerm(query)}
-            placeholder="Buscar por número, tipo ou andar..."
-            buttonText="Buscar"
+            placeholder="Search by number, type or floor..."
+            buttonText="Search"
             onButtonClick={fetchAndSetUnits}
             loading={loading}
           />
 
           <div className="bg-white shadow-md rounded-lg mb-6">
             <div className="flex justify-between items-center p-4">
-              <h2 className="text-lg font-semibold">Filtros avançados</h2>
+              <h2 className="text-lg font-semibold">Advanced Filters</h2>
               <button
                 onClick={() => setIsFilterVisible((prev) => !prev)}
                 className="flex items-center text-sm text-blue-500 hover:text-blue-700"
               >
-                {isFilterVisible ? "Esconder Filtros" : "Mostrar Filtros"}
+                {isFilterVisible ? "Hide Filters" : "Show Filters"}
                 {isFilterVisible ? (
                   <ChevronUpIcon className="h-5 w-5 ml-1" />
                 ) : (
@@ -160,21 +160,21 @@ const UnitsPage: React.FC = () => {
                   <SelectField
                     id="typeFilter"
                     name="typeFilter"
-                    label="Filtrar por Tipo"
+                    label="Filter by Type"
                     value={typeFilter || ""}
                     onChange={(e) => setTypeFilter(e.target.value || undefined)}
                     options={[
-                      { value: "", label: "Todos os Tipos" },
-                      { value: "Residential", label: "Residencial" },
-                      { value: "Commercial", label: "Comercial" },
-                      { value: "House", label: "Casa" },
-                      { value: "Apartment", label: "Apartamento" },
-                      { value: "Office", label: "Escritório" },
+                      { value: "", label: "All Types" },
+                      { value: "Residential", label: "Residential" },
+                      { value: "Commercial", label: "Commercial" },
+                      { value: "House", label: "House" },
+                      { value: "Apartment", label: "Apartment" },
+                      { value: "Office", label: "Office" },
                     ]}
                   />
                   <input
                     type="number"
-                    placeholder="Filtrar por Andar"
+                    placeholder="Filter by Floor"
                     value={floorFilter || ""}
                     onChange={(e) =>
                       setFloorFilter(
@@ -188,26 +188,26 @@ const UnitsPage: React.FC = () => {
                   <SelectField
                     id="sortField"
                     name="sortField"
-                    label="Ordenar por"
+                    label="Sort by"
                     value={sortField}
                     onChange={(e) => setSortField(e.target.value)}
                     options={[
-                      { value: "createdAt", label: "Criado em" },
-                      { value: "number", label: "Número" },
-                      { value: "floor", label: "Andar" },
+                      { value: "createdAt", label: "Created At" },
+                      { value: "number", label: "Number" },
+                      { value: "floor", label: "Floor" },
                     ]}
                   />
                   <SelectField
                     id="sortOrder"
                     name="sortOrder"
-                    label="Ordem"
+                    label="Order"
                     value={sortOrder}
                     onChange={(e) =>
                       setSortOrder(e.target.value as "asc" | "desc")
                     }
                     options={[
-                      { value: "asc", label: "Crescente" },
-                      { value: "desc", label: "Decrescente" },
+                      { value: "asc", label: "Ascending" },
+                      { value: "desc", label: "Descending" },
                     ]}
                   />
                 </div>
@@ -216,7 +216,7 @@ const UnitsPage: React.FC = () => {
           </div>
 
           {loading ? (
-            <Loader message="Carregando..." />
+            <Loader message="Loading..." />
           ) : (
             <>
               <Table
@@ -258,8 +258,8 @@ const UnitsPage: React.FC = () => {
         </div>
         <Modal
           type="warning"
-          title="Confirmação de Exclusão"
-          description={`Tem certeza que deseja excluir a unidade "${selectedUnit?.number}"? Esta ação não pode ser desfeita.`}
+          title="Confirmation of Deletion"
+          description={`Are you sure you want to delete the unit "${selectedUnit?.number}"? This action cannot be undone.`}
           isOpen={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={handleDelete}

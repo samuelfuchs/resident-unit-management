@@ -27,7 +27,7 @@ export const ProtectedRoute: React.FC<{
   if (!user || (allowedRoles && !allowedRoles.includes(user.role))) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p>Carregando...</p>
+        <p>Loading...</p>
       </div>
     );
   }

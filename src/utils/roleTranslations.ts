@@ -1,5 +1,5 @@
 export enum RoleTranslations {
-  admin = "Administrativo",
-  receptionist = "Recepção",
-  resident = "Residente",
+  admin = "Administrator",
+  receptionist = "Receptionist",
+  resident = "Resident",
 }

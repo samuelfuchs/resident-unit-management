@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
     try {
       await login(email, password);
     } catch (err) {
-      setError("Algo deu errado. Tente novamente.");
+      setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -39,16 +39,16 @@ const LoginPage: React.FC = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded shadow">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold">Roger Residência</h1>
+          <h1 className="text-2xl font-bold">Unit Manager</h1>
           <p className="text-gray-600 mt-2">
-            Insira suas credenciais para acessar o sistema
+            Enter your credentials to access the system
           </p>
         </div>
         {error && <p className="text-red-500 mb-2">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-bold mb-2">
-              E-mail
+              Email
             </label>
             <input
               id="email"
@@ -56,13 +56,13 @@ const LoginPage: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border rounded"
-              placeholder="Digite seu e-mail"
+              placeholder="Enter your email"
               required
             />
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-bold mb-2">
-              Senha
+              Password
             </label>
             <div className="relative">
               <input
@@ -71,14 +71,14 @@ const LoginPage: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 border rounded"
-                placeholder="Digite sua senha"
+                placeholder="Enter your password"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                title={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                title={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
                   <EyeSlashIcon className="h-5 w-5" />
@@ -89,7 +89,7 @@ const LoginPage: React.FC = () => {
             </div>
           </div>
           <Button type="submit" loading={loading} className="w-full">
-            Acessar
+            Access
           </Button>
         </form>
       </div>
