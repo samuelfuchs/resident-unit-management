@@ -20,9 +20,7 @@ export const authOptions: AuthOptions = {
       },
     }),
   },
-  // Configure your auth providers here
   providers: [],
-  // Add other NextAuth config options
 };
 
 const handler = NextAuth(authOptions);

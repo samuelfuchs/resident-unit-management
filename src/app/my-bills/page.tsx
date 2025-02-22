@@ -37,8 +37,6 @@ const MyBillsPage: React.FC = () => {
   const handlePayBill = async (bill: Bill) => {
     try {
       const response = await createResidentPaymentIntent({
-        amount: bill.amount,
-        description: bill.description,
         billId: bill._id,
       });
       setClientSecret(response.clientSecret);

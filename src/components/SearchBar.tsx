@@ -13,7 +13,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  placeholder = "Pesquisar...",
+  placeholder = "Search...",
   onSearch,
   buttonText,
   onButtonClick,

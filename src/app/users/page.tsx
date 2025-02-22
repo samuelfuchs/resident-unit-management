@@ -109,18 +109,12 @@ const UsersPage: React.FC = () => {
   };
 
   const openCreateModal = () => {
-    // setEditingUser(undefined);
-    // setUserIsModalOpen(true);
-
     setEditingUser(undefined);
     setModalMode("create");
     setIsUserModalOpen(true);
   };
 
   const openEditModal = (user: User) => {
-    // setEditingUser(user);
-    // setIsUserModalOpen(true);
-
     setEditingUser(user);
     setModalMode("edit");
     setIsUserModalOpen(true);

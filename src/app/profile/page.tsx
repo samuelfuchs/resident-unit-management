@@ -13,16 +13,7 @@ const ProfilePage: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(user);
 
-  if (!user) return <p className="text-center mt-6">Carregando...</p>;
-
-  const handleChange = (name: string, value: any) => {
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSave = () => {
-    console.log("Updated Profile Data:", formData);
-    setIsEditing(false);
-  };
+  if (!user) return <p className="text-center mt-6">Loading...</p>;
 
   const getInitials = (name: string, lastName: string): string => {
     return `${name?.charAt(0).toUpperCase()}${lastName
@@ -67,7 +58,7 @@ const ProfilePage: React.FC = () => {
 
                 <InputField
                   id="createdAt"
-                  label="Criado em"
+                  label="Created at"
                   name="createdAt"
                   onChange={() => {}}
                   value={formData?.createdAt || ""}
@@ -79,8 +70,8 @@ const ProfilePage: React.FC = () => {
                 <InputField
                   id="name"
                   name="name"
-                  label="Nome"
-                  placeholder="Digite apenas o primeiro nome"
+                  label="Name"
+                  placeholder="Enter only the first name"
                   value={formData?.name}
                   onChange={() => {}}
                   disabled
@@ -88,8 +79,8 @@ const ProfilePage: React.FC = () => {
                 <InputField
                   id="lastName"
                   name="lastName"
-                  label="Sobrenome"
-                  placeholder="Digite o sobrenome"
+                  label="Last Name"
+                  placeholder="Enter only the last name"
                   value={formData?.lastName}
                   onChange={() => {}}
                   disabled
@@ -97,30 +88,30 @@ const ProfilePage: React.FC = () => {
               </div>
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-4">
                 <InputField
+                  id="email"
                   label="E-mail"
                   name="email"
                   value={formData?.email}
                   disabled={!isEditing}
                   onChange={() => {}}
-                  id="email"
                 />
                 <InputField
                   id="phone"
-                  label="Telefone"
+                  label="Phone"
                   name="phone"
                   value={formData?.phone || ""}
                   disabled={!isEditing}
                   onChange={() => {}}
-                  placeholder="Não informado"
+                  placeholder="Not informed"
                 />
                 <InputField
                   id="address"
-                  label="Endereço"
+                  label="Address"
                   name="address"
                   value={formData?.address || ""}
                   disabled={!isEditing}
                   onChange={() => {}}
-                  placeholder="Não informado"
+                  placeholder="Not informed"
                 />
                 <SelectField
                   id="unitNumber"
@@ -154,7 +145,7 @@ const ProfilePage: React.FC = () => {
                 <InputField
                   id="address"
                   name="address"
-                  label="Endereço"
+                  label="Address"
                   placeholder="Digite o endereço"
                   value={formData?.address}
                   onChange={() => {}}
@@ -163,7 +154,7 @@ const ProfilePage: React.FC = () => {
                 <InputField
                   id="city"
                   name="city"
-                  label="Cidade"
+                  label="City"
                   placeholder="Digite a cidade"
                   value={formData?.city || ""}
                   onChange={() => {}}
@@ -172,7 +163,7 @@ const ProfilePage: React.FC = () => {
                 <InputField
                   id="state"
                   name="state"
-                  label="Estado"
+                  label="State"
                   placeholder="Digite o estado"
                   value={formData?.state || ""}
                   onChange={() => {}}
@@ -183,14 +174,8 @@ const ProfilePage: React.FC = () => {
               {formData?.emergencyContacts?.length > 0 && (
                 <div className="mt-6">
                   <p className="text-gray-600 font-semibold">
-                    Contatos de Emergência:
+                    Emergency Contacts:
                   </p>
-                  {/* {formData?.emergencyContacts.map((contact, index) => (
-                    <p key={index} className="text-gray-800">
-                      {contact.name} - {contact.phone} (
-                      {contact.relationship || "Não especificado"})
-                    </p>
-                  ))} */}
                 </div>
               )}
             </div>

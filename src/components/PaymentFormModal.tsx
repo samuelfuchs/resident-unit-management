@@ -7,7 +7,6 @@ import {
 } from "@stripe/react-stripe-js";
 import { StripeElementsOptions } from "@stripe/stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import Modal from "./Modal";
 import Button from "./Button";
 import { formatCurrency } from "@/utils/formatters";
 
@@ -58,8 +57,8 @@ const PaymentForm: React.FC<{
               city: "",
               state: "",
               postal_code: "",
-              country: "US"
-            }
+              country: "US",
+            },
           },
         },
       },
