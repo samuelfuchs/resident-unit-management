@@ -9,6 +9,7 @@ import Table, { Column } from "@/components/Table";
 import {
   PhoneIcon,
   ChatBubbleLeftRightIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { fetchAdminDashboardStats } from "@/api/users";
 import Loader from "@/components/Loader";
@@ -25,7 +26,7 @@ const DashboardPage: React.FC = () => {
       try {
         setLoading(true);
         const data = await fetchAdminDashboardStats();
-        
+
         setStats(data);
       } catch (error) {
         console.error("Failed to fetch stats:", error);
@@ -89,26 +90,24 @@ const DashboardPage: React.FC = () => {
     <ProtectedRoute>
       <AuthLayout>
         <div className="p-6 space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h1 className="text-2xl font-bold text-gray-800">
-              Welcome, {user?.name}!
-            </h1>
-            <p className="text-gray-600 mt-2">
-              Role:{" "}
-              <span className="capitalize">
-                {RoleTranslations[user?.role as keyof typeof RoleTranslations]}
+          <div className="pointer-events-none inset-x-0 bottom-0 pt-6 md:pt-0">
+            <div className="pointer-events-auto flex items-center justify-between gap-x-6 bg-indigo-600 px-6 py-2.5 sm:rounded-xl sm:py-3 sm:pl-4 sm:pr-3.5">
+              <div>
+                <p className="text-sm/6 text-white">
+                  <strong className="font-semibold">
+                    Welcome {user?.name}!
+                  </strong>
+                </p>
+              </div>
+              <span className="text-sm/6 text-white">
+                {new Date().toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
               </span>
-            </p>
-            <p className="mt-4 text-gray-600">
-              Today is{" "}
-              {new Date().toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-              .
-            </p>
+            </div>
           </div>
 
           {user?.role === "admin" && (
