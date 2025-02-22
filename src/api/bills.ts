@@ -48,3 +48,25 @@ export const createResidentPaymentIntent = async (data: {
   const response = await apiClient.post("/payments/create-intent", data);
   return response.data;
 };
+
+interface GetBillsParams {
+  page?: number;
+  limit?: number;
+  status?: string;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  search?: string;
+}
+
+export const getAllBills = async (
+  params: GetBillsParams = {}
+): Promise<{
+  bills: Bill[];
+  totalBills: number;
+  totalPages: number;
+  currentPage: number;
+  hasMore: boolean;
+}> => {
+  const response = await apiClient.get("/bills", { params });
+  return response.data;
+};
