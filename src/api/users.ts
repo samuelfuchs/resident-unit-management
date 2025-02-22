@@ -69,16 +69,3 @@ export const fetchResidentDashboardStats =
     const response = await apiClient.get("/users/resident/stats");
     return response.data;
   };
-
-export interface AdminDashboardStats {
-  totalUsers: number;
-  totalResidents: number;
-  bills: {
-    total: number;
-    paid: number;
-    unpaid: number;
-    pendingAmount: number;
-    revenue: number;
-  };
-}
-  

@@ -16,8 +16,7 @@ import {
 } from "@/api/users";
 import Loader from "@/components/Loader";
 import { StatsCards } from "@/components/dashboard/StatsCards";
-import { AdminDashboardStats } from "@/types/admin";
-import { ResidentDashboardStats } from "@/types/user";
+import { AdminDashboardStats, ResidentDashboardStats } from "@/types/user";
 import Link from "next/link";
 
 const DashboardPage: React.FC = () => {
