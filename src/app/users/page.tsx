@@ -169,7 +169,7 @@ const UsersPage: React.FC = () => {
                   <SelectField
                     id="roleFilter"
                     name="roleFilter"
-                    label="Filtrar por Função"
+                    label="Filter by Role"
                     value={roleFilter || ""}
                     onChange={(e) => setRoleFilter(e.target.value || undefined)}
                     options={[
@@ -182,15 +182,15 @@ const UsersPage: React.FC = () => {
                   <SelectField
                     id="statusFilter"
                     name="statusFilter"
-                    label="Filtrar por Status"
+                    label="Filter by Status"
                     value={statusFilter || ""}
                     onChange={(e) =>
                       setStatusFilter(e.target.value || undefined)
                     }
                     options={[
-                      { value: "", label: "Todos os Status" },
-                      { value: "active", label: "Ativo" },
-                      { value: "inactive", label: "Inativo" },
+                      { value: "", label: "All Statuses" },
+                      { value: "active", label: "Active" },
+                      { value: "inactive", label: "Inactive" },
                     ]}
                   />
                   <div className="flex items-end">

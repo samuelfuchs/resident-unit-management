@@ -1,17 +1,3 @@
-import { StaticImageData } from "next/image";
-
-export interface AdminDashboardStats {
-  totalUsers: number;
-  totalResidents: number;
-  bills: {
-    total: number;
-    paid: number;
-    unpaid: number;
-    pendingAmount: number;
-    revenue: number;
-  };
-}
-
 export interface DashboardStatCard {
   id: string;
   name: string;

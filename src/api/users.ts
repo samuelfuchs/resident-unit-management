@@ -1,5 +1,5 @@
 import apiClient from "./index";
-import { AdminDashboardStats } from "@/types/admin";
+import { AdminDashboardStats, ResidentDashboardStats } from "@/types/user";
 
 export const fetchUsers = async ({
   search = "",
@@ -61,5 +61,11 @@ export const fetchUserById = async (id: string) => {
 export const fetchAdminDashboardStats =
   async (): Promise<AdminDashboardStats> => {
     const response = await apiClient.get("/users/admin/stats");
+    return response.data;
+  };
+
+export const fetchResidentDashboardStats =
+  async (): Promise<ResidentDashboardStats> => {
+    const response = await apiClient.get("/users/resident/stats");
     return response.data;
   };
