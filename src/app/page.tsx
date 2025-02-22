@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import {
@@ -5,8 +7,9 @@ import {
   LockClosedIcon,
   ServerIcon,
 } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
 
-const LandingPage = () => {
+const LandingPage = () => {  
   const features = [
     {
       name: "Role-Based Access Control",
@@ -55,9 +58,13 @@ const LandingPage = () => {
 
       <div>
         <div className="relative isolate">
-          <svg
+          <motion.svg
             aria-hidden="true"
-            className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 
+                   [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
           >
             <defs>
               <pattern
@@ -83,7 +90,8 @@ const LandingPage = () => {
               height="100%"
               strokeWidth={0}
             />
-          </svg>
+          </motion.svg>
+
           <div
             aria-hidden="true"
             className="absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
@@ -100,17 +108,35 @@ const LandingPage = () => {
             <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
               <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                 <div className="relative w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl">
-                  <h1 className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
+                  <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl"
+                  >
+                    {/* <h1 className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl"> */}
                     <span className="text-gray-400">Unit Manager:</span>
                     <br />
                     <span className="text-indigo-500">Behind the Build</span>
-                  </h1>
-                  <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none">
+                    {/* </h1> */}
+                  </motion.h1>
+
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+                    className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none"
+                  >
                     I’m pulling back the curtain on Unit Manager—its challenges,
                     breakthroughs, and lessons. Instead of a polished landing
                     page, here’s the real story. Let’s dive in!
-                  </p>
-                  <div className="mt-10 flex items-center gap-x-6">
+                  </motion.p>
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                    className="mt-10 flex items-center gap-x-6"
+                  >
                     <Link
                       href="/signin"
                       className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -126,7 +152,7 @@ const LandingPage = () => {
                       Explore my work on GitHub{" "}
                       <span aria-hidden="true">→</span>
                     </a>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                   <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
