@@ -9,22 +9,22 @@ import {
 const LandingPage = () => {
   const features = [
     {
-      name: "Push to deploy.",
+      name: "Role-Based Access Control",
       description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
-      icon: CloudArrowUpIcon,
-    },
-    {
-      name: "SSL certificates.",
-      description:
-        "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.",
+        "Security shouldn’t be complicated. I built a role-based system where admins, staff, and residents get exactly what they need—nothing more, nothing less.",
       icon: LockClosedIcon,
     },
     {
-      name: "Database backups.",
+      name: "Real-time Notifications",
       description:
-        "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+        "No more chasing emails. With real-time alerts, payments, maintenance requests, and announcements reach the right people instantly.",
       icon: ServerIcon,
+    },
+    {
+      name: "Payment Integration",
+      description:
+        "Paying rent should be effortless. Stripe integration makes transactions seamless, secure, and hassle-free—for both residents and managers.",
+      icon: CloudArrowUpIcon,
     },
   ];
 
@@ -101,26 +101,30 @@ const LandingPage = () => {
               <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                 <div className="relative w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl">
                   <h1 className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-                    We’re changing the way people connect
+                    <span className="text-gray-400">Unit Manager:</span>
+                    <br />
+                    <span className="text-indigo-500">Behind the Build</span>
                   </h1>
                   <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none">
-                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                    qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                    occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non
-                    deserunt sunt.
+                    I’m pulling back the curtain on Unit Manager—its challenges,
+                    breakthroughs, and lessons. Instead of a polished landing
+                    page, here’s the real story. Let’s dive in!
                   </p>
                   <div className="mt-10 flex items-center gap-x-6">
-                    <a
-                      href="#"
+                    <Link
+                      href="/signin"
                       className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                      Get started
-                    </a>
+                      Start Exploring
+                    </Link>
                     <a
-                      href="#"
+                      href="https://github.com/samuelfuchs"
                       className="text-sm/6 font-semibold text-gray-900"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      Live demo <span aria-hidden="true">→</span>
+                      Explore my work on GitHub{" "}
+                      <span aria-hidden="true">→</span>
                     </a>
                   </div>
                 </div>
@@ -185,15 +189,13 @@ const LandingPage = () => {
             <div className="px-6 lg:px-0 lg:pr-4 lg:pt-4">
               <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
                 <h2 className="text-base/7 font-semibold text-indigo-600">
-                  Deploy faster
+                  Built for efficiency
                 </h2>
                 <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                  A better workflow
+                Solving Real Problems with Smart Features
                 </p>
                 <p className="mt-6 text-lg/8 text-gray-600">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Maiores impedit perferendis suscipit eaque, iste dolor
-                  cupiditate blanditiis ratione.
+                I set out to tackle clunky systems, missed payments, and lost requests—common headaches in property management. Unit Manager is built to remove these pain points and simplify everything.
                 </p>
                 <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
                   {features.map((feature) => (
@@ -219,8 +221,8 @@ const LandingPage = () => {
                 />
                 <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
                   <img
-                    alt="Product screenshot"
-                    src="https://tailwindui.com/plus-assets/img/component-images/project-app-screenshot.png"
+                    alt="Unit Manager Dashboard"
+                    src="/dashboard-screenshot.png"
                     width={2432}
                     height={1442}
                     className="-mb-12 w-[57rem] max-w-none rounded-tl-xl bg-gray-800 ring-1 ring-white/10"
@@ -236,195 +238,115 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* History Section */}
+      {/* Development Journey Section */}
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
           <h2 className="text-base/7 font-semibold text-indigo-600">
-            Deploy faster
+            Development Journey
           </h2>
           <p className="mt-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
-            Everything you need to deploy your app
+            Building with Modern Technologies
           </p>
           <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2">
-            <div className="relative lg:col-span-3">
-              <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]" />
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)] lg:rounded-tl-[calc(2rem+1px)]">
-                <img
-                  alt=""
-                  src="https://tailwindui.com/plus-assets/img/component-images/bento-01-performance.png"
-                  className="h-80 object-cover object-left"
-                />
-                <div className="p-10 pt-4">
-                  <h3 className="text-sm/4 font-semibold text-indigo-600">
-                    Performance
-                  </h3>
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950">
-                    Lightning-fast builds
-                  </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                    gravida justo et nulla efficitur, maximus egestas sem
-                    pellentesque.
-                  </p>
-                </div>
-              </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]" />
-            </div>
-            <div className="relative lg:col-span-3">
-              <div className="absolute inset-px rounded-lg bg-white lg:rounded-tr-[2rem]" />
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-tr-[calc(2rem+1px)]">
-                <img
-                  alt=""
-                  src="https://tailwindui.com/plus-assets/img/component-images/bento-01-releases.png"
-                  className="h-80 object-cover object-left lg:object-right"
-                />
-                <div className="p-10 pt-4">
-                  <h3 className="text-sm/4 font-semibold text-indigo-600">
-                    Releases
-                  </h3>
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950">
-                    Push to deploy
-                  </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600">
-                    Curabitur auctor, ex quis auctor venenatis, eros arcu
-                    rhoncus massa, laoreet dapibus ex elit vitae odio.
-                  </p>
-                </div>
-              </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 lg:rounded-tr-[2rem]" />
-            </div>
-            <div className="relative lg:col-span-2">
-              <div className="absolute inset-px rounded-lg bg-white lg:rounded-bl-[2rem]" />
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-bl-[calc(2rem+1px)]">
-                <img
-                  alt=""
-                  src="https://tailwindui.com/plus-assets/img/component-images/bento-01-speed.png"
-                  className="h-80 object-cover object-left"
-                />
-                <div className="p-10 pt-4">
-                  <h3 className="text-sm/4 font-semibold text-indigo-600">
-                    Speed
-                  </h3>
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950">
-                    Built for power users
-                  </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600">
-                    Sed congue eros non finibus molestie. Vestibulum euismod
-                    augue.
-                  </p>
-                </div>
-              </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 lg:rounded-bl-[2rem]" />
-            </div>
-            <div className="relative lg:col-span-2">
-              <div className="absolute inset-px rounded-lg bg-white" />
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
-                <img
-                  alt=""
-                  src="https://tailwindui.com/plus-assets/img/component-images/bento-01-integrations.png"
-                  className="h-80 object-cover"
-                />
-                <div className="p-10 pt-4">
-                  <h3 className="text-sm/4 font-semibold text-indigo-600">
-                    Integrations
-                  </h3>
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950">
-                    Connect your favorite tools
-                  </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600">
-                    Maecenas at augue sed elit dictum vulputate, in nisi aliquam
-                    maximus arcu.
-                  </p>
-                </div>
-              </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5" />
-            </div>
-            <div className="relative lg:col-span-2">
-              <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]" />
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-br-[calc(2rem+1px)]">
-                <img
-                  alt=""
-                  src="https://tailwindui.com/plus-assets/img/component-images/bento-01-network.png"
-                  className="h-80 object-cover"
-                />
-                <div className="p-10 pt-4">
-                  <h3 className="text-sm/4 font-semibold text-indigo-600">
-                    Network
-                  </h3>
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950">
-                    Globally distributed CDN
-                  </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600">
-                    Aenean vulputate justo commodo auctor vehicula in malesuada
-                    semper.
-                  </p>
-                </div>
-              </div>
-              <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]" />
-            </div>
+            <JourneyCard
+              title="1. From Idea to Blueprint"
+              description="Before a single line of code, I sketched everything—features, users, tech stack. Planning saved me… or so I thought. Some ideas evolved, others broke, and a few took a whole new direction."
+              image="/frontend-screenshot.png"
+              className="lg:col-span-2"
+            />
+            <JourneyCard
+              title="2. Setting Up the Project (First Lines of Code)"
+              description="Setting up Next.js, Tailwind, and authentication laid the foundation for everything that followed."
+              image="/auth-screenshot.png"
+              className="lg:col-span-4"
+            />
+            <JourneyCard
+              title="3. Authentication: More Than Just Logins"
+              description="One of the first big challenges was getting authentication right—ensuring the right people had access while keeping it seamless. Role-based control (RBAC) became the backbone of the system."
+              image="/auth-screenshot.png"
+              className="lg:col-span-3"
+            />
+            <JourneyCard
+              title="4. The First Deployment"
+              description="Deploying the first version felt surreal. Even with bugs and missing features, seeing it live made everything real. Each update since then has made it smoother and smarter."
+              image="/auth-screenshot.png"
+              className="lg:col-span-3"
+            />
+            <JourneyCard
+              title="5. Building This, Building Myself"
+              description="This project isn’t just about code—it’s about growth. As I built Unit Manager, I pushed my own limits, learned new skills, and shaped my perspective on problem-solving."
+              image="/auth-screenshot.png"
+              className="lg:col-span-4"
+            />
+            <JourneyCard
+              title="6. What’s Next?"
+              description="Software is never really ‘done.’ There’s always a next step. Unit Manager is evolving, and I can’t wait to see where it goes next."
+              image="/auth-screenshot.png"
+              className="lg:col-span-2"
+            />
           </div>
         </div>
       </div>
-      
+
       {/* About Section */}
       <div className="bg-white pb-16 pt-24 sm:pb-24 sm:pt-32 xl:pb-32">
-      <div className="bg-gray-900 pb-20 sm:pb-24 xl:pb-0">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-8 gap-y-10 px-6 sm:gap-y-8 lg:px-8 xl:flex-row xl:items-stretch">
-          <div className="-mt-8 w-full max-w-2xl xl:-mb-8 xl:w-96 xl:flex-none">
-            <div className="relative aspect-[2/1] h-full md:-mx-8 xl:mx-0 xl:aspect-auto">
-              <img
-                alt=""
-                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-                className="absolute inset-0 size-full rounded-2xl bg-gray-800 object-cover shadow-2xl"
-              />
-            </div>
-          </div>
-          <div className="w-full max-w-2xl xl:max-w-none xl:flex-auto xl:px-16 xl:py-24">
-            <figure className="relative isolate pt-6 sm:pt-12">
-              <svg
-                fill="none"
-                viewBox="0 0 162 128"
-                aria-hidden="true"
-                className="absolute left-0 top-0 -z-10 h-32 stroke-white/20"
-              >
-                <path
-                  d="M65.5697 118.507L65.8918 118.89C68.9503 116.314 71.367 113.253 73.1386 109.71C74.9162 106.155 75.8027 102.28 75.8027 98.0919C75.8027 94.237 75.16 90.6155 73.8708 87.2314C72.5851 83.8565 70.8137 80.9533 68.553 78.5292C66.4529 76.1079 63.9476 74.2482 61.0407 72.9536C58.2795 71.4949 55.276 70.767 52.0386 70.767C48.9935 70.767 46.4686 71.1668 44.4872 71.9924L44.4799 71.9955L44.4726 71.9988C42.7101 72.7999 41.1035 73.6831 39.6544 74.6492C38.2407 75.5916 36.8279 76.455 35.4159 77.2394L35.4047 77.2457L35.3938 77.2525C34.2318 77.9787 32.6713 78.3634 30.6736 78.3634C29.0405 78.3634 27.5131 77.2868 26.1274 74.8257C24.7483 72.2185 24.0519 69.2166 24.0519 65.8071C24.0519 60.0311 25.3782 54.4081 28.0373 48.9335C30.703 43.4454 34.3114 38.345 38.8667 33.6325C43.5812 28.761 49.0045 24.5159 55.1389 20.8979C60.1667 18.0071 65.4966 15.6179 71.1291 13.7305C73.8626 12.8145 75.8027 10.2968 75.8027 7.38572C75.8027 3.6497 72.6341 0.62247 68.8814 1.1527C61.1635 2.2432 53.7398 4.41426 46.6119 7.66522C37.5369 11.6459 29.5729 17.0612 22.7236 23.9105C16.0322 30.6019 10.618 38.4859 6.47981 47.558L6.47976 47.558L6.47682 47.5647C2.4901 56.6544 0.5 66.6148 0.5 77.4391C0.5 84.2996 1.61702 90.7679 3.85425 96.8404L3.8558 96.8445C6.08991 102.749 9.12394 108.02 12.959 112.654L12.959 112.654L12.9646 112.661C16.8027 117.138 21.2829 120.739 26.4034 123.459L26.4033 123.459L26.4144 123.465C31.5505 126.033 37.0873 127.316 43.0178 127.316C47.5035 127.316 51.6783 126.595 55.5376 125.148L55.5376 125.148L55.5477 125.144C59.5516 123.542 63.0052 121.456 65.9019 118.881L65.5697 118.507Z"
-                  id="b56e9dab-6ccb-4d32-ad02-6b4bb5d9bbeb"
+        <div className="bg-gray-900 pb-20 sm:pb-24 xl:pb-0">
+          <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-8 gap-y-10 px-6 sm:gap-y-8 lg:px-8 xl:flex-row xl:items-stretch">
+            <div className="-mt-8 w-full max-w-2xl xl:-mb-8 xl:w-96 xl:flex-none">
+              <div className="relative aspect-[2/1] h-full md:-mx-8 xl:mx-0 xl:aspect-auto">
+                <img
+                  alt="Developer"
+                  src="/developer-photo.jpg"
+                  className="absolute inset-0 size-full rounded-2xl bg-gray-800 object-cover shadow-2xl"
                 />
-                <use x={86} href="#b56e9dab-6ccb-4d32-ad02-6b4bb5d9bbeb" />
-              </svg>
-              <blockquote className="text-xl/8 font-semibold text-white sm:text-2xl/9">
-                <p>
-                  Gravida quam mi erat tortor neque molestie. Auctor aliquet at porttitor a enim nunc suscipit tincidunt
-                  nunc. Et non lorem tortor posuere. Nunc eu scelerisque interdum eget tellus non nibh scelerisque
-                  bibendum.
-                </p>
-              </blockquote>
-              <figcaption className="mt-8 text-base">
-                <div className="font-semibold text-white">Judith Black</div>
-                <div className="mt-1 text-gray-400">CEO of Workcation</div>
-              </figcaption>
-            </figure>
+              </div>
+            </div>
+            <div className="w-full max-w-2xl xl:max-w-none xl:flex-auto xl:px-16 xl:py-24">
+              <figure className="relative isolate pt-6 sm:pt-12">
+                <blockquote className="text-xl/8 font-semibold text-white sm:text-2xl/9">
+                  <p>
+                    "This project started as a way to modernize property
+                    management systems. I wanted to create something that would
+                    make life easier for both property managers and residents,
+                    while learning and implementing modern web technologies."
+                  </p>
+                </blockquote>
+                <figcaption className="mt-8 text-base">
+                  <div className="font-semibold text-white">Samuel Fuchs</div>
+                  <div className="mt-1 text-gray-400">Software Developer</div>
+                </figcaption>
+              </figure>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
 
-const FeatureCard = ({
+const JourneyCard = ({
   title,
   description,
+  image,
+  className = "",
 }: {
   title: string;
   description: string;
+  image: string;
+  className?: string;
 }) => (
-  <div className="relative">
-    <div className="relative bg-white p-6 rounded-lg shadow">
-      <h3 className="text-lg font-medium text-gray-900">{title}</h3>
-      <p className="mt-2 text-base text-gray-500">{description}</p>
+  <div className={`relative ${className}`}>
+    <div className="absolute inset-px rounded-lg bg-white" />
+    <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
+      <img alt={title} src={image} className="h-80 object-cover" />
+      <div className="p-10 pt-4">
+        <h3 className="text-sm/4 font-semibold text-indigo-600">{title}</h3>
+        <p className="mt-2 text-lg font-medium tracking-tight text-gray-950">
+          {description}
+        </p>
+      </div>
     </div>
+    <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5" />
   </div>
 );
 
