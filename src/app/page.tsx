@@ -1,100 +1,130 @@
-"use client";
+import React from "react";
+import Link from "next/link";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useRouter } from "next/navigation";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import Button from "@/components/Button";
-
-const LoginPage: React.FC = () => {
-  const { login, user } = useAuth();
-  const router = useRouter();
-
-  const [email, setEmail] = useState<string>("admin2@example.com");
-  const [password, setPassword] = useState<string>("password123");
-  const [error, setError] = useState<string>("");
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (user) {
-      router.push("/dashboard");
-    }
-  }, [user, router]);
-
-  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      await login(email, password);
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+const LandingPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded shadow">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold">Unit Manager</h1>
-          <p className="text-gray-600 mt-2">
-            Enter your credentials to access the system
-          </p>
-        </div>
-        {error && <p className="text-red-500 mb-2">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-bold mb-2">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-bold mb-2">
-              Password
-            </label>
-            <div className="relative">
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border rounded"
-                placeholder="Enter your password"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                title={showPassword ? "Hide password" : "Show password"}
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex">
+              <div className="flex-shrink-0 flex items-center">
+                <span className="text-2xl font-bold text-blue-600">
+                  Unit Manager
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center">
+              <Link
+                href="/signin"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
-                {showPassword ? (
-                  <EyeSlashIcon className="h-5 w-5" />
-                ) : (
-                  <EyeIcon className="h-5 w-5" />
-                )}
-              </button>
+                Sign In
+                <ArrowRightIcon className="ml-2 -mr-1 h-4 w-4" />
+              </Link>
             </div>
           </div>
-          <Button type="submit" loading={loading} className="w-full">
-            Access
-          </Button>
-        </form>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <div className="relative bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+              <div className="sm:text-center lg:text-left">
+                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                  <span className="block">Building a Modern</span>
+                  <span className="block text-blue-600">
+                    Property Management System
+                  </span>
+                </h1>
+                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                  A journey through building a full-stack application for
+                  managing residential units, featuring role-based access
+                  control, real-time notifications, and seamless payment
+                  integration.
+                </p>
+                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                  <div className="rounded-md shadow">
+                    <Link
+                      href="/signin"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
+                    >
+                      Get Started
+                    </Link>
+                  </div>
+                  <div className="mt-3 sm:mt-0 sm:ml-3">
+                    <a
+                      href="https://github.com/yourusername/unit-manager"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 md:py-4 md:text-lg md:px-10"
+                    >
+                      View on GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+
+      {/* Feature Section */}
+      <div className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:text-center">
+            <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">
+              Development Journey
+            </h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              Built with Modern Technologies
+            </p>
+          </div>
+
+          <div className="mt-10">
+            <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+              {/* Add feature cards here */}
+              <FeatureCard
+                title="Frontend Technologies"
+                description="Built with React, Next.js 13, and Tailwind CSS for a modern and responsive user interface."
+              />
+              <FeatureCard
+                title="Backend Architecture"
+                description="Node.js with Express, featuring JWT authentication and MongoDB for data persistence."
+              />
+              <FeatureCard
+                title="Role-Based Access"
+                description="Implemented comprehensive role-based access control for administrators, receptionists, and residents."
+              />
+              <FeatureCard
+                title="Payment Integration"
+                description="Seamless payment processing with Stripe integration for handling resident payments."
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+const FeatureCard = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => (
+  <div className="relative">
+    <div className="relative bg-white p-6 rounded-lg shadow">
+      <h3 className="text-lg font-medium text-gray-900">{title}</h3>
+      <p className="mt-2 text-base text-gray-500">{description}</p>
+    </div>
+  </div>
+);
+
+export default LandingPage;

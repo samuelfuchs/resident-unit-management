@@ -16,7 +16,7 @@ export const ProtectedRoute: React.FC<{
     const allowedRoles = routesMap[pathname];
 
     if (!user) {
-      router.push("/");
+      router.push("/signin");
     } else if (allowedRoles && !allowedRoles.includes(user.role)) {
       router.push("/unauthorized");
     }
