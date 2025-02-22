@@ -1,6 +1,29 @@
 import apiClient from "./index";
 import { AdminDashboardStats } from "@/types/admin";
 
+interface ResidentDashboardStats {
+  bills: {
+    total: number;
+    pending: number;
+    upcoming: number;
+    overdue: number;
+    pendingAmount: number;
+    paidThisMonth: number;
+  };
+  latestBill: {
+    _id: string;
+    amount: number;
+    description: string;
+    dueDate: string;
+    status: string;
+  };
+  alerts: {
+    hasPendingBills: boolean;
+    hasOverdueBills: boolean;
+    hasUpcomingBills: boolean;
+  };
+}
+
 export const fetchUsers = async ({
   search = "",
   role,
@@ -61,5 +84,11 @@ export const fetchUserById = async (id: string) => {
 export const fetchAdminDashboardStats =
   async (): Promise<AdminDashboardStats> => {
     const response = await apiClient.get("/users/admin/stats");
+    return response.data;
+  };
+
+export const fetchResidentDashboardStats =
+  async (): Promise<ResidentDashboardStats> => {
+    const response = await apiClient.get("/users/resident/stats");
     return response.data;
   };

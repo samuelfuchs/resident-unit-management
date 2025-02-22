@@ -10,24 +10,41 @@ import {
   PhoneIcon,
   ChatBubbleLeftRightIcon,
   XMarkIcon,
+  BanknotesIcon,
+  ExclamationTriangleIcon,
+  ClockIcon,
+  ArrowRightIcon,
 } from "@heroicons/react/24/outline";
-import { fetchAdminDashboardStats } from "@/api/users";
+import {
+  fetchAdminDashboardStats,
+  fetchResidentDashboardStats,
+} from "@/api/users";
 import Loader from "@/components/Loader";
 import { StatsCards } from "@/components/dashboard/StatsCards";
-import { AdminDashboardStats } from "@/types/admin";
+import { AdminDashboardStats, ResidentDashboardStats } from "@/types/admin";
+import Link from "next/link";
+import Button from "@/components/Button";
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuth();
-  const [stats, setStats] = useState<AdminDashboardStats | null>(null);
+  const [adminStats, setAdminStats] = useState<AdminDashboardStats | null>(
+    null
+  );
+  const [residentStats, setResidentStats] =
+    useState<ResidentDashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const data = await fetchAdminDashboardStats();
-
-        setStats(data);
+        if (user?.role === "admin") {
+          const data = await fetchAdminDashboardStats();
+          setAdminStats(data);
+        } else if (user?.role === "resident") {
+          const data = await fetchResidentDashboardStats();
+          setResidentStats(data);
+        }
       } catch (error) {
         console.error("Failed to fetch stats:", error);
       } finally {
@@ -35,7 +52,7 @@ const DashboardPage: React.FC = () => {
       }
     };
 
-    if (user?.role === "admin") {
+    if (user?.role) {
       fetchStats();
     }
   }, [user?.role]);
@@ -86,6 +103,62 @@ const DashboardPage: React.FC = () => {
     );
   };
 
+  const renderResidentStats = () => {
+    if (loading) return <Loader />;
+    if (!residentStats) return null;
+
+    return (
+      <>
+        {residentStats.latestBill && (
+          <div
+            className={`mt-6 bg-white shadow sm:rounded-lg ${
+              residentStats.alerts.hasPendingBills ? "bg-red-50" : "bg-green-50"
+            }`}
+          >
+            <div className="px-4 py-5 sm:p-6">
+              <div className="sm:flex sm:items-start sm:justify-between">
+                <div>
+                  <h3 className="text-base font-semibold text-gray-900">
+                    {residentStats.alerts.hasPendingBills
+                      ? "You have a pending bill"
+                      : "All Bills Paid"}
+                  </h3>
+                  <div className="mt-2 max-w-xl text-sm text-gray-500">
+                    <p>{residentStats.latestBill.description}</p>
+                    <p className="mt-1">
+                      Amount:{" "}
+                      <span className="font-semibold">
+                        ${residentStats.latestBill.amount.toLocaleString()}
+                      </span>
+                    </p>
+                    <p className="mt-1">
+                      Due Date:{" "}
+                      {new Date(
+                        residentStats.latestBill.dueDate
+                      ).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:shrink-0 sm:items-center">
+                  {residentStats.alerts.hasPendingBills && (
+                    <Link
+                      href="/my-bills"
+                      className="font-medium text-indigo-600 hover:text-indigo-500 flex items-center gap-1"
+                    >
+                      <ArrowRightIcon className="h-4 w-4" />
+                      My Bills
+                      <span className="sr-only"> My Bills</span>
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  };
+
   return (
     <ProtectedRoute>
       <AuthLayout>
@@ -111,8 +184,10 @@ const DashboardPage: React.FC = () => {
           </div>
 
           {user?.role === "admin" && (
-            <StatsCards stats={stats} loading={loading} />
+            <StatsCards stats={adminStats} loading={loading} />
           )}
+
+          {user?.role === "resident" && renderResidentStats()}
 
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-bold text-gray-800">
