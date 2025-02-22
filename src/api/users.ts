@@ -1,28 +1,5 @@
 import apiClient from "./index";
-import { AdminDashboardStats } from "@/types/admin";
-
-interface ResidentDashboardStats {
-  bills: {
-    total: number;
-    pending: number;
-    upcoming: number;
-    overdue: number;
-    pendingAmount: number;
-    paidThisMonth: number;
-  };
-  latestBill: {
-    _id: string;
-    amount: number;
-    description: string;
-    dueDate: string;
-    status: string;
-  };
-  alerts: {
-    hasPendingBills: boolean;
-    hasOverdueBills: boolean;
-    hasUpcomingBills: boolean;
-  };
-}
+import { AdminDashboardStats, ResidentDashboardStats } from "@/types/user";
 
 export const fetchUsers = async ({
   search = "",
@@ -92,3 +69,16 @@ export const fetchResidentDashboardStats =
     const response = await apiClient.get("/users/resident/stats");
     return response.data;
   };
+
+export interface AdminDashboardStats {
+  totalUsers: number;
+  totalResidents: number;
+  bills: {
+    total: number;
+    paid: number;
+    unpaid: number;
+    pendingAmount: number;
+    revenue: number;
+  };
+}
+  

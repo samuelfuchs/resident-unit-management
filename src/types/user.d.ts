@@ -18,3 +18,26 @@ export interface User {
 
   emergencyContacts?: User[];
 }
+
+export interface ResidentDashboardStats {
+  bills: {
+    total: number;
+    pending: number;
+    upcoming: number;
+    overdue: number;
+    pendingAmount: number;
+    paidThisMonth: number;
+  };
+  latestBill: {
+    _id: string;
+    amount: number;
+    description: string;
+    dueDate: string;
+    status: string;
+  };
+  alerts: {
+    hasPendingBills: boolean;
+    hasOverdueBills: boolean;
+    hasUpcomingBills: boolean;
+  };
+}

@@ -4,15 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import AuthLayout from "@/components/AuthLayout";
-import { RoleTranslations } from "@/utils/roleTranslations";
 import Table, { Column } from "@/components/Table";
 import {
   PhoneIcon,
   ChatBubbleLeftRightIcon,
-  XMarkIcon,
-  BanknotesIcon,
-  ExclamationTriangleIcon,
-  ClockIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -21,9 +16,9 @@ import {
 } from "@/api/users";
 import Loader from "@/components/Loader";
 import { StatsCards } from "@/components/dashboard/StatsCards";
-import { AdminDashboardStats, ResidentDashboardStats } from "@/types/admin";
+import { AdminDashboardStats } from "@/types/admin";
+import { ResidentDashboardStats } from "@/types/user";
 import Link from "next/link";
-import Button from "@/components/Button";
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuth();
