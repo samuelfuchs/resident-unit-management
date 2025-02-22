@@ -192,10 +192,12 @@ const LandingPage = () => {
                   Built for efficiency
                 </h2>
                 <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                Solving Real Problems with Smart Features
+                  Solving Real Problems with Smart Features
                 </p>
                 <p className="mt-6 text-lg/8 text-gray-600">
-                I set out to tackle clunky systems, missed payments, and lost requests—common headaches in property management. Unit Manager is built to remove these pain points and simplify everything.
+                  I set out to tackle clunky systems, missed payments, and lost
+                  requests—common headaches in property management. Unit Manager
+                  is built to remove these pain points and simplify everything.
                 </p>
                 <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
                   {features.map((feature) => (
@@ -305,10 +307,11 @@ const LandingPage = () => {
               <figure className="relative isolate pt-6 sm:pt-12">
                 <blockquote className="text-xl/8 font-semibold text-white sm:text-2xl/9">
                   <p>
-                    "This project started as a way to modernize property
-                    management systems. I wanted to create something that would
-                    make life easier for both property managers and residents,
-                    while learning and implementing modern web technologies."
+                    “I build things. Sometimes they work, sometimes they
+                    don’t—but that’s part of the process. Unit Manager wasn’t
+                    just about property management; it was about pushing limits,
+                    solving problems, and learning along the way. And that’s
+                    what keeps me coding.”
                   </p>
                 </blockquote>
                 <figcaption className="mt-8 text-base">
@@ -316,6 +319,25 @@ const LandingPage = () => {
                   <div className="mt-1 text-gray-400">Software Developer</div>
                 </figcaption>
               </figure>
+
+              <div className="mt-6 flex items-center gap-x-6">
+                <a
+                  href="https://github.com/samuelfuchs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold text-indigo-400 hover:text-indigo-300"
+                >
+                  GitHub <span aria-hidden="true">→</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/gersonsamuelfuchs/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold text-indigo-400 hover:text-indigo-300"
+                >
+                  LinkedIn <span aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
