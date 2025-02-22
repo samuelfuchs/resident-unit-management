@@ -12,12 +12,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { fetchAdminDashboardStats } from "@/api/users";
 import Loader from "@/components/Loader";
+import { StatsCards } from "@/components/dashboard/StatsCards";
+import { AdminDashboardStats } from "@/types/admin";
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuth();
-  const [stats, setStats] = useState<{ label: string; value: number }[] | null>(
-    null
-  );
+  const [stats, setStats] = useState<AdminDashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,10 +25,8 @@ const DashboardPage: React.FC = () => {
       try {
         setLoading(true);
         const data = await fetchAdminDashboardStats();
-        setStats([
-          { label: "Total Users", value: data.totalUsers },
-          { label: "Total Residents", value: data.totalResidents },
-        ]);
+        
+        setStats(data);
       } catch (error) {
         console.error("Failed to fetch stats:", error);
       } finally {
@@ -106,7 +104,7 @@ const DashboardPage: React.FC = () => {
               {new Date().toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
-                month: "long", 
+                month: "long",
                 day: "numeric",
               })}
               .
@@ -114,21 +112,7 @@ const DashboardPage: React.FC = () => {
           </div>
 
           {user?.role === "admin" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {loading ? (
-                <Loader message="Loading data..." />
-              ) : (
-                stats?.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="bg-blue-500 text-white p-4 rounded-lg shadow-md"
-                  >
-                    <h2 className="text-xl font-semibold">{stat.value}</h2>
-                    <p className="mt-1 text-sm">{stat.label}</p>
-                  </div>
-                ))
-              )}
-            </div>
+            <StatsCards stats={stats} loading={loading} />
           )}
 
           <div className="bg-white p-6 rounded-lg shadow-lg">
