@@ -8,6 +8,8 @@ import { Bill } from "@/types/bill";
 import { formatCurrency } from "@/utils/formatters";
 import Button from "@/components/Button";
 import { fetchResidentBills } from "@/api/bills";
+import { PaymentFormModal } from "@/components/PaymentFormModal";
+import { createResidentPaymentIntent } from "@/api/bills";
 
 const MyBillsPage: React.FC = () => {
   const [bills, setBills] = useState<Bill[]>([]);
@@ -34,12 +36,12 @@ const MyBillsPage: React.FC = () => {
 
   const handlePayBill = async (bill: Bill) => {
     try {
-      // const response = await createResidentPaymentIntent({
-      //   amount: bill.amount,
-      //   description: bill.description,
-      //   billId: bill._id,
-      // });
-      // setClientSecret(response.clientSecret);
+      const response = await createResidentPaymentIntent({
+        amount: bill.amount,
+        description: bill.description,
+        billId: bill._id,
+      });
+      setClientSecret(response.clientSecret);
       setSelectedBill(bill);
       setIsPaymentModalOpen(true);
     } catch (error) {
@@ -111,7 +113,7 @@ const MyBillsPage: React.FC = () => {
 
           <Table data={bills} columns={columns} />
 
-          {/* {selectedBill && clientSecret && (
+          {selectedBill && clientSecret && (
             <PaymentFormModal
               isOpen={isPaymentModalOpen}
               onClose={() => {
@@ -124,7 +126,7 @@ const MyBillsPage: React.FC = () => {
               amount={selectedBill.amount}
               description={selectedBill.description}
             />
-          )} */}
+          )}
         </div>
       </AuthLayout>
     </ProtectedRoute>

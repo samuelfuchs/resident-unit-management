@@ -41,3 +41,10 @@ export const updateBillStatus = async (
   });
   return response.data;
 };
+
+export const createResidentPaymentIntent = async (data: {
+  billId: string;
+}): Promise<{ clientSecret: string }> => {
+  const response = await apiClient.post("/payments/create-intent", data);
+  return response.data;
+};
