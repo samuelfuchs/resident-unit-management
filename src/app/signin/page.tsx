@@ -57,13 +57,13 @@ const SignInPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen ">
+    <div className="flex flex-col items-center justify-center h-screen overflow-hidden">
       <motion.svg
         aria-hidden="true"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeInOut" }}
-        className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 
+        className="absolute inset-x-0 top-0 -z-10 min-h-screen w-full stroke-gray-200 
                    [mask-image:radial-gradient(64rem_64rem_at_center,white,transparent)]"
       >
         <defs>
