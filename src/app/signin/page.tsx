@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import Button from "@/components/Button";
+import { motion } from "framer-motion";
 import SelectField from "@/components/SelectField";
 
 const SignInPage: React.FC = () => {
@@ -56,7 +57,40 @@ const SignInPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen ">
+      <motion.svg
+        aria-hidden="true"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+        className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 
+                   [mask-image:radial-gradient(64rem_64rem_at_center,white,transparent)]"
+      >
+        <defs>
+          <pattern
+            x="50%"
+            y={-1}
+            id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84"
+            width={200}
+            height={200}
+            patternUnits="userSpaceOnUse"
+          >
+            <path d="M.5 200V.5H200" fill="none" />
+          </pattern>
+        </defs>
+        <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+          <path
+            d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+            strokeWidth={0}
+          />
+        </svg>
+        <rect
+          fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)"
+          width="100%"
+          height="100%"
+          strokeWidth={0}
+        />
+      </motion.svg>
       <div className="w-full max-w-md space-y-4">
         <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
           <h2 className="text-indigo-800 font-semibold mb-1">
@@ -87,6 +121,7 @@ const SignInPage: React.FC = () => {
             <p className="text-gray-600 mt-2">Sign in to access your account</p>
           </div>
           {error && <p className="text-red-500 mb-2">{error}</p>}
+
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-bold mb-2">
