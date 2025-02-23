@@ -127,9 +127,18 @@ const LandingPage = () => {
                     transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
                     className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none"
                   >
-                    I’m pulling back the curtain on Unit Manager—its challenges,
-                    breakthroughs, and lessons. Instead of a polished landing
-                    page, here’s the real story. Let’s dive in!
+                    Instead of a polished landing page, I’m pulling back the
+                    curtain on how I built this application—its challenges,
+                    breakthroughs, and lessons.
+                  </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                    className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none"
+                  >
+                    Want to see it in action? Try the demo—sign in with a test
+                    user and explore.
                   </motion.p>
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
