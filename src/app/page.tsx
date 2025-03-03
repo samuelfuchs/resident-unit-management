@@ -53,7 +53,7 @@ const LandingPage = () => {
           onClick={closeModal}
         >
           <div
-            className="relative max-w-3xl w-full bg-white p-2 rounded-lg"
+            className="relative max-w-3xl w-full max-h-[90vh] bg-white p-4 rounded-lg overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
