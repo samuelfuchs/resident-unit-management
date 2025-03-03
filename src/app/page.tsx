@@ -53,7 +53,7 @@ const LandingPage = () => {
           onClick={closeModal}
         >
           <div
-            className="relative max-w-3xl w-full max-h-[90vh] bg-white p-4 rounded-lg overflow-y-auto"
+            className="relative max-w-3xl max-h-[90vh] bg-white p-4 rounded-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -62,13 +62,15 @@ const LandingPage = () => {
             >
               <XMarkIcon className="w-6 h-6" />
             </button>
-            <Image
-              src={modalImage}
-              alt="Expanded Image"
-              width={800}
-              height={600}
-              className="w-full h-auto rounded-lg"
-            />
+            <div className="flex justify-center">
+              <Image
+                src={modalImage}
+                alt="Expanded Image"
+                width={800}
+                height={600}
+                className="max-h-[85vh] w-auto rounded-lg object-contain"
+              />
+            </div>
           </div>
         </div>
       )}
