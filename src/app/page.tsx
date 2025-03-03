@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   CloudArrowUpIcon,
   LockClosedIcon,
@@ -9,12 +10,24 @@ import {
 } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 
-const LandingPage = () => {  
+const LandingPage = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState("");
+
+  const openModal = (imageSrc: string) => {
+    setModalImage(imageSrc);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   const features = [
     {
       name: "Role-Based Access Control",
       description:
-        "Security shouldn’t be complicated. I built a role-based system where admins, staff, and residents get exactly what they need—nothing more, nothing less.",
+        "Security shouldn't be complicated. I built a role-based system where admins, staff, and residents get exactly what they need—nothing more, nothing less.",
       icon: LockClosedIcon,
     },
     {
@@ -33,6 +46,25 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      {modalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="relative max-w-4xl w-full p-4">
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 text-white text-2xl"
+            >
+              ×
+            </button>
+            <Image
+              src={modalImage}
+              alt="Expanded Image"
+              width={800}
+              height={600}
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+        </div>
+      )}
       <nav className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
@@ -127,7 +159,7 @@ const LandingPage = () => {
                     transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
                     className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none"
                   >
-                    Instead of a polished landing page, I’m pulling back the
+                    Instead of a polished landing page, I'm pulling back the
                     curtain on how I built this application—its challenges,
                     breakthroughs, and lessons.
                   </motion.p>
@@ -175,29 +207,47 @@ const LandingPage = () => {
                     </div>
                   </div>
                   <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-                    <div className="relative">
-                      <img
-                        alt=""
-                        src="https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg">
+                      <Image
+                        src="/images/sketch.jpeg"
+                        alt="Developer workspace setup with dual monitor and laptop"
+                        width={396}
+                        height={528}
+                        className="w-full h-full object-cover object-left scale-110 brightness-110"
+                        priority
+                        onClick={() => openModal("/images/sketch.jpeg")}
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
-                    <div className="relative">
+                    {/* <div className="relative">
                       <img
                         alt=""
                         src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80"
                         className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                    </div> */}
+                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg">
+                      <Image
+                        src="/images/diagram.png"
+                        alt="Developer workspace setup with dual monitor and laptop"
+                        width={396}
+                        height={528}
+                        className="w-full h-full object-cover object-left"
+                        priority
+                      />
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
                   </div>
                   <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                    <div className="relative">
-                      <img
-                        alt=""
-                        src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg">
+                      <Image
+                        src="/images/setup.jpeg"
+                        alt="Developer workspace setup with dual monitor and laptop"
+                        width={396}
+                        height={528}
+                        className="w-full h-full object-cover object-center scale-110"
+                        priority
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
@@ -288,19 +338,19 @@ const LandingPage = () => {
             <JourneyCard
               title="1. From Idea to Blueprint"
               description="Before a single line of code, I sketched everything—features, users, tech stack. Planning saved me… or so I thought. Some ideas evolved, others broke, and a few took a whole new direction."
-              image="/frontend-screenshot.png"
+              image="/images/sketch-full.jpeg"
               className="lg:col-span-2"
             />
             <JourneyCard
-              title="2. Setting Up the Project (First Lines of Code)"
+              title="2. Setting Up the Project"
               description="Setting up Next.js, Tailwind, and authentication laid the foundation for everything that followed."
-              image="/auth-screenshot.png"
+              image="/images/sketch-full.jpeg"
               className="lg:col-span-4"
             />
             <JourneyCard
               title="3. Authentication: More Than Just Logins"
               description="One of the first big challenges was getting authentication right—ensuring the right people had access while keeping it seamless. Role-based control (RBAC) became the backbone of the system."
-              image="/auth-screenshot.png"
+              image="/images/dashboard-postman.png"
               className="lg:col-span-3"
             />
             <JourneyCard
@@ -311,13 +361,13 @@ const LandingPage = () => {
             />
             <JourneyCard
               title="5. Building This, Building Myself"
-              description="This project isn’t just about code—it’s about growth. As I built Unit Manager, I pushed my own limits, learned new skills, and shaped my perspective on problem-solving."
+              description="This project isn't just about code—it's about growth. As I built Unit Manager, I pushed my own limits, learned new skills, and shaped my perspective on problem-solving."
               image="/auth-screenshot.png"
               className="lg:col-span-4"
             />
             <JourneyCard
-              title="6. What’s Next?"
-              description="Software is never really ‘done.’ There’s always a next step. Unit Manager is evolving, and I can’t wait to see where it goes next."
+              title="6. What's Next?"
+              description="Software is never really 'done.' There's always a next step. Unit Manager is evolving, and I can't wait to see where it goes next."
               image="/auth-screenshot.png"
               className="lg:col-span-2"
             />
@@ -342,11 +392,11 @@ const LandingPage = () => {
               <figure className="relative isolate pt-6 sm:pt-12">
                 <blockquote className="text-xl/8 font-semibold text-white sm:text-2xl/9">
                   <p>
-                    “I build things. Sometimes they work, sometimes they
-                    don’t—but that’s part of the process. Unit Manager wasn’t
+                    "I build things. Sometimes they work, sometimes they
+                    don't—but that's part of the process. Unit Manager wasn't
                     just about property management; it was about pushing limits,
-                    solving problems, and learning along the way. And that’s
-                    what keeps me coding.”
+                    solving problems, and learning along the way. And that's
+                    what keeps me coding."
                   </p>
                 </blockquote>
                 <figcaption className="mt-8 text-base">
