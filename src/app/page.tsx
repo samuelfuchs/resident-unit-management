@@ -9,6 +9,7 @@ import {
   ServerIcon,
 } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const LandingPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -47,13 +48,19 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-          <div className="relative max-w-4xl w-full p-4">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4"
+          onClick={closeModal}
+        >
+          <div
+            className="relative max-w-3xl w-full bg-white p-2 rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 text-white text-2xl"
+              className="absolute top-2 right-2 text-gray-700 text-3xl bg-white rounded-full p-1 shadow-lg"
             >
-              ×
+              <XMarkIcon className="w-6 h-6" />
             </button>
             <Image
               src={modalImage}
@@ -213,7 +220,7 @@ const LandingPage = () => {
                         alt="Developer workspace setup with dual monitor and laptop"
                         width={396}
                         height={528}
-                        className="w-full h-full object-cover object-left scale-110 brightness-110"
+                        className="w-full h-full object-cover object-left scale-110 brightness-110 cursor-pointer"
                         priority
                         onClick={() => openModal("/images/sketch.jpeg")}
                       />
@@ -233,8 +240,9 @@ const LandingPage = () => {
                         alt="Developer workspace setup with dual monitor and laptop"
                         width={396}
                         height={528}
-                        className="w-full h-full object-cover object-left"
+                        className="w-full h-full object-cover object-left cursor-pointer"
                         priority
+                        onClick={() => openModal("/images/diagram.png")}
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
@@ -246,8 +254,9 @@ const LandingPage = () => {
                         alt="Developer workspace setup with dual monitor and laptop"
                         width={396}
                         height={528}
-                        className="w-full h-full object-cover object-center scale-110"
+                        className="w-full h-full object-cover object-center scale-110 cursor-pointer"
                         priority
+                        onClick={() => openModal("/images/setup.jpeg")}
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
@@ -340,36 +349,42 @@ const LandingPage = () => {
               description="Before a single line of code, I sketched everything—features, users, tech stack. Planning saved me… or so I thought. Some ideas evolved, others broke, and a few took a whole new direction."
               image="/images/sketch-full.jpeg"
               className="lg:col-span-2"
+              onClick={() => openModal("/images/sketch-full.jpeg")}
             />
             <JourneyCard
               title="2. Setting Up the Project"
               description="Setting up Next.js, Tailwind, and authentication laid the foundation for everything that followed."
               image="/images/sketch-full.jpeg"
               className="lg:col-span-4"
+              onClick={() => openModal("/images/sketch-full.jpeg")}
             />
             <JourneyCard
               title="3. Authentication: More Than Just Logins"
               description="One of the first big challenges was getting authentication right—ensuring the right people had access while keeping it seamless. Role-based control (RBAC) became the backbone of the system."
               image="/images/dashboard-postman.png"
               className="lg:col-span-3"
+              onClick={() => openModal("/images/dashboard-postman.png")}
             />
             <JourneyCard
               title="4. The First Deployment"
               description="Deploying the first version felt surreal. Even with bugs and missing features, seeing it live made everything real. Each update since then has made it smoother and smarter."
               image="/auth-screenshot.png"
               className="lg:col-span-3"
+              onClick={() => openModal("/images/auth-screenshot.png")}
             />
             <JourneyCard
               title="5. Building This, Building Myself"
               description="This project isn't just about code—it's about growth. As I built Unit Manager, I pushed my own limits, learned new skills, and shaped my perspective on problem-solving."
               image="/auth-screenshot.png"
               className="lg:col-span-4"
+              onClick={() => openModal("/images/auth-screenshot.png")}
             />
             <JourneyCard
               title="6. What's Next?"
               description="Software is never really 'done.' There's always a next step. Unit Manager is evolving, and I can't wait to see where it goes next."
               image="/auth-screenshot.png"
               className="lg:col-span-2"
+              onClick={() => openModal("/images/auth-screenshot.png")}
             />
           </div>
         </div>
@@ -436,16 +451,23 @@ const JourneyCard = ({
   description,
   image,
   className = "",
+  onClick,
 }: {
   title: string;
   description: string;
   image: string;
   className?: string;
+  onClick?: () => void;
 }) => (
   <div className={`relative ${className}`}>
     <div className="absolute inset-px rounded-lg bg-white" />
     <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
-      <img alt={title} src={image} className="h-80 object-cover" />
+      <img
+        alt={title}
+        src={image}
+        className="h-80 object-cover cursor-pointer"
+        onClick={onClick}
+      />
       <div className="p-10 pt-4">
         <h3 className="text-sm/4 font-semibold text-indigo-600">{title}</h3>
         <p className="mt-2 text-lg font-medium tracking-tight text-gray-950">
