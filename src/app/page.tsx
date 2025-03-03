@@ -216,13 +216,13 @@ const LandingPage = () => {
                     </div>
                   </div>
                   <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg">
+                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200">
                       <Image
                         src="/images/sketch.jpeg"
                         alt="Developer workspace setup with dual monitor and laptop"
                         width={396}
                         height={528}
-                        className="w-full h-full object-cover object-left scale-110 brightness-110 cursor-pointer"
+                        className="w-full h-full object-cover object-left cursor-pointer scale-110"
                         priority
                         onClick={() => openModal("/images/sketch.jpeg")}
                       />
@@ -236,7 +236,7 @@ const LandingPage = () => {
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div> */}
-                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg">
+                    <div className="relative overflow-hidden border-2 rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200">
                       <Image
                         src="/images/diagram.png"
                         alt="Developer workspace setup with dual monitor and laptop"
@@ -250,7 +250,7 @@ const LandingPage = () => {
                     </div>
                   </div>
                   <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg">
+                    <div className="relative overflow-hidden border-2 rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200">
                       <Image
                         src="/images/setup.jpeg"
                         alt="Developer workspace setup with dual monitor and laptop"
@@ -323,7 +323,7 @@ const LandingPage = () => {
                     src="/dashboard-screenshot.png"
                     width={2432}
                     height={1442}
-                    className="-mb-12 w-[57rem] max-w-none rounded-tl-xl bg-gray-800 ring-1 ring-white/10"
+                    className="-mb-12 w-[57rem] max-w-none rounded-tl-xl bg-gray-800 ring-1 ring-white/10 border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200"
                   />
                 </div>
                 <div
@@ -467,7 +467,7 @@ const JourneyCard = ({
       <img
         alt={title}
         src={image}
-        className="h-80 object-cover cursor-pointer"
+        className="h-80 object-cover cursor-pointer border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200"
         onClick={onClick}
       />
       <div className="p-10 pt-4">
