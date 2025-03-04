@@ -26,21 +26,21 @@ const LandingPage = () => {
 
   const features = [
     {
-      name: "Payment Integration",
+      name: "Seamless Payments",
       description:
-        "Stripe integration makes transactions seamless, secure, and hassle-free—for both residents and managers.",
+        "Integrated Stripe for fast, secure, and automated transactions—simplifying payments for both residents and property managers.",
       icon: CloudArrowUpIcon,
     },
     {
-      name: "Role-Based Access Control",
+      name: "Role-Based Access Control (RBAC)",
       description:
-        "Security shouldn't be complicated. I built a role-based system where admins, staff, and residents get exactly what they need—nothing more, nothing less.",
+        "Implemented a structured authentication system ensuring users only access what they need—enhancing security and usability.",
       icon: LockClosedIcon,
     },
     {
-      name: "Improve Backend Skills",
+      name: "Backend Mastery",
       description:
-        "I built this application to learn a new set of technologies and to think about how to solve real problems with smart features.",
+        "Focused on writing scalable, well-structured backend code—leveraging authentication, middleware, and testing to improve reliability.",
       icon: ServerIcon,
     },
   ];
@@ -206,11 +206,15 @@ const LandingPage = () => {
                 </div>
                 <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                   <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-                    <div className="relative">
-                      <img
-                        alt=""
-                        src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200">
+                      <Image
+                        src="/images/office.jpeg"
+                        alt="Developer workspace setup with dual monitor and laptop"
+                        width={396}
+                        height={528}
+                        className="w-full h-full object-cover object-right cursor-pointer"
+                        priority
+                        onClick={() => openModal("/images/office.jpeg")}
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
@@ -228,14 +232,6 @@ const LandingPage = () => {
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
-                    {/* <div className="relative">
-                      <img
-                        alt=""
-                        src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80"
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                      />
-                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div> */}
                     <div className="relative overflow-hidden border-2 rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200">
                       <Image
                         src="/images/diagram.png"
@@ -262,11 +258,15 @@ const LandingPage = () => {
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
-                    <div className="relative">
-                      <img
-                        alt=""
-                        src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                        className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                    <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200">
+                      <Image
+                        src="/images/notebook.jpeg"
+                        alt="Developer workspace setup with dual monitor and laptop"
+                        width={396}
+                        height={528}
+                        className="w-full h-full object-cover object-left cursor-pointer scale-110"
+                        priority
+                        onClick={() => openModal("/images/notebook.jpeg")}
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
@@ -275,6 +275,94 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Resources Section */}
+      <div className="overflow-hidden bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto">
+            <h2 className="text-base font-semibold text-indigo-600">
+              Explore the Code & API Documentation
+            </h2>
+            <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+              Get the Code
+            </p>
+            <p className="mt-6 text-lg text-gray-600">
+              Dive into the codebase, experiment with the API, or connect with
+              me for more insights.
+            </p>
+          </div>
+
+          <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Frontend Repo */}
+            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 p-8 shadow-sm hover:shadow-lg transition">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Frontend Repository
+              </h3>
+              <p className="mt-2 text-gray-600">
+                Built with TypeScript, Next.js, Tailwind CSS, Framer Motion, and
+                more.
+              </p>
+              <a
+                href="https://github.com/samuelfuchs/resident-unit-management"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 font-semibold hover:text-indigo-500 transition"
+              >
+                View on GitHub <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            {/* Backend Repo */}
+            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 p-8 shadow-sm hover:shadow-lg transition">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Backend Repository
+              </h3>
+              <p className="mt-2 text-gray-600">
+                Built using Node.js, Express, MongoDB, JWT, and more.
+              </p>
+              <a
+                href="https://github.com/samuelfuchs/resident-unit-management-backend"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 font-semibold hover:text-indigo-500 transition"
+              >
+                View on GitHub <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 p-8 shadow-sm hover:shadow-lg transition">
+              <h3 className="text-lg font-semibold text-gray-900">
+                API Documentation
+              </h3>
+              <p className="mt-2 text-gray-600">
+                Download the Postman collection to explore and test the API.
+              </p>
+              <a
+                href="/postman-collection.json"
+                download
+                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 font-semibold hover:text-indigo-500 transition"
+              >
+                Download Postman Collection <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+          </div>
+
+          {/* <div className="mt-16 text-center">
+            <p className="text-lg text-gray-600">
+              Want to connect? Let’s talk about development, projects, and
+              innovation.
+            </p>
+            <a
+              href="https://www.linkedin.com/in/gersonsamuelfuchs/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-x-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition"
+            >
+              Connect on LinkedIn <span aria-hidden="true">→</span>
+            </a>
+          </div> */}
         </div>
       </div>
 
@@ -288,12 +376,13 @@ const LandingPage = () => {
                   Full-Stack Application
                 </h2>
                 <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                  Building the Frontend and Backend
+                  Bringing the Frontend and Backend Together
                 </p>
                 <p className="mt-6 text-lg/8 text-gray-600">
-                  I built this application to learn a new set of technologies
-                  and to think about how to solve real problems with smart
-                  features.
+                  I built this project to deepen my understanding of new
+                  technologies and tackle real-world challenges. From frontend
+                  interactions to backend logic, every piece was designed to
+                  work seamlessly.
                 </p>
                 <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
                   {features.map((feature) => (
@@ -312,25 +401,21 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="sm:px-6 lg:px-0">
-              <div className="relative isolate overflow-hidden bg-indigo-500 px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
-                <div
-                  aria-hidden="true"
-                  className="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white"
-                />
-                <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
-                  <img
-                    alt="Unit Manager Dashboard"
-                    src="/dashboard-screenshot.png"
-                    width={2432}
-                    height={1442}
-                    className="-mb-12 w-[57rem] max-w-none rounded-tl-xl bg-gray-800 ring-1 ring-white/10 border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200"
-                  />
-                </div>
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 sm:rounded-3xl"
+              <div className="flex justify-center items-center w-full h-full p-4">
+                <Image
+                  src="/images/setup.jpeg"
+                  alt="Developer workspace setup with dual monitor and laptop"
+                  width={396}
+                  height={528}
+                  className="w-full h-auto object-cover object-center cursor-pointer scale-110 rounded-3xl"
+                  priority
+                  onClick={() => openModal("/images/setup.jpeg")}
                 />
               </div>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 sm:rounded-3xl"
+              />
             </div>
           </div>
         </div>
@@ -348,42 +433,37 @@ const LandingPage = () => {
           <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2">
             <JourneyCard
               title="1. From Idea to Blueprint"
-              description="Before a single line of code, I sketched everything—features, users, tech stack. Planning saved me… or so I thought. Some ideas evolved, others broke, and a few took a whole new direction."
+              description="Before writing a single line of code, I mapped out the core features, tech stack, and key challenges in my sketchbook. Some ideas evolved, others broke, and a few took a new direction—but that’s part of the process."
               image="/images/sketch-full.jpeg"
               className="lg:col-span-2"
               onClick={() => openModal("/images/sketch-full.jpeg")}
             />
             <JourneyCard
-              title="2. Frontend"
-              description="Typescript, Next, Tailwind, Stripe, axios, framer motion"
+              title="2. Frontend: The Interactive Layer"
+              description="I built the frontend using TypeScript, Next.js, Tailwind CSS, and Framer Motion for a sleek and dynamic UI. One of my main goals was to understand Stripe integration for payments and implement a role-based access control (RBAC) system. Every user gets the right level of access—no more, no less."
               image="/images/frontend.jpeg"
-              className="lg:col-span-4"
+              className="lg:col-span-2"
               onClick={() => openModal("/images/frontend.jpeg")}
             />
             <JourneyCard
-              title="3. Backend"
-              description="Typescript, Node, Express, MongoDB, Mongoose, JWT, bcrypt, Stripe, Stripe, Jest, Supertest, Postman"
+              title="3. Backend: The Core Engine"
+              description="The backend follows an MVC architecture, powered by Node.js, Express, and MongoDB with Mongoose for data modeling.
+I focused on authentication with JWT & bcrypt, implemented middlewares, and tested everything rigorously with Jest & Supertest. Stripe integration was another key area I wanted to master, ensuring secure and seamless transactions."
               image="/images/backend.jpeg"
-              className="lg:col-span-3"
+              className="lg:col-span-2"
               onClick={() => openModal("/images/backend.jpeg")}
             />
             <JourneyCard
-              title="4. The First Deployment"
-              description="Deploying the first version felt surreal. Even with bugs and missing features, seeing it live made everything real. Each update since then has made it smoother and smarter."
-              image="/auth-screenshot.png"
-              className="lg:col-span-3"
-              onClick={() => openModal("/images/auth-screenshot.png")}
-            />
-            <JourneyCard
               title="5. Building This, Building Myself"
-              description="This project isn't just about code—it's about growth. As I built Unit Manager, I pushed my own limits, learned new skills, and shaped my perspective on problem-solving."
+              description="This project wasn’t just about writing code—it was about leveling up as a developer. I pushed myself to solve real challenges, refined my problem-solving skills, and yes, drank a lot of coffee along the way."
               image="/auth-screenshot.png"
               className="lg:col-span-4"
               onClick={() => openModal("/images/auth-screenshot.png")}
             />
             <JourneyCard
               title="6. What's Next?"
-              description="Software is never really 'done.' There's always a next step. Unit Manager is evolving, and I can't wait to see where it goes next."
+              description="Software is never truly “done.” I’ll continue refining the app, tweaking features, and improving the user experience.
+Once I’m satisfied with this project, I’ll move on to the next build—picking up new skills and pushing boundaries even further."
               image="/auth-screenshot.png"
               className="lg:col-span-2"
               onClick={() => openModal("/images/auth-screenshot.png")}
@@ -409,11 +489,12 @@ const LandingPage = () => {
               <figure className="relative isolate pt-6 sm:pt-12">
                 <blockquote className="text-xl/8 font-semibold text-white sm:text-2xl/9">
                   <p>
-                    "I build things. Sometimes they work, sometimes they
-                    don't—but that's part of the process. Unit Manager wasn't
-                    just about property management; it was about pushing limits,
-                    solving problems, and learning along the way. And that's
-                    what keeps me coding."
+                    “I build things with purpose—turning ideas into functional,
+                    scalable solutions. Unit Manager wasn’t just about property
+                    management; it was an opportunity to push boundaries, solve
+                    real-world challenges, and sharpen my technical skills.
+                    Every project is a chance to learn, refine, and innovate—and
+                    that’s what keeps me coding.”
                   </p>
                 </blockquote>
                 <figcaption className="mt-8 text-base">
