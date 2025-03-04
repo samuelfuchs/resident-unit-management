@@ -26,22 +26,22 @@ const LandingPage = () => {
 
   const features = [
     {
+      name: "Payment Integration",
+      description:
+        "Stripe integration makes transactions seamless, secure, and hassle-free—for both residents and managers.",
+      icon: CloudArrowUpIcon,
+    },
+    {
       name: "Role-Based Access Control",
       description:
         "Security shouldn't be complicated. I built a role-based system where admins, staff, and residents get exactly what they need—nothing more, nothing less.",
       icon: LockClosedIcon,
     },
     {
-      name: "Real-time Notifications",
+      name: "Improve Backend Skills",
       description:
-        "No more chasing emails. With real-time alerts, payments, maintenance requests, and announcements reach the right people instantly.",
+        "I built this application to learn a new set of technologies and to think about how to solve real problems with smart features.",
       icon: ServerIcon,
-    },
-    {
-      name: "Payment Integration",
-      description:
-        "Paying rent should be effortless. Stripe integration makes transactions seamless, secure, and hassle-free—for both residents and managers.",
-      icon: CloudArrowUpIcon,
     },
   ];
 
@@ -285,15 +285,15 @@ const LandingPage = () => {
             <div className="px-6 lg:px-0 lg:pr-4 lg:pt-4">
               <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
                 <h2 className="text-base/7 font-semibold text-indigo-600">
-                  Built for efficiency
+                  Full-Stack Application
                 </h2>
                 <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                  Solving Real Problems with Smart Features
+                  Building the Frontend and Backend
                 </p>
                 <p className="mt-6 text-lg/8 text-gray-600">
-                  I set out to tackle clunky systems, missed payments, and lost
-                  requests—common headaches in property management. Unit Manager
-                  is built to remove these pain points and simplify everything.
+                  I built this application to learn a new set of technologies
+                  and to think about how to solve real problems with smart
+                  features.
                 </p>
                 <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
                   {features.map((feature) => (
@@ -354,18 +354,18 @@ const LandingPage = () => {
               onClick={() => openModal("/images/sketch-full.jpeg")}
             />
             <JourneyCard
-              title="2. Setting Up the Project"
-              description="Setting up Next.js, Tailwind, and authentication laid the foundation for everything that followed."
-              image="/images/sketch-full.jpeg"
+              title="2. Frontend"
+              description="Typescript, Next, Tailwind, Stripe, axios, framer motion"
+              image="/images/frontend.jpeg"
               className="lg:col-span-4"
-              onClick={() => openModal("/images/sketch-full.jpeg")}
+              onClick={() => openModal("/images/frontend.jpeg")}
             />
             <JourneyCard
-              title="3. Authentication: More Than Just Logins"
-              description="One of the first big challenges was getting authentication right—ensuring the right people had access while keeping it seamless. Role-based control (RBAC) became the backbone of the system."
-              image="/images/dashboard-postman.png"
+              title="3. Backend"
+              description="Typescript, Node, Express, MongoDB, Mongoose, JWT, bcrypt, Stripe, Stripe, Jest, Supertest, Postman"
+              image="/images/backend.jpeg"
               className="lg:col-span-3"
-              onClick={() => openModal("/images/dashboard-postman.png")}
+              onClick={() => openModal("/images/backend.jpeg")}
             />
             <JourneyCard
               title="4. The First Deployment"
