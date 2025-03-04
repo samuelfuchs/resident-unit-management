@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -9,11 +9,34 @@ import {
   ServerIcon,
 } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { MoonIcon, SunIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const LandingPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("theme");
+    if (
+      savedMode === "dark" ||
+      (!savedMode && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      setDarkMode(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    if (!darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  };
 
   const openModal = (imageSrc: string) => {
     setModalImage(imageSrc);
@@ -46,19 +69,19 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       {modalOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4"
           onClick={closeModal}
         >
           <div
-            className="relative max-w-3xl max-h-[90vh] bg-white p-4 rounded-lg"
+            className="relative max-w-3xl max-h-[90vh] bg-white p-4 rounded-lg dark:bg-gray-800"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-700 text-3xl bg-white rounded-full p-1 shadow-lg"
+              className="absolute top-2 right-2 text-gray-700 text-3xl bg-white rounded-full p-1 shadow-lg dark:text-gray-300 dark:bg-gray-700"
             >
               <XMarkIcon className="w-6 h-6" />
             </button>
@@ -74,24 +97,34 @@ const LandingPage = () => {
           </div>
         </div>
       )}
-      <nav className="bg-white">
+      <nav className="bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <span className="text-2xl font-bold text-blue-600">
+                <span className="text-2xl font-bold text-blue-600 dark:text-indigo-400">
                   Unit Manager
                 </span>
               </div>
             </div>
-            <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
               <Link
                 href="/signin"
-                className="text-sm/6 font-semibold text-indigo-600"
+                className="text-sm/6 font-semibold text-indigo-600 dark:text-indigo-400"
               >
                 Sign In
                 <span aria-hidden="true">&rarr;</span>
               </Link>
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+              >
+                {darkMode ? (
+                  <SunIcon className="w-6 h-6" />
+                ) : (
+                  <MoonIcon className="w-6 h-6" />
+                )}
+              </button>
             </div>
           </div>
         </div>

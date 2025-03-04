@@ -57,7 +57,7 @@ const SignInPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-screen overflow-hidden dark:bg-gray-900">
       <motion.svg
         aria-hidden="true"
         initial={{ opacity: 0, y: -50 }}
