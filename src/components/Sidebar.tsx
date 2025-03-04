@@ -22,10 +22,6 @@ const Sidebar: React.FC = () => {
   const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const userNavigation = [
-    { name: "Your profile", href: "#" },
-    { name: "Sign out", href: "#" },
-  ];
 
   useEffect(() => {
     if (user) {
@@ -43,23 +39,26 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      <div className="bg-blue-500 text-white p-4 flex justify-between items-center md:hidden">
+      <div className="lg:bg-blue-500 text-white p-4 flex justify-between items-center md:hidden">
         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
           {isSidebarOpen ? (
             <XMarkIcon className="h-6 w-6 text-white" />
           ) : (
-            <Bars3Icon className="h-6 w-6 text-white" />
+            <div className="flex items-center gap-x-2">
+              <Bars3Icon className="h-6 w-6 text-indigo-500" />
+              <span className="text-indigo-500">Open Menu</span>
+            </div>
           )}
         </button>
       </div>
 
       <div
-        className={`fixed inset-y-0 left-0 z-50 bg-blue-500 text-white transform ${
+        className={`fixed inset-y-0 left-0 z-50 bg-indigo-700 text-white transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 w-64 flex flex-col min-h-screen`}
       >
         <div
-          className="p-6 cursor-pointer text-xl font-bold transition-transform transform hover:scale-105"
+          className="p-6 cursor-pointer text-xl font-bold transition-transform transform"
           onClick={() => {
             router.push("/dashboard");
             setIsSidebarOpen(false);
