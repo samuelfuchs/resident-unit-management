@@ -6,10 +6,14 @@ import { useAuth } from "@/context/AuthContext";
 import { routes } from "@/config/routes";
 import {
   ArrowLongUpIcon,
+  ArrowRightStartOnRectangleIcon,
   Bars3Icon,
+  ChevronDownIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { mockNotifications } from "@/mocks/notifications";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { RoleTranslations } from "@/utils/roleTranslations";
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -17,6 +21,11 @@ const Sidebar: React.FC = () => {
   const { user, logout } = useAuth();
   const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const userNavigation = [
+    { name: "Your profile", href: "#" },
+    { name: "Sign out", href: "#" },
+  ];
 
   useEffect(() => {
     if (user) {
@@ -98,9 +107,38 @@ const Sidebar: React.FC = () => {
             onClick={handleLogout}
             className="flex items-center w-full text-left p-2 hover:bg-red-600 rounded"
           >
-            <ArrowLongUpIcon className="h-5 w-5 mr-3" />
+            <ArrowRightStartOnRectangleIcon className="h-5 w-5 mr-3" />
             Logout
           </button>
+          {user && (
+            <div className="w-full">
+              <a
+                href="#"
+                className="flex items-center gap-x-4 px-2 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-blue-600 rounded"
+              >
+                <img
+                  alt=""
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  className="size-8 rounded-full bg-gray-50"
+                />
+                <span className="sr-only">Your profile</span>
+                <div className="flex flex-col">
+                  <span aria-hidden="true" className="text-white">
+                    {user.name} {user.lastName}
+                  </span>
+                  <span className="text-gray-300 text-xs">
+                    (
+                    {
+                      RoleTranslations[
+                        user.role as keyof typeof RoleTranslations
+                      ]
+                    }
+                    )
+                  </span>
+                </div>
+              </a>
+            </div>
+          )}
         </div>
       </div>
 
