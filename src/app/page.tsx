@@ -137,7 +137,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
-            className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 
+            className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 dark:stroke-gray-700
                    [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
           >
             <defs>
@@ -152,7 +152,11 @@ const LandingPage = () => {
                 <path d="M.5 200V.5H200" fill="none" />
               </pattern>
             </defs>
-            <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+            <svg
+              x="50%"
+              y={-1}
+              className="overflow-visible fill-gray-50 dark:fill-gray-700"
+            >
               <path
                 d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
                 strokeWidth={0}
@@ -175,7 +179,7 @@ const LandingPage = () => {
                 clipPath:
                   "polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)",
               }}
-              className="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
+              className="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 dark:opacity-20"
             />
           </div>
           <div className="overflow-hidden">
@@ -189,9 +193,13 @@ const LandingPage = () => {
                     className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl"
                   >
                     {/* <h1 className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl"> */}
-                    <span className="text-gray-400">Unit Manager:</span>
+                    <span className="text-gray-400 dark:text-gray-500">
+                      Unit Manager:
+                    </span>
                     <br />
-                    <span className="text-indigo-500">Behind the Build</span>
+                    <span className="text-indigo-500 dark:text-indigo-400">
+                      Behind the Build
+                    </span>
                     {/* </h1> */}
                   </motion.h1>
 
@@ -199,7 +207,7 @@ const LandingPage = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                    className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none"
+                    className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none dark:text-gray-300"
                   >
                     Instead of a polished landing page, I'm pulling back the
                     curtain on how I built this application—its challenges,
@@ -209,7 +217,7 @@ const LandingPage = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                    className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none"
+                    className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none dark:text-gray-300"
                   >
                     Want to see it in action? Try the demo—sign in with a test
                     user and explore.
@@ -222,13 +230,13 @@ const LandingPage = () => {
                   >
                     <Link
                       href="/signin"
-                      className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="rounded-md bg-indigo-600 dark:bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 dark:hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                       Start Exploring
                     </Link>
                     <a
                       href="https://github.com/samuelfuchs"
-                      className="text-sm/6 font-semibold text-gray-900"
+                      className="text-sm/6 font-semibold text-gray-900 dark:text-gray-200"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -312,16 +320,16 @@ const LandingPage = () => {
       </div>
 
       {/* Resources Section */}
-      <div className="overflow-hidden bg-white py-24 sm:py-32">
+      <div className="overflow-hidden bg-white dark:bg-gray-900 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto">
-            <h2 className="text-base font-semibold text-indigo-600">
+            <h2 className="text-base font-semibold text-indigo-600 dark:text-indigo-400">
               Explore the Code & API Documentation
             </h2>
-            <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+            <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-200 sm:text-5xl">
               Get the Code
             </p>
-            <p className="mt-6 text-lg text-gray-600">
+            <p className="mt-6 text-lg text-gray-600 dark:text-gray-300">
               Dive into the codebase, experiment with the API, or connect with
               me for more insights.
             </p>
@@ -329,11 +337,11 @@ const LandingPage = () => {
 
           <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {/* Frontend Repo */}
-            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 p-8 shadow-sm hover:shadow-lg transition">
-              <h3 className="text-lg font-semibold text-gray-900">
+            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 p-8 shadow-sm hover:shadow-lg transition">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 Frontend Repository
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 dark:text-gray-400">
                 Built with TypeScript, Next.js, Tailwind CSS, Framer Motion, and
                 more.
               </p>
@@ -341,71 +349,56 @@ const LandingPage = () => {
                 href="https://github.com/samuelfuchs/resident-unit-management"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 font-semibold hover:text-indigo-500 transition"
+                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-500 dark:hover:text-indigo-300 transition"
               >
                 View on GitHub <span aria-hidden="true">→</span>
               </a>
             </div>
 
             {/* Backend Repo */}
-            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 p-8 shadow-sm hover:shadow-lg transition">
-              <h3 className="text-lg font-semibold text-gray-900">
+            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 p-8 shadow-sm hover:shadow-lg transition">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 Backend Repository
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 dark:text-gray-400">
                 Built using Node.js, Express, MongoDB, JWT, and more.
               </p>
               <a
                 href="https://github.com/samuelfuchs/resident-unit-management-backend"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 font-semibold hover:text-indigo-500 transition"
+                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-500 dark:hover:text-indigo-300 transition"
               >
                 View on GitHub <span aria-hidden="true">→</span>
               </a>
             </div>
 
-            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 p-8 shadow-sm hover:shadow-lg transition">
-              <h3 className="text-lg font-semibold text-gray-900">
+            <div className="relative isolate overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 p-8 shadow-sm hover:shadow-lg transition">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 API Documentation
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 dark:text-gray-400">
                 Download the Postman collection to explore and test the API.
               </p>
               <a
                 href="/postman-collection.json"
                 download
-                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 font-semibold hover:text-indigo-500 transition"
+                className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-500 dark:hover:text-indigo-300 transition"
               >
                 Download Postman Collection <span aria-hidden="true">↓</span>
               </a>
             </div>
           </div>
-
-          {/* <div className="mt-16 text-center">
-            <p className="text-lg text-gray-600">
-              Want to connect? Let’s talk about development, projects, and
-              innovation.
-            </p>
-            <a
-              href="https://www.linkedin.com/in/gersonsamuelfuchs/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-x-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition"
-            >
-              Connect on LinkedIn <span aria-hidden="true">→</span>
-            </a>
-          </div> */}
         </div>
       </div>
 
       {/* Feature Section */}
-      <div className="overflow-hidden bg-white py-24 sm:py-32">
+      <div className="overflow-hidden bg-white dark:bg-gray-900 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl md:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
             <div className="px-6 lg:px-0 lg:pr-4 lg:pt-4">
               <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
-                <h2 className="text-base/7 font-semibold text-indigo-600">
+                <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-400">
                   Full-Stack Application
                 </h2>
                 <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
