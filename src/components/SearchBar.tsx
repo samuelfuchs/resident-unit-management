@@ -34,7 +34,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           value={query}
           onChange={handleInputChange}
           placeholder={placeholder}
-          className="w-full rounded-md border border-gray-300 p-2 shadow-sm pr-10 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+          className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-2 shadow-sm pr-10 focus:border-blue-500 dark:focus:border-blue-400 focus:ring focus:ring-blue-200 dark:focus:ring-blue-600 focus:ring-opacity-50"
         />
         {loading && (
           <div className="absolute inset-y-0 right-2 flex items-center">
