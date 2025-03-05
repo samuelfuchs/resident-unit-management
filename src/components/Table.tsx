@@ -23,31 +23,31 @@ interface TableProps<T extends object> {
 const Table = <T extends object>({ data, columns, actions }: TableProps<T>) => {
   return (
     <div className="overflow-x-auto mt-8 sm:-mx-0">
-      <table className="min-w-full divide-y divide-gray-300 hidden sm:table">
+      <table className="min-w-full divide-y divide-gray-300 bg-white dark:bg-gray-800 hidden sm:table">
         <thead>
           <tr>
             {columns.map((col) => (
               <th
                 key={col.header}
-                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300"
               >
                 {col.header}
               </th>
             ))}
             {actions && (
-              <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+              <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-300">
                 Actions
               </th>
             )}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 bg-white">
+        <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
           {data.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {columns.map((col) => (
                 <td
                   key={col.header}
-                  className="px-3 py-4 text-sm text-gray-500"
+                  className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400"
                 >
                   {col.render
                     ? col.render(row[col.accessor as keyof T], row)
@@ -55,7 +55,7 @@ const Table = <T extends object>({ data, columns, actions }: TableProps<T>) => {
                 </td>
               ))}
               {actions && (
-                <td className="px-3 py-4 text-sm text-gray-500">
+                <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
                   {actions(row)}
                 </td>
               )}
@@ -68,7 +68,7 @@ const Table = <T extends object>({ data, columns, actions }: TableProps<T>) => {
         {data.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className="border rounded-lg p-4 shadow-md bg-white"
+            className="border rounded-lg p-4 shadow-md bg-white dark:bg-gray-800"
           >
             {columns.map((col) => (
               <div
@@ -78,7 +78,7 @@ const Table = <T extends object>({ data, columns, actions }: TableProps<T>) => {
                 <span className="font-semibold text-gray-600">
                   {col.header}:
                 </span>
-                <span className="text-gray-800">
+                <span className="text-gray-600 dark:text-gray-400">
                   {col.render
                     ? col.render(row[col.accessor as keyof T], row)
                     : (row[col.accessor as keyof T] as React.ReactNode)}
@@ -86,7 +86,7 @@ const Table = <T extends object>({ data, columns, actions }: TableProps<T>) => {
               </div>
             ))}
             {actions && (
-              <div className="pt-2 border-t mt-2 text-right">
+              <div className="pt-2 border-t mt-2 text-right border-gray-200 dark:border-gray-700">
                 {actions(row)}
               </div>
             )}
