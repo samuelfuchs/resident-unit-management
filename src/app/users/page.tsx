@@ -136,7 +136,9 @@ const UsersPage: React.FC = () => {
       <AuthLayout>
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold">Users</h1>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              Users
+            </h1>
             <Button onClick={openCreateModal} variant="primary">
               New User
             </Button>
@@ -148,12 +150,14 @@ const UsersPage: React.FC = () => {
             onButtonClick={() => fetchAndSetUsers()}
             loading={loading}
           />
-          <div className="bg-white shadow-md rounded-lg mb-6">
+          <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg mb-6">
             <div className="flex justify-between items-center p-4">
-              <h2 className="text-lg font-semibold">Advanced Filters</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                Advanced Filters
+              </h2>
               <button
                 onClick={() => setIsFilterVisible((prev) => !prev)}
-                className="flex items-center text-sm text-blue-500 hover:text-blue-700"
+                className="flex items-center text-sm text-blue-500 dark:text-blue-400 hover:text-blue-70 dark:hover:text-blue-300"
               >
                 {isFilterVisible ? "Hide Filters" : "Show Filters"}
                 {isFilterVisible ? (
@@ -248,13 +252,13 @@ const UsersPage: React.FC = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => openViewModal(row)}
-                      className="text-blue-500 hover:text-blue-600"
+                      className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300"
                     >
                       <EyeIcon className="h-5 w-5" />
                     </button>
                     <button
                       onClick={() => openEditModal(row)}
-                      className="text-green-500 hover:text-green-600"
+                      className="text-green-500 dark:text-green-400 hover:text-green-600 dark:hover:text-green-300"
                     >
                       <PencilIcon className="h-5 w-5" />
                     </button>
@@ -262,7 +266,7 @@ const UsersPage: React.FC = () => {
                       onClick={() =>
                         openModal(row._id, `${row.name} ${row.lastName}`)
                       }
-                      className="text-red-500 hover:text-red-600"
+                      className="text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300"
                     >
                       <TrashIcon className="h-5 w-5" />
                     </button>
