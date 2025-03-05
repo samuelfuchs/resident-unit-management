@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { DashboardStatCard } from "@/types/admin";
 import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/20/solid";
-import { AdminDashboardStats } from "@/types/admin";
+import { AdminDashboardStats } from "@/types/user";
 import Link from "next/link";
 
 interface StatsCardsProps {
