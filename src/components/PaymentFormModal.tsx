@@ -75,14 +75,22 @@ const PaymentForm: React.FC<{
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="mb-4">
-        <h3 className="text-lg font-semibold mb-2">Payment Details</h3>
-        <p className="text-gray-600 mb-1">{description}</p>
-        <p className="text-xl font-bold">{formatCurrency(amount)}</p>
+        <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">
+          Payment Details
+        </h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-1">{description}</p>
+        <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
+          {formatCurrency(amount)}
+        </p>
       </div>
 
       <PaymentElement />
 
-      {error && <div className="text-red-600 text-sm mt-2">{error}</div>}
+      {error && (
+        <div className="text-red-600 dark:text-red-400 text-sm mt-2">
+          {error}
+        </div>
+      )}
 
       <div className="flex justify-end space-x-3 mt-4">
         <Button
@@ -122,7 +130,7 @@ export const PaymentFormModal: React.FC<PaymentFormModalProps> = ({
         isOpen ? "block" : "hidden"
       }`}
     >
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 max-w-md w-full">
         <Elements stripe={stripePromise} options={options}>
           <PaymentForm
             onClose={onClose}
