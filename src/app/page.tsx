@@ -10,33 +10,12 @@ import {
 } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { MoonIcon, SunIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useTheme } from "@/context/ThemeContext";
 
 const LandingPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    const savedMode = localStorage.getItem("theme");
-    if (
-      savedMode === "dark" ||
-      (!savedMode && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    if (!darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
+  const { theme, toggleTheme } = useTheme();
 
   const openModal = (imageSrc: string) => {
     setModalImage(imageSrc);
@@ -116,10 +95,10 @@ const LandingPage = () => {
                 <span aria-hidden="true">&rarr;</span>
               </Link>
               <button
-                onClick={toggleDarkMode}
+                onClick={toggleTheme}
                 className="p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
               >
-                {darkMode ? (
+                {theme === "dark" ? (
                   <SunIcon className="w-6 h-6" />
                 ) : (
                   <MoonIcon className="w-6 h-6" />
@@ -460,7 +439,7 @@ const LandingPage = () => {
           <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2">
             <JourneyCard
               title="1. From Idea to Blueprint"
-              description="Before writing a single line of code, I mapped out the core features, tech stack, and key challenges in my sketchbook. Some ideas evolved, others broke, and a few took a new direction—but that’s part of the process."
+              description="Before writing a single line of code, I mapped out the core features, tech stack, and key challenges in my sketchbook. Some ideas evolved, others broke, and a few took a new direction—but that's part of the process."
               image="/images/sketch-full.jpeg"
               className="lg:col-span-2"
               onClick={() => openModal("/images/sketch-full.jpeg")}
@@ -482,16 +461,15 @@ I focused on authentication with JWT & bcrypt, implemented middlewares, and test
             />
             <JourneyCard
               title="5. Building This, Building Myself"
-              description="This project wasn’t just about writing code—it was about leveling up as a developer. I pushed myself to solve real challenges, refined my problem-solving skills, and yes, drank a lot of coffee along the way."
-              image="/auth-screenshot.png"
+              description="This project wasn't just about writing code—it was about leveling up as a developer. I pushed myself to solve real challenges, refined my problem-solving skills, and yes, drank a lot of coffee along the way."
+              image="/images/auth-screenshot.png"
               className="lg:col-span-4"
               onClick={() => openModal("/images/auth-screenshot.png")}
             />
             <JourneyCard
               title="6. What's Next?"
-              description="Software is never truly “done.” I’ll continue refining the app, tweaking features, and improving the user experience.
-Once I’m satisfied with this project, I’ll move on to the next build—picking up new skills and pushing boundaries even further."
-              image="/auth-screenshot.png"
+              description={`Software is never truly "done." I'll continue refining the app, tweaking features, and improving the user experience. Once I'm satisfied with this project, I'll move on to the next build—picking up new skills and pushing boundaries even further.`}
+              image="/images/auth-screenshot.png"
               className="lg:col-span-2"
               onClick={() => openModal("/images/auth-screenshot.png")}
             />
@@ -516,12 +494,12 @@ Once I’m satisfied with this project, I’ll move on to the next build—picki
               <figure className="relative isolate pt-6 sm:pt-12">
                 <blockquote className="text-xl/8 font-semibold text-white dark:text-gray-200 sm:text-2xl/9">
                   <p>
-                    “I build things with purpose—turning ideas into functional,
-                    scalable solutions. Unit Manager wasn’t just about property
+                    "I build things with purpose—turning ideas into functional,
+                    scalable solutions. Unit Manager wasn't just about property
                     management; it was an opportunity to push boundaries, solve
                     real-world challenges, and sharpen my technical skills.
                     Every project is a chance to learn, refine, and innovate—and
-                    that’s what keeps me coding.”
+                    that's what keeps me coding."
                   </p>
                 </blockquote>
                 <figcaption className="mt-8 text-base">
