@@ -401,22 +401,22 @@ const LandingPage = () => {
                 <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-400">
                   Full-Stack Application
                 </h2>
-                <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
                   Bringing the Frontend and Backend Together
                 </p>
-                <p className="mt-6 text-lg/8 text-gray-600">
+                <p className="mt-6 text-lg/8 text-gray-600 dark:text-gray-300">
                   I built this project to deepen my understanding of new
                   technologies and tackle real-world challenges. From frontend
                   interactions to backend logic, every piece was designed to
                   work seamlessly.
                 </p>
-                <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
+                <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 dark:text-gray-300lg:max-w-none">
                   {features.map((feature) => (
                     <div key={feature.name} className="relative pl-9">
-                      <dt className="inline font-semibold text-gray-900">
+                      <dt className="inline font-semibold text-gray-900 dark:text-gray-100">
                         <feature.icon
                           aria-hidden="true"
-                          className="absolute left-1 top-1 size-5 text-indigo-600"
+                          className="absolute left-1 top-1 size-5 text-indigo-600 dark:text-indigo-400"
                         />
                         {feature.name}
                       </dt>{" "}
@@ -427,20 +427,21 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="sm:px-6 lg:px-0">
-              <div className="flex justify-center items-center w-full h-full p-4">
+              <div className="flex justify-center items-center w-full h-full p-4 bg-gray-900/5 dark:bg-gray-800/5">
                 <Image
                   src="/images/setup.jpeg"
                   alt="Developer workspace setup with dual monitor and laptop"
                   width={396}
                   height={528}
-                  className="w-full h-auto object-cover object-center cursor-pointer scale-110 rounded-3xl"
+                  className="w-full h-auto object-cover object-center cursor-pointer scale-110 rounded-3xl 
+                       border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200"
                   priority
                   onClick={() => openModal("/images/setup.jpeg")}
                 />
               </div>
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 sm:rounded-3xl"
+                className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 sm:rounded-3xl"
               />
             </div>
           </div>
@@ -448,12 +449,12 @@ const LandingPage = () => {
       </div>
 
       {/* Development Journey Section */}
-      <div className="bg-white py-24 sm:py-32">
+      <div className="bg-white dark:bg-gray-900 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="text-base/7 font-semibold text-indigo-600">
+          <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-400">
             Development Journey
           </h2>
-          <p className="mt-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
+          <p className="mt-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-950 dark:text-gray-100 sm:text-5xl">
             Building with Modern Technologies
           </p>
           <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2">
@@ -499,21 +500,21 @@ Once I’m satisfied with this project, I’ll move on to the next build—picki
       </div>
 
       {/* About Section */}
-      <div className="bg-white pb-16 pt-24 sm:pb-24 sm:pt-32 xl:pb-32">
-        <div className="bg-gray-900 pb-20 sm:pb-24 xl:pb-0">
+      <div className="bg-white dark:bg-gray-900 pb-16 pt-24 sm:pb-24 sm:pt-32 xl:pb-32">
+        <div className="bg-gray-900 dark:bg-gray-800 pb-20 sm:pb-24 xl:pb-0">
           <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-8 gap-y-10 px-6 sm:gap-y-8 lg:px-8 xl:flex-row xl:items-stretch">
             <div className="-mt-8 w-full max-w-2xl xl:-mb-8 xl:w-96 xl:flex-none">
               <div className="relative aspect-[2/1] h-full md:-mx-8 xl:mx-0 xl:aspect-auto">
                 <img
                   alt="Developer"
                   src="/developer-photo.jpg"
-                  className="absolute inset-0 size-full rounded-2xl bg-gray-800 object-cover shadow-2xl"
+                  className="absolute inset-0 size-full rounded-2xl bg-gray-800 dark:bg-gray-700 object-cover shadow-2xl"
                 />
               </div>
             </div>
             <div className="w-full max-w-2xl xl:max-w-none xl:flex-auto xl:px-16 xl:py-24">
               <figure className="relative isolate pt-6 sm:pt-12">
-                <blockquote className="text-xl/8 font-semibold text-white sm:text-2xl/9">
+                <blockquote className="text-xl/8 font-semibold text-white dark:text-gray-200 sm:text-2xl/9">
                   <p>
                     “I build things with purpose—turning ideas into functional,
                     scalable solutions. Unit Manager wasn’t just about property
@@ -524,8 +525,12 @@ Once I’m satisfied with this project, I’ll move on to the next build—picki
                   </p>
                 </blockquote>
                 <figcaption className="mt-8 text-base">
-                  <div className="font-semibold text-white">Samuel Fuchs</div>
-                  <div className="mt-1 text-gray-400">Software Developer</div>
+                  <div className="font-semibold text-white dark:text-gray-300">
+                    Samuel Fuchs
+                  </div>
+                  <div className="mt-1 text-gray-400 dark:text-gray-500">
+                    Software Developer
+                  </div>
                 </figcaption>
               </figure>
 
@@ -534,7 +539,7 @@ Once I’m satisfied with this project, I’ll move on to the next build—picki
                   href="https://github.com/samuelfuchs"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-semibold text-indigo-400 hover:text-indigo-300"
+                  className="text-sm font-semibold text-indigo-400 dark:text-indigo-300 hover:text-indigo-300 dark:hover:text-indigo-200"
                 >
                   GitHub <span aria-hidden="true">→</span>
                 </a>
@@ -542,7 +547,7 @@ Once I’m satisfied with this project, I’ll move on to the next build—picki
                   href="https://www.linkedin.com/in/gersonsamuelfuchs/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-semibold text-indigo-400 hover:text-indigo-300"
+                  className="text-sm font-semibold text-indigo-400 dark:text-indigo-300 hover:text-indigo-300 dark:hover:text-indigo-200"
                 >
                   LinkedIn <span aria-hidden="true">→</span>
                 </a>
@@ -569,22 +574,24 @@ const JourneyCard = ({
   onClick?: () => void;
 }) => (
   <div className={`relative ${className}`}>
-    <div className="absolute inset-px rounded-lg bg-white" />
+    <div className="absolute inset-px rounded-lg bg-white dark:bg-gray-800" />
     <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
       <img
         alt={title}
         src={image}
-        className="h-80 object-cover cursor-pointer border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200"
+        className="h-80 object-cover cursor-pointer border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200 rounded-t-lg"
         onClick={onClick}
       />
       <div className="p-10 pt-4">
-        <h3 className="text-sm/4 font-semibold text-indigo-600">{title}</h3>
-        <p className="mt-2 text-lg font-medium tracking-tight text-gray-950">
+        <h3 className="text-sm/4 font-semibold text-indigo-600 dark:text-indigo-400">
+          {title}
+        </h3>
+        <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 dark:text-gray-200">
           {description}
         </p>
       </div>
     </div>
-    <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5" />
+    <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 dark:ring-white/10" />
   </div>
 );
 
