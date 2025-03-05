@@ -162,12 +162,12 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-70">
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-lg p-6"
       >
-        <h2 className="text-lg font-bold mb-4">
+        <h2 className="text-lg font-bold mb-4 dark:text-gray-200">
           {isCreateOrEditMode
             ? mode === "create"
               ? "Create New Unit"
@@ -231,7 +231,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
           <div>
             <label
               htmlFor="owner-select"
-              className="block text-sm font-medium mb-2"
+              className="block text-sm font-medium mb-2 dark:text-gray-300"
             >
               Owner *
             </label>
@@ -244,13 +244,14 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
               onChange={(value) => setSelectedOwners([...value])}
               isDisabled={isViewMode}
               placeholder="Select the owners"
+              className="dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
             />
           </div>
 
           <div>
             <label
               htmlFor="tenant-select"
-              className="block text-sm font-medium mb-2"
+              className="block text-sm font-medium mb-2 dark:text-gray-300"
             >
               Tenants
             </label>
@@ -263,6 +264,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
               onChange={(value) => setSelectedTenants([...value])}
               isDisabled={isViewMode}
               placeholder="Select the tenants"
+              className="dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
             />
           </div>
           <InputField
