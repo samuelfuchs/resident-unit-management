@@ -9,19 +9,22 @@ import {
   ArrowRightStartOnRectangleIcon,
   Bars3Icon,
   ChevronDownIcon,
+  MoonIcon,
+  SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { mockNotifications } from "@/mocks/notifications";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { RoleTranslations } from "@/utils/roleTranslations";
+import { useTheme } from "@/context/ThemeContext";
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const { theme, toggleTheme } = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
 
   useEffect(() => {
     if (user) {
@@ -105,7 +108,26 @@ const Sidebar: React.FC = () => {
               ))}
           </ul>
         </nav>
+
         <div className="p-4">
+          <div className="relative">
+            <button
+              onClick={toggleTheme}
+              className="flex items-center w-full text-left p-2 rounded transition hover:bg-blue-600 dark:hover:bg-indigo-500"
+            >
+              {theme === "dark" ? (
+                <>
+                  <SunIcon className="h-5 w-5 mr-3" />
+                  <span>Light Mode</span>
+                </>
+              ) : (
+                <>
+                  <MoonIcon className="h-5 w-5 mr-3" />
+                  <span>Dark Mode</span>
+                </>
+              )}
+            </button>
+          </div>
           <button
             onClick={handleLogout}
             className="flex items-center w-full text-left p-2 hover:bg-red-600 dark:hover:bg-red-500 rounded"
