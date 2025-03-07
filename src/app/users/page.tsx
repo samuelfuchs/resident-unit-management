@@ -177,7 +177,7 @@ const UsersPage: React.FC = () => {
                     value={roleFilter || ""}
                     onChange={(e) => setRoleFilter(e.target.value || undefined)}
                     options={[
-                      { value: "", label: "Todas as Funções" },
+                      { value: "", label: "All Roles" },
                       { value: "admin", label: "Admin" },
                       { value: "receptionist", label: "Receptionist" },
                       { value: "resident", label: "Resident" },

@@ -57,7 +57,7 @@ const DashboardPage: React.FC = () => {
       {
         info: "WhatsApp",
         detail: "Contact Reception",
-        link: "https://wa.me/555199999999",
+        link: "#",
       },
       { info: "Emergency", detail: "Dial 911" },
       { info: "Parking Assistance", detail: "Dial 104" },
