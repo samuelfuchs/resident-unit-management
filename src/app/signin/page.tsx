@@ -13,8 +13,8 @@ const SignInPage: React.FC = () => {
   const { login, user } = useAuth();
   const router = useRouter();
 
-  const [email, setEmail] = useState<string>("admin2@example.com");
-  const [password, setPassword] = useState<string>("password123");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);

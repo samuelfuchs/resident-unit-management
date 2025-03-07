@@ -492,14 +492,14 @@ const LandingPage = () => {
             />
             <JourneyCard
               title="5. Building This, Building Myself"
-              description="This project wasn't just about writing code—it was about leveling up as a developer. I pushed myself to solve real challenges, refined my problem-solving skills, and yes, drank a lot of coffee along the way."
+              description="I built this project end-to-end using an industry-standard tech stack to improve my skills in both frontend and backend development. I focused on new features to challenge myself and documented the journey to share my progress—and yes, I drank a lot of coffee. ☕️"
               image="/images/office.jpeg"
               className="lg:col-span-4"
               onClick={() => openModal("/images/office.jpeg")}
             />
             <JourneyCard
               title="6. What's Next?"
-              description={`Software is never truly "done." I'll continue refining the app, tweaking features, and improving the user experience. Once I'm satisfied with this project, I'll move on to the next build—picking up new skills and pushing boundaries even further.`}
+              description="The project isn't done yet. I'm refining features, improving UX, and plan to add AI soon. But it's ready to be showcased to the world."
               image="/images/setup.jpeg"
               className="lg:col-span-2"
               onClick={() => openModal("/images/setup.jpeg")}
