@@ -57,7 +57,7 @@ const DashboardPage: React.FC = () => {
       {
         info: "WhatsApp",
         detail: "Contact Reception",
-        link: "https://wa.me/555199999999",
+        link: "#",
       },
       { info: "Emergency", detail: "Dial 911" },
       { info: "Parking Assistance", detail: "Dial 104" },
@@ -79,14 +79,14 @@ const DashboardPage: React.FC = () => {
                 href={row.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:text-blue-700"
+                className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
               >
                 <ChatBubbleLeftRightIcon className="h-5 w-5" />
               </a>
             ) : (
               <button
                 onClick={() => alert(`Calling: ${row.detail}`)}
-                className="text-green-500 hover:text-green-700"
+                className="text-green-500 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300"
               >
                 <PhoneIcon className="h-5 w-5" />
               </button>
@@ -106,18 +106,20 @@ const DashboardPage: React.FC = () => {
         {residentStats.latestBill && (
           <div
             className={`mt-6 bg-white shadow sm:rounded-lg ${
-              residentStats.alerts.hasPendingBills ? "bg-red-50" : "bg-green-50"
+              residentStats.alerts.hasPendingBills
+                ? "bg-red-50 dark:bg-red-900/30"
+                : "bg-green-50 dark:bg-green-900/30"
             }`}
           >
             <div className="px-4 py-5 sm:p-6">
               <div className="sm:flex sm:items-start sm:justify-between">
                 <div>
-                  <h3 className="text-base font-semibold text-gray-900">
+                  <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                     {residentStats.alerts.hasPendingBills
                       ? "You have a pending bill"
                       : "All Bills Paid"}
                   </h3>
-                  <div className="mt-2 max-w-xl text-sm text-gray-500">
+                  <div className="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-300">
                     <p>{residentStats.latestBill.description}</p>
                     <p className="mt-1">
                       Amount:{" "}
@@ -137,7 +139,7 @@ const DashboardPage: React.FC = () => {
                   {residentStats.alerts.hasPendingBills && (
                     <Link
                       href="/my-bills"
-                      className="font-medium text-indigo-600 hover:text-indigo-500 flex items-center gap-1"
+                      className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 flex items-center gap-1"
                     >
                       <ArrowRightIcon className="h-4 w-4" />
                       My Bills
@@ -183,8 +185,8 @@ const DashboardPage: React.FC = () => {
 
           {user?.role === "resident" && renderResidentStats()}
 
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold text-gray-800">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">
               Useful Information
             </h2>
             <div className="mt-4">{renderRoleSpecificContent()}</div>

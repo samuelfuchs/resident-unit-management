@@ -112,9 +112,9 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-lg p-6"
       >
-        <h2 className="text-lg font-bold mb-4">
+        <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">
           {isCreateMode && "Create New User"}
           {isEditMode && "Edit User"}
           {isViewMode && "View User"}
@@ -159,29 +159,29 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
             required={!isViewMode}
           />
           <div className="grid grid-cols-2 gap-4">
-          <InputField
-            id="phone"
-            name="phone"
-            label="Phone"
-            value={formData.phone || ""}
-            onChange={handleChange}
-            disabled={isViewMode}
-          />
-          <SelectField
-            id="role"
-            name="role"
-            label="Role"
-            value={formData.role || "resident"}
-            onChange={handleChange}
-            options={[
-              { value: "admin", label: "Admin" },
-              { value: "receptionist", label: "Receptionist" },
-              { value: "resident", label: "Resident" },
-            ]}
-            disabled={isViewMode}
-          />
+            <InputField
+              id="phone"
+              name="phone"
+              label="Phone"
+              value={formData.phone || ""}
+              onChange={handleChange}
+              disabled={isViewMode}
+            />
+            <SelectField
+              id="role"
+              name="role"
+              label="Role"
+              value={formData.role || "resident"}
+              onChange={handleChange}
+              options={[
+                { value: "admin", label: "Admin" },
+                { value: "receptionist", label: "Receptionist" },
+                { value: "resident", label: "Resident" },
+              ]}
+              disabled={isViewMode}
+            />
           </div>
-          
+
           {isCreateMode && (
             <InputField
               id="password"

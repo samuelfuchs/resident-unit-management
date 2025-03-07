@@ -30,20 +30,25 @@ const FormModal: React.FC<FormModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex min-h-screen items-center justify-center p-4">
-        <div className="fixed inset-0 bg-black opacity-30" onClick={onClose} />
         <div
-          className={`relative ${maxWidthClasses[maxWidth]} w-full rounded-lg bg-white shadow-xl`}
+          className="fixed inset-0 bg-black opacity-30 dark:opacity-50"
+          onClick={onClose}
+        />
+        <div
+          className={`relative ${maxWidthClasses[maxWidth]} w-full rounded-lg bg-white dark:bg-gray-900 shadow-xl`}
         >
-          <div className="flex items-center justify-between border-b p-4">
-            <h2 className="text-xl font-semibold">{title}</h2>
+          <div className="flex items-center justify-between border-b dark:border-gray-700 p-4">
+            <h2 className="text-xl font-semibold dark:text-gray-200">
+              {title}
+            </h2>
             <button
               onClick={onClose}
-              className="rounded-full p-1 hover:bg-gray-100"
+              className="rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
-              <XMarkIcon className="h-6 w-6" />
+              <XMarkIcon className="h-6 w-6 dark:text-gray-300" />
             </button>
           </div>
-          <div className="p-6">{children}</div>
+          <div className="p-6 dark:text-gray-300">{children}</div>
         </div>
       </div>
     </div>

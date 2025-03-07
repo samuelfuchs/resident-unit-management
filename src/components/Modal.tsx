@@ -42,29 +42,29 @@ const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-70">
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full"
       >
         <h2
           className={`text-xl font-bold ${
             type === "success"
-              ? "text-green-600"
+              ? "text-green-600 dark:text-green-400"
               : type === "warning"
-              ? "text-yellow-600"
-              : "text-red-600"
+              ? "text-yellow-600 dark:text-yellow-400"
+              : "text-red-600 dark:text-red-400"
           }`}
         >
           {title}
         </h2>
-        <p className="text-gray-700 mt-4">{description}</p>
+        <p className="text-gray-700 dark:text-gray-300 mt-4">{description}</p>
         <div className="mt-6 flex justify-end space-x-4">
           {type === "warning" && (
             <>
               <button
                 onClick={onClose}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
               >
                 Cancel
               </button>
@@ -75,7 +75,7 @@ const Modal: React.FC<ModalProps> = ({
                   }
                   onClose();
                 }}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded hover:bg-blue-600 dark:hover:bg-blue-500"
               >
                 Confirm
               </button>
@@ -84,7 +84,7 @@ const Modal: React.FC<ModalProps> = ({
           {type === "success" && (
             <button
               onClick={onClose}
-              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+              className="px-4 py-2 bg-green-500 dark:bg-green-600 text-white rounded hover:bg-green-600 dark:hover:bg-green-500"
             >
               Close
             </button>
@@ -97,7 +97,7 @@ const Modal: React.FC<ModalProps> = ({
                 }
                 onClose();
               }}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              className="px-4 py-2 bg-red-500 dark:bg-red-600 text-white rounded hover:bg-red-600 dark:hover:bg-red-500"
             >
               Close
             </button>

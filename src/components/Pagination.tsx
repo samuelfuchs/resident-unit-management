@@ -41,9 +41,9 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:flex-row sm:px-6">
+    <div className="flex flex-col items-center justify-between border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 sm:flex-row sm:px-6">
       <div className="text-center sm:text-left">
-        <p className="text-sm text-gray-700">
+        <p className="text-sm text-gray-700 dark:text-gray-300">
           Showing{" "}
           <span className="font-medium">{(currentPage - 1) * 10 + 1}</span> a{" "}
           <span className="font-medium">
@@ -62,7 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className={`relative inline-flex items-center rounded-l-md px-2 py-2 text-sm font-medium ${
             currentPage === 1
               ? "text-gray-400 cursor-not-allowed"
-              : "text-gray-700 hover:bg-gray-50"
+              : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
           }`}
         >
           <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -75,7 +75,7 @@ const Pagination: React.FC<PaginationProps> = ({
             className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ${
               page === currentPage
                 ? "bg-indigo-600 text-white"
-                : "text-gray-700 hover:bg-gray-50"
+                : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             }`}
           >
             {page}
@@ -87,7 +87,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className={`relative inline-flex items-center rounded-r-md px-2 py-2 text-sm font-medium ${
             currentPage === totalPages
               ? "text-gray-400 cursor-not-allowed"
-              : "text-gray-700 hover:bg-gray-50"
+              : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
           }`}
         >
           <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />

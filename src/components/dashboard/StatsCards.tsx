@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { DashboardStatCard } from "@/types/admin";
 import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/20/solid";
-import { AdminDashboardStats } from "@/types/admin";
+import { AdminDashboardStats } from "@/types/user";
 import Link from "next/link";
 
 interface StatsCardsProps {
@@ -61,18 +61,18 @@ export const StatsCards = ({ stats, loading }: StatsCardsProps) => {
         {statsCards.map((item) => (
           <div
             key={item.id}
-            className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
+            className="relative overflow-hidden rounded-lg bg-white dark:bg-gray-800 px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
           >
             <dt>
               <div className="absolute rounded-md bg-indigo-500 p-3">
                 <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
               </div>
-              <p className="ml-16 truncate text-sm font-medium text-gray-500">
+              <p className="ml-16 truncate text-sm font-medium text-gray-500 dark:text-gray-300">
                 {item.name}
               </p>
             </dt>
             <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
-              <p className="text-2xl font-semibold text-gray-900">
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {item.stat}
               </p>
               <p
@@ -102,11 +102,11 @@ export const StatsCards = ({ stats, loading }: StatsCardsProps) => {
                 </span>
                 {item.change}
               </p>
-              <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+              <div className="absolute inset-x-0 bottom-0 bg-gray-50 dark:bg-gray-700 px-4 py-4 sm:px-6">
                 <div className="text-sm">
                   <Link
                     href={item.href || "#"}
-                    className="font-medium text-indigo-600 hover:text-indigo-500 flex items-center gap-1"
+                    className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 flex items-center gap-1"
                   >
                     <ArrowRightIcon className="h-4 w-4" />
                     View details

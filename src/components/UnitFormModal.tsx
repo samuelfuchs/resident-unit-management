@@ -162,12 +162,12 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-70">
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-lg p-6"
       >
-        <h2 className="text-lg font-bold mb-4">
+        <h2 className="text-lg font-bold mb-4 dark:text-gray-200">
           {isCreateOrEditMode
             ? mode === "create"
               ? "Create New Unit"
@@ -231,7 +231,7 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
           <div>
             <label
               htmlFor="owner-select"
-              className="block text-sm font-medium mb-2"
+              className="block text-sm font-medium mb-2 dark:text-gray-300"
             >
               Owner *
             </label>
@@ -244,13 +244,93 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
               onChange={(value) => setSelectedOwners([...value])}
               isDisabled={isViewMode}
               placeholder="Select the owners"
+              className="dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
+              styles={{
+                control: (provided, state) => ({
+                  ...provided,
+                  backgroundColor: document.documentElement.classList.contains(
+                    "dark"
+                  )
+                    ? "rgb(31 41 55)"
+                    : "rgb(255 255 255)",
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                  borderColor: state.isFocused
+                    ? "rgb(99 102 241)"
+                    : document.documentElement.classList.contains("dark")
+                    ? "rgb(75 85 99)"
+                    : "rgb(209 213 219)",
+                  boxShadow: state.isFocused
+                    ? "0 0 0 2px rgba(99, 102, 241, 0.5)"
+                    : "none",
+                }),
+                menu: (provided) => ({
+                  ...provided,
+                  backgroundColor: document.documentElement.classList.contains(
+                    "dark"
+                  )
+                    ? "rgb(55 65 81)"
+                    : "rgb(255 255 255)",
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                }),
+                option: (provided, state) => ({
+                  ...provided,
+                  backgroundColor: state.isSelected
+                    ? "rgb(99 102 241)"
+                    : state.isFocused
+                    ? document.documentElement.classList.contains("dark")
+                      ? "rgb(75 85 99)"
+                      : "rgb(229 231 235)"
+                    : "transparent",
+                  color: state.isSelected
+                    ? "white"
+                    : document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                }),
+                multiValue: (provided) => ({
+                  ...provided,
+                  backgroundColor: document.documentElement.classList.contains(
+                    "dark"
+                  )
+                    ? "rgb(55 65 81)"
+                    : "rgb(229 231 235)",
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                }),
+                multiValueLabel: (provided) => ({
+                  ...provided,
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                }),
+                multiValueRemove: (provided, state) => ({
+                  ...provided,
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                  ":hover": {
+                    backgroundColor:
+                      document.documentElement.classList.contains("dark")
+                        ? "rgb(75 85 99)"
+                        : "rgb(209 213 219)",
+                    color: document.documentElement.classList.contains("dark")
+                      ? "rgb(255 255 255)"
+                      : "rgb(17 24 39)",
+                  },
+                }),
+              }}
             />
           </div>
 
           <div>
             <label
               htmlFor="tenant-select"
-              className="block text-sm font-medium mb-2"
+              className="block text-sm font-medium mb-2 dark:text-gray-300"
             >
               Tenants
             </label>
@@ -263,6 +343,86 @@ const UnitFormModal: React.FC<UnitFormModalProps> = ({
               onChange={(value) => setSelectedTenants([...value])}
               isDisabled={isViewMode}
               placeholder="Select the tenants"
+              className="dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
+              styles={{
+                control: (provided, state) => ({
+                  ...provided,
+                  backgroundColor: document.documentElement.classList.contains(
+                    "dark"
+                  )
+                    ? "rgb(31 41 55)"
+                    : "rgb(255 255 255)",
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                  borderColor: state.isFocused
+                    ? "rgb(99 102 241)"
+                    : document.documentElement.classList.contains("dark")
+                    ? "rgb(75 85 99)"
+                    : "rgb(209 213 219)",
+                  boxShadow: state.isFocused
+                    ? "0 0 0 2px rgba(99, 102, 241, 0.5)"
+                    : "none",
+                }),
+                menu: (provided) => ({
+                  ...provided,
+                  backgroundColor: document.documentElement.classList.contains(
+                    "dark"
+                  )
+                    ? "rgb(55 65 81)"
+                    : "rgb(255 255 255)",
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                }),
+                option: (provided, state) => ({
+                  ...provided,
+                  backgroundColor: state.isSelected
+                    ? "rgb(99 102 241)"
+                    : state.isFocused
+                    ? document.documentElement.classList.contains("dark")
+                      ? "rgb(75 85 99)"
+                      : "rgb(229 231 235)"
+                    : "transparent",
+                  color: state.isSelected
+                    ? "white"
+                    : document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                }),
+                multiValue: (provided) => ({
+                  ...provided,
+                  backgroundColor: document.documentElement.classList.contains(
+                    "dark"
+                  )
+                    ? "rgb(55 65 81)"
+                    : "rgb(229 231 235)",
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                }),
+                multiValueLabel: (provided) => ({
+                  ...provided,
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                }),
+                multiValueRemove: (provided, state) => ({
+                  ...provided,
+                  color: document.documentElement.classList.contains("dark")
+                    ? "rgb(229 231 235)"
+                    : "rgb(17 24 39)",
+                  ":hover": {
+                    backgroundColor:
+                      document.documentElement.classList.contains("dark")
+                        ? "rgb(75 85 99)"
+                        : "rgb(209 213 219)",
+                    color: document.documentElement.classList.contains("dark")
+                      ? "rgb(255 255 255)"
+                      : "rgb(17 24 39)",
+                  },
+                }),
+              }}
             />
           </div>
           <InputField
