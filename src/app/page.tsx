@@ -254,13 +254,23 @@ const LandingPage = () => {
                     </div>
                     <div className="relative overflow-hidden border-2 rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200">
                       <Image
-                        src="/images/diagram.png"
+                        src={
+                          theme === "dark"
+                            ? "/images/diagram-dark.png"
+                            : "/images/diagram.png"
+                        }
                         alt="Developer workspace setup with dual monitor and laptop"
                         width={396}
                         height={528}
                         className="w-full h-full object-cover object-left cursor-pointer"
                         priority
-                        onClick={() => openModal("/images/diagram.png")}
+                        onClick={() =>
+                          openModal(
+                            theme === "dark"
+                              ? "/images/diagram-dark.png"
+                              : "/images/diagram.png"
+                          )
+                        }
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
                     </div>
@@ -360,7 +370,7 @@ const LandingPage = () => {
                 Download the Postman collection to explore and test the API.
               </p>
               <a
-                href="/postman-collection.json"
+                href="/resident-management-system.postman_collection.json"
                 download
                 className="mt-4 inline-flex items-center gap-x-2 text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-500 dark:hover:text-indigo-300 transition"
               >
@@ -446,32 +456,53 @@ const LandingPage = () => {
             />
             <JourneyCard
               title="2. Frontend: The Interactive Layer"
-              description="I built the frontend using TypeScript, Next.js, Tailwind CSS, and Framer Motion for a sleek and dynamic UI. One of my main goals was to understand Stripe integration for payments and implement a role-based access control (RBAC) system. Every user gets the right level of access—no more, no less."
+              description="Developed with a robust tech stack, ensuring performance, scalability, and dynamic UI experiences."
               image="/images/frontend.jpeg"
               className="lg:col-span-2"
               onClick={() => openModal("/images/frontend.jpeg")}
+              tags={[
+                { text: "TypeScript", color: "blue-500" },
+                { text: "Next.js", color: "green-500" },
+                { text: "Tailwind CSS", color: "yellow-500" },
+                { text: "Framer Motion", color: "purple-500" },
+                { text: "React", color: "teal-500" },
+                { text: "React Query", color: "red-500" },
+                { text: "Stripe", color: "pink-500" },
+                { text: "Axios", color: "orange-500" },
+                { text: "NextAuth", color: "indigo-500" },
+              ]}
             />
             <JourneyCard
               title="3. Backend: The Core Engine"
-              description="The backend follows an MVC architecture, powered by Node.js, Express, and MongoDB with Mongoose for data modeling.
-I focused on authentication with JWT & bcrypt, implemented middlewares, and tested everything rigorously with Jest & Supertest. Stripe integration was another key area I wanted to master, ensuring secure and seamless transactions."
+              description="Built with a solid architecture ensuring scalability, security, and performance. Implemented core features like authentication, data modeling, and Stripe integration with a strong focus on best practices."
               image="/images/backend.jpeg"
               className="lg:col-span-2"
               onClick={() => openModal("/images/backend.jpeg")}
+              tags={[
+                { text: "Node.js", color: "green-500" },
+                { text: "Express", color: "blue-500" },
+                { text: "MongoDB", color: "yellow-500" },
+                { text: "Mongoose", color: "teal-500" },
+                { text: "JWT", color: "red-500" },
+                { text: "Bcrypt", color: "purple-500" },
+                { text: "Stripe", color: "pink-500" },
+                { text: "Jest", color: "indigo-500" },
+                { text: "Supertest", color: "orange-500" },
+              ]}
             />
             <JourneyCard
               title="5. Building This, Building Myself"
               description="This project wasn't just about writing code—it was about leveling up as a developer. I pushed myself to solve real challenges, refined my problem-solving skills, and yes, drank a lot of coffee along the way."
-              image="/images/auth-screenshot.png"
+              image="/images/office.jpeg"
               className="lg:col-span-4"
-              onClick={() => openModal("/images/auth-screenshot.png")}
+              onClick={() => openModal("/images/office.jpeg")}
             />
             <JourneyCard
               title="6. What's Next?"
               description={`Software is never truly "done." I'll continue refining the app, tweaking features, and improving the user experience. Once I'm satisfied with this project, I'll move on to the next build—picking up new skills and pushing boundaries even further.`}
-              image="/images/auth-screenshot.png"
+              image="/images/setup.jpeg"
               className="lg:col-span-2"
-              onClick={() => openModal("/images/auth-screenshot.png")}
+              onClick={() => openModal("/images/setup.jpeg")}
             />
           </div>
         </div>
@@ -482,12 +513,24 @@ I focused on authentication with JWT & bcrypt, implemented middlewares, and test
         <div className="bg-gray-900 dark:bg-gray-800 pb-20 sm:pb-24 xl:pb-0">
           <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-8 gap-y-10 px-6 sm:gap-y-8 lg:px-8 xl:flex-row xl:items-stretch">
             <div className="-mt-8 w-full max-w-2xl xl:-mb-8 xl:w-96 xl:flex-none">
-              <div className="relative aspect-[2/1] h-full md:-mx-8 xl:mx-0 xl:aspect-auto">
+              {/* <div className="relative aspect-[2/1] h-full md:-mx-8 xl:mx-0 xl:aspect-auto">
                 <img
                   alt="Developer"
                   src="/developer-photo.jpg"
                   className="absolute inset-0 size-full rounded-2xl bg-gray-800 dark:bg-gray-700 object-cover shadow-2xl"
                 />
+              </div> */}
+              <div className="relative overflow-hidden rounded-xl aspect-[2/3] bg-gray-900/5 shadow-lg border-2 border-indigo-500 border-opacity-0 hover:border-opacity-100 transition-all duration-200">
+                <Image
+                  src="/images/profile.jpg"
+                  alt="Developer workspace setup with dual monitor and laptop"
+                  width={396}
+                  height={528}
+                  className="w-full h-full object-cover object-center cursor-pointer"
+                  priority
+                  onClick={() => openModal("/images/profile.jpg")}
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
               </div>
             </div>
             <div className="w-full max-w-2xl xl:max-w-none xl:flex-auto xl:px-16 xl:py-24">
@@ -542,11 +585,13 @@ const JourneyCard = ({
   title,
   description,
   image,
+  tags = [],
   className = "",
   onClick,
 }: {
   title: string;
   description: string;
+  tags?: { text: string; color: string }[];
   image: string;
   className?: string;
   onClick?: () => void;
@@ -568,6 +613,18 @@ const JourneyCard = ({
           {description}
         </p>
       </div>
+      {tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 px-10 pb-4 z-30">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className={`px-2 py-1 text-xs font-semibold text-gray-900 dark:text-gray-100 bg-opacity-20 border bg-${tag.color} border-${tag.color} rounded-md hover:bg-${tag.color} hover:text-white transition-all duration-200`}
+            >
+              {tag.text}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
     <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 dark:ring-white/10" />
   </div>

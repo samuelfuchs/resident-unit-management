@@ -1,0 +1,817 @@
+{
+	"info": {
+		"_postman_id": "727fb987-50fb-4c16-b80e-d0707d192800",
+		"name": "Resident Management System",
+		"description": "API for managing users in the Resident Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20348657"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify if JWT was successful\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.token).to.be.string;",
+									"    pm.environment.set(\"access_token\", jsonData.token);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin2@example.com\"\n}"
+						},
+						"url": "{{host}}/api/auth/forgot-password"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"newPassword\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/reset-password/:token",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-password",
+								":token"
+							],
+							"variable": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODUxMzViOTk5MGNhYTU4NjNlN2ZkYSIsImlhdCI6MTczNjc4OTk1NCwiZXhwIjoxNzM2NzkwODU0fQ.ma1XImeklUNAJx3QDIKQbVX2U_5Kqr-Au5lSNtdMdAs"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Get User By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/users/6785135b9990caa5863e7fda"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/users?role=&status&search=do&page&limit&sortField&sortOrder",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": ""
+								},
+								{
+									"key": "status",
+									"value": null
+								},
+								{
+									"key": "search",
+									"value": "do"
+								},
+								{
+									"key": "page",
+									"value": null
+								},
+								{
+									"key": "limit",
+									"value": null
+								},
+								{
+									"key": "sortField",
+									"value": null,
+									"description": "[\"name\", \"email\", \"createdAt\", \"role\", \"status\"]"
+								},
+								{
+									"key": "sortOrder",
+									"value": null,
+									"description": "\"desc\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Dashboard Stats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/users/admin/stats"
+					},
+					"response": []
+				},
+				{
+					"name": "User Dashboard Stats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/users/resident/stats"
+					},
+					"response": []
+				},
+				{
+					"name": "/me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/users/me"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"resident@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"Mr resident\",\n  \"lastName\": \"Hello\",\n  \"role\": \"resident\",\n  \"phone\": \"123456789\",\n  \"status\": \"active\"\n}"
+						},
+						"url": "{{host}}/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin2@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"John2\",\n  \"lastName\": \"Doe2\",\n  \"role\": \"admin\",\n  \"phone\": \"123456789\",\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6784481b99afb644ed27e9a1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin2@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"John2\",\n  \"lastName\": \"Doe2\",\n  \"role\": \"admin\",\n  \"phone\": \"123456789\",\n  \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6785134e9990caa5863e7fd8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "unit",
+			"item": [
+				{
+					"name": "Get All Units",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/units?search=22&type&floor=&page=1&limit=10&sortField&sortOrder",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"units"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "22"
+								},
+								{
+									"key": "type",
+									"value": null
+								},
+								{
+									"key": "floor",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sortField",
+									"value": null
+								},
+								{
+									"key": "sortOrder",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unit By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/units/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"units",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67897f459b4e0e54029098bf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Unit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/units/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"units",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67897f459b4e0e54029098bf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Unit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": \"22D\", \n    \"squareFootage\": 200, \n    \"type\": \"Residential\", \n    \"owner\": [\"6785135b9990caa5863e7fda\"],\n    \"parkingSpots\": \"9\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/units"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Unit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": \"10F\", \n    \"squareFootage\": 100, \n    \"type\": \"Residential\", \n    \"owner\": [\"6785135b9990caa5863e7fda\"],\n    \"parkingSpots\": \"1002\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/units/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"units",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "67897f979b4e0e54029098c4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payments",
+			"item": [
+				{
+					"name": "Get Payment History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/payments/payment-history"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Payments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/payments/my-payments?limit=10",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"my-payments"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Payment Intent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"1000\",\n    \"userId\": \"6785134e9990caa5863e7fd8\",\n    \"description\": \"hello payment!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/payments/create-payment-intent"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Resident Payment Intent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"1000\",\n    \"description\": \"hello payment!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/payments/resident/create-payment-intent"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/payments/cancel/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"cancel",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "pi_3Qqlp7D8tWxt3NW01I1kFwPd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"10\",\n    \"description\": \"This was updated!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/payments/update/:paymentIntentId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"update",
+								":paymentIntentId"
+							],
+							"variable": [
+								{
+									"key": "paymentIntentId",
+									"value": "pi_3Qqlp7D8tWxt3NW01I1kFwPd"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bills",
+			"item": [
+				{
+					"name": "Get My Bills",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/bills/my-bills"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Bills (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/bills"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bills By ResidentId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/bills/resident/:residentId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bills",
+								"resident",
+								":residentId"
+							],
+							"variable": [
+								{
+									"key": "residentId",
+									"value": "6785134e9990caa5863e7fd8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bill",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"residentId\": \"6785134e9990caa5863e7fd8\",\n    \"amount\": \"100\",\n    \"description\": \"Rent February\",\n    \"dueDate\": \"2025-02-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/bills/"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bill Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"paid\",\n    \"paymentIntentId\": \"pi_123456789\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/bills/67b7e8dd60dfd5fd6e1448c4/status"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

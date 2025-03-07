@@ -21,8 +21,16 @@ const SignInPage: React.FC = () => {
 
   const demoUsers = [
     { role: "Admin", email: "admin@example.com", password: "password123" },
-    { role: "Manager", email: "manager@example.com", password: "password123" },
-    { role: "Staff", email: "staff@example.com", password: "password123" },
+    {
+      role: "Receptionist",
+      email: "reception@example.com",
+      password: "password123",
+    },
+    {
+      role: "Resident",
+      email: "resident@example.com",
+      password: "password123",
+    },
   ];
 
   const handleUserSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {

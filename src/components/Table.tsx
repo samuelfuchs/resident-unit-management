@@ -22,7 +22,7 @@ interface TableProps<T extends object> {
 
 const Table = <T extends object>({ data, columns, actions }: TableProps<T>) => {
   return (
-    <div className="overflow-x-auto mt-8 sm:-mx-0">
+    <div className="overflow-x-auto mt-8 sm:-mx-0 overflow-hidden">
       <table className="min-w-full divide-y divide-gray-300 bg-white dark:bg-gray-800 hidden sm:table">
         <thead>
           <tr>

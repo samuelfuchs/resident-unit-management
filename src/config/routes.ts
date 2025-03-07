@@ -21,12 +21,6 @@ export const routes = [
     allowedRoles: ["admin"],
   },
   {
-    path: "/residents",
-    label: "Residents",
-    icon: UsersIcon,
-    allowedRoles: ["receptionist"],
-  },
-  {
     path: "/units",
     label: "Units",
     icon: BuildingOfficeIcon,
