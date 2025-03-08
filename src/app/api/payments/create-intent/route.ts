@@ -1,11 +1,23 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-01-27.acacia",
-});
+// Validate environment variables at startup
+if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+  throw new Error("STRIPE_SECRET_KEY is not defined in environment variables");
+}
+
+// Initialize Stripe with proper error handling
+let stripe: Stripe;
+try {
+  stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, {
+    apiVersion: "2025-01-27.acacia",
+  });
+} catch (error) {
+  console.error("Failed to initialize Stripe:", error);
+  throw error;
+}
 
 export async function POST(request: Request) {
   try {
@@ -18,8 +30,15 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { amount, description, billId } = body;
 
+    if (!amount || typeof amount !== "number") {
+      return NextResponse.json(
+        { error: "Invalid amount provided" },
+        { status: 400 }
+      );
+    }
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(amount * 100), 
+      amount: Math.round(amount * 100),
       currency: "usd",
       metadata: {
         billId,
