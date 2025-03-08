@@ -1,9 +1,42 @@
-# Resident Management System
+# Unit Manager
+
+## What I Learned
+
+Through this project, I enhanced my skills by:
+- Building a **responsive frontend** with a clean UI/UX for both admin and resident interfaces.
+- Leveraging **TypeScript** to improve type safety, code clarity, and reduce runtime errors.
+- Developing scalable UI components using **Tailwind CSS** for fast styling and consistency.
+- Implementing **Next.js** for optimized performance.
+- Integrating **Framer Motion** to add smooth animations and enhance the user experience.
+- Creating a **role-based access system (RBAC)** for secure and organized user management.
+- Ensuring a seamless experience across devices by focusing on responsive design best practices.
 
 ## Description
-This project is a **Resident Management System** designed to manage users, residents, and units efficiently. It includes a robust role-based system with support for administrators, receptionists, and residents. The entire application is fully responsive, including all admin pages, ensuring a seamless experience across devices.
+This project is a **Unit Manager** designed to manage users, residents, and units efficiently. It includes a robust role-based system with support for administrators, receptionists, and residents. The entire application is fully responsive, ensuring a seamless experience across devices.
 
----
+## Key Features
+- **Next.js** for enhanced performance and SEO benefits.
+- **TypeScript** for improved type safety and maintainability.
+- **Tailwind CSS** for fast, scalable, and consistent styling.
+- **Framer Motion** for fluid and engaging animations.
+- **Role-Based Access Control (RBAC)** for improved security and user management.
+- Fully **responsive design**, ensuring optimal usability on all devices.
+
+## Folder Structure
+
+``` bash
+/src
+ ├── api/            # API endpoints and data fetching logic
+ ├── app/            # Main application structure (Next.js app folder)
+ ├── components/     # Reusable UI components
+ ├── config/         # Configuration files and constants
+ ├── context/        # Global state management with Context API
+ ├── hooks/          # Custom React hooks for logic reuse
+ ├── mocks/          # Mock data for testing and development
+ ├── types/          # TypeScript types for better type safety
+ ├── utils/          # Utility functions for common tasks
+ ├── index.tsx       # Main entry point for the Next.js app
+```
 
 ## Features
 
@@ -23,7 +56,6 @@ This project is a **Resident Management System** designed to manage users, resid
 - **Resident Listing**: View all residents with their details (e.g., name, email, phone, unit number, and family members).
 - **Create/Edit Residents**: Add or update resident details using a dynamic route.
 - **Family Members**: Residents can include details about family members.
-- **Emergency Contacts**: Add emergency contact details for each resident.
 
 ---
 
@@ -37,21 +69,6 @@ This project is a **Resident Management System** designed to manage users, resid
 - **Admin Dashboard**: Displays user statistics, system logs, and quick links for management.
 - **Receptionist Dashboard**: Focused on managing residents and units.
 - **Resident Dashboard**: Personal information, useful contacts, and updates related to the resident.
-
----
-
-### Notifications
-- **Notification Types**: Includes `general`, `mail`, and `critical` notifications.
-- **Role-Specific Notifications**:
-  - Admins and receptionists can send and receive notifications.
-  - Receptionists cannot edit notifications.
-  - Residents can only receive notifications.
-- **Tabs for Sent/Received**: Notifications are grouped into "Sent" and "Received" tabs.
-- **Pagination**: Both "Sent" and "Received" notifications have pagination if there are more than 10 items.
-- **Message Preview**: Notifications are displayed as a list with a truncated message preview.
-- **Detailed View**: Clicking on a notification opens a modal with full details.
-- **Read Status**: Notifications are marked as read when viewed.
-- **Unread Badge**: Displays a badge with the count of unread notifications in the sidebar.
 
 ---
 
@@ -84,13 +101,6 @@ This project is a **Resident Management System** designed to manage users, resid
 
 ---
 
-### Profile Page
-- **Enhanced Profile Page**: Uses the new `InputField` and `SelectField` components for improved maintainability and consistent user experience.
-- **User-Friendly UI**: Dynamic display of profile information with editable fields.
-- **Customizable Profile Picture**: Display initials or a user-uploaded picture for personalization.
-
----
-
 ## Setup Instructions
 
 1. Clone the repository:
@@ -108,20 +118,3 @@ This project is a **Resident Management System** designed to manage users, resid
 4. Install dependencies:
     ```bash
    http://localhost:3000
-
----
-
-## Technologies Used
-
-- Frontend: React, Next.js, Tailwind CSS
-- Icons: Heroicons
-- State Management: Context API
-- TypeScript: For static typing and robust type definitions
-
----
-
-## Future Features
-
-- Detailed analytics and reporting.
-- Notifications for admins and residents.
-- Advanced unit and resident filtering options.
